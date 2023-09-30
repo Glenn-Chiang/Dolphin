@@ -3,6 +3,7 @@ import { faEllipsisV } from "@fortawesome/free-solid-svg-icons/faEllipsisV";
 import { faHeart } from "@fortawesome/free-solid-svg-icons/faHeart";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons/faUserCircle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 
 type Post = {
   id: number;
@@ -48,29 +49,32 @@ export default async function Home() {
   );
 }
 
+
 type PostPreviewProps = {
   post: Post;
 };
 
 function PostPreview({ post }: PostPreviewProps) {
   return (
-    <li className="bg-white p-4 rounded-md relative shadow">
-      <h2 className="">{post.title}</h2>
-      <div className="flex gap-4">
-        <span className="flex gap-2 items-center">
-          <FontAwesomeIcon icon={faUserCircle}/>
-          {post.author}
-        </span>
-        <span>
-          {post.datePosted.toLocaleDateString()}
-        </span>
-      </div>
-      <div className="py-2">{post.content}</div>
-      <div className="flex gap-4">
-        <FontAwesomeIcon icon={faHeart}/>
-        <FontAwesomeIcon icon={faComment}/>
-      </div>
-      <button className="absolute top-4 right-4"><FontAwesomeIcon icon={faEllipsisV}/></button>
+    <li className="bg-white p-4 rounded-md relative shadow hover:shadow-lg transition">
+      <Link href={`/post/${post.id}`}>
+        <h2 className="">{post.title}</h2>
+        <div className="flex gap-4">
+          <span className="flex gap-2 items-center">
+            <FontAwesomeIcon icon={faUserCircle}/>
+            {post.author}
+          </span>
+          <span>
+            {post.datePosted.toLocaleDateString()}
+          </span>
+        </div>
+        <div className="py-2">{post.content}</div>
+        <div className="flex gap-4">
+          <FontAwesomeIcon icon={faHeart}/>
+          <FontAwesomeIcon icon={faComment}/>
+        </div>
+        <button className="absolute top-4 right-4"><FontAwesomeIcon icon={faEllipsisV}/></button>
+      </Link>
     </li>
   );
 }
