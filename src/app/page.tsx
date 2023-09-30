@@ -39,7 +39,10 @@ export default async function Home() {
 
   return (
     <main>
-      <h1>For You</h1>
+      <div className="flex justify-between">
+        <h1>For You</h1>
+        <CreatePostButton/>
+      </div>
       <ul className="py-4 flex flex-col gap-4">
         {posts.map((post) => (
           <PostPreview key={post.id} post={post} />
@@ -49,6 +52,13 @@ export default async function Home() {
   );
 }
 
+function CreatePostButton() {
+  return (
+    <Link href={'/create-post'} className="bg-white p-2 rounded-md shadow hover:bg-sky-500 hover:text-white">
+      Create a post
+    </Link>
+  )
+}
 
 type PostPreviewProps = {
   post: Post;

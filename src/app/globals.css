@@ -14,4 +14,12 @@
   h2 {
     @apply font-medium text-xl
   }
+
+  button {
+    @apply transition
+  }
+
+  a {
+    @apply transition
+  }
 }
