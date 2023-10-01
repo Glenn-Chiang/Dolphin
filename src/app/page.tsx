@@ -1,18 +1,5 @@
-import { faComment } from "@fortawesome/free-solid-svg-icons/faComment";
-import { faEllipsisV } from "@fortawesome/free-solid-svg-icons/faEllipsisV";
-import { faHeart } from "@fortawesome/free-solid-svg-icons/faHeart";
-import { faUserCircle } from "@fortawesome/free-solid-svg-icons/faUserCircle";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-
-type Post = {
-  id: number;
-  title: string;
-  content: string;
-  author: string;
-  // communityId: string;
-  datePosted: Date;
-};
+import PostPreview from "../components/PostPreview";
 
 const getPosts = async () => {
   const posts: Post[] = [
@@ -22,6 +9,8 @@ const getPosts = async () => {
       content: "Hello world",
       author: "glenn",
       datePosted: new Date(),
+      likes: 10,
+      comments: 5,
     },
     {
       id: 2,
@@ -29,6 +18,8 @@ const getPosts = async () => {
       content: "Goodbye world",
       author: "glenn",
       datePosted: new Date(),
+      likes: 10,
+      comments: 5,
     },
   ];
   return posts;
@@ -40,8 +31,11 @@ export default async function Home() {
   return (
     <main>
       <div className="flex justify-between">
-        <h1>For You</h1>
-        <CreatePostButton/>
+        <div className="flex gap-4">
+          <h1>For You</h1>
+          <h1>Popular</h1>
+        </div>
+        <CreatePostButton />
       </div>
       <ul className="py-4 flex flex-col gap-4">
         {posts.map((post) => (
@@ -54,37 +48,11 @@ export default async function Home() {
 
 function CreatePostButton() {
   return (
-    <Link href={'/create-post'} className="bg-white p-2 rounded-md shadow hover:bg-sky-500 hover:text-white">
+    <Link
+      href={"/create-post"}
+      className="bg-white p-2 rounded-md shadow hover:bg-sky-500 hover:text-white"
+    >
       Create a post
     </Link>
-  )
-}
-
-type PostPreviewProps = {
-  post: Post;
-};
-
-function PostPreview({ post }: PostPreviewProps) {
-  return (
-    <li className="bg-white p-4 rounded-md relative shadow hover:shadow-lg transition">
-      <Link href={`/post/${post.id}`}>
-        <h2 className="">{post.title}</h2>
-        <div className="flex gap-4">
-          <span className="flex gap-2 items-center">
-            <FontAwesomeIcon icon={faUserCircle}/>
-            {post.author}
-          </span>
-          <span>
-            {post.datePosted.toLocaleDateString()}
-          </span>
-        </div>
-        <div className="py-2">{post.content}</div>
-        <div className="flex gap-4">
-          <FontAwesomeIcon icon={faHeart}/>
-          <FontAwesomeIcon icon={faComment}/>
-        </div>
-        <button className="absolute top-4 right-4"><FontAwesomeIcon icon={faEllipsisV}/></button>
-      </Link>
-    </li>
   );
 }
