@@ -1,4 +1,9 @@
 import { CancelButton, SubmitButton } from "@/components/buttons";
+import prisma from "@/db";
+
+const createPod = async () => {
+  // await prisma.pod.create({})
+}
 
 export default function CreatePod() {
   return (
