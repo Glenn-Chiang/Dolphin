@@ -1,5 +1,6 @@
 "use client";
 
+import { Post } from "@/types";
 import { faComment } from "@fortawesome/free-solid-svg-icons/faComment";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons/faEllipsisV";
 import { faHeart } from "@fortawesome/free-solid-svg-icons/faHeart";

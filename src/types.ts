@@ -8,3 +8,12 @@ type Post = {
   likes: number;
   comments: number;
 };
+
+type Pod = {
+  id: number;
+  name: string;
+  members: number;
+  description: string;
+};
+
+export type {Post, Pod}
