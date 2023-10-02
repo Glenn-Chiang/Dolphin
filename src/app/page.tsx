@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PostPreview from "../components/PostPreview";
+import { Post } from "@/types";
 
 const getPosts = async () => {
   const posts: Post[] = [
@@ -50,7 +51,7 @@ function CreatePostButton() {
   return (
     <Link
       href={"/create-post"}
-      className="bg-white p-2 rounded-md shadow hover:bg-sky-500 hover:text-white"
+      className="bg-white p-2 rounded-md shadow text-sky-500 font-medium hover:bg-sky-500 hover:text-white"
     >
       Create a post
     </Link>

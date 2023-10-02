@@ -1,4 +1,5 @@
 import PodPreview from "@/components/PodPreview";
+import Link from "next/link";
 
 const getPods = async () => {
   const pods = [
@@ -23,7 +24,10 @@ export default async function Pods() {
   const pods = await getPods();
   return (
     <main>
-      <h1 className="pb-4">Explore Pods</h1>
+      <div className="flex justify-between items-center">
+        <h1 className="pb-4">Explore Pods</h1>
+        <CreatePodButton/>
+      </div>
       <Searchbar placeholder="Search for a pod..."/>
       <ul className="py-4 flex flex-col gap-4">
         {pods.map((pod) => (
@@ -31,6 +35,17 @@ export default async function Pods() {
         ))}
       </ul>
     </main>
+  );
+}
+
+function CreatePodButton() {
+  return (
+    <Link
+      href={"/create-pod"}
+      className="bg-white p-2 rounded-md shadow text-sky-500 font-medium hover:bg-sky-500 hover:text-white"
+    >
+      Start a Pod!
+    </Link>
   );
 }
 
