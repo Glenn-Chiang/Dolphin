@@ -6,12 +6,15 @@ function SubmitButton() {
   );
 }
 
-function CancelButton() {
+function CancelButton({ onClick }: { onClick: () => void }) {
   return (
-    <button className="p-2 rounded-md text-slate-500 hover:text-black hover:bg-slate-200">
+    <button
+      onClick={onClick}
+      className="p-2 rounded-md text-slate-500 hover:text-black hover:bg-slate-200"
+    >
       Cancel
     </button>
   );
 }
 
-export {SubmitButton, CancelButton}
+export { SubmitButton, CancelButton };

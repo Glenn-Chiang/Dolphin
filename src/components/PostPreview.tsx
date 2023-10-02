@@ -7,18 +7,26 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons/faHeart";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons/faUserCircle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import CommentModal from "./CommentModal";
 
 type PostPreviewProps = {
   post: Post;
 };
 
 export default function PostPreview({ post }: PostPreviewProps) {
+  const [liked, setLiked] = useState(false)
+
   const handleLikeClick = () => {
+    setLiked(prev => !prev)
     return;
   };
 
-  const handleCommentClick = () => {};
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+
+  const handleCommentClick = () => {
+    setModalIsOpen(prev => !prev)
+  };
 
   return (
     <li className="bg-white p-4 pb-2 rounded-md relative shadow hover:shadow-lg transition">
@@ -37,13 +45,14 @@ export default function PostPreview({ post }: PostPreviewProps) {
         </button>
         <div className="flex gap-4 py-2">
           <LikeButton
-            liked={false}
+            liked={liked}
             likes={post.likes}
             onClick={handleLikeClick}
           />
-          <CommentButton replies={post.comments} onClick={handleCommentClick} />
+          <CommentButton comments={post.comments} onClick={handleCommentClick} />
         </div>
       </Link>
+      {modalIsOpen && <CommentModal close={handleCommentClick}/>}
     </li>
   );
 }
@@ -74,11 +83,11 @@ function LikeButton({ liked, likes, onClick }: LikeButtonProps) {
 }
 
 type CommentButtonProps = {
-  replies: number;
+  comments: number;
   onClick: () => void;
 };
 
-function CommentButton({ replies, onClick }: CommentButtonProps) {
+function CommentButton({ comments, onClick }: CommentButtonProps) {
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
     onClick();
@@ -89,7 +98,7 @@ function CommentButton({ replies, onClick }: CommentButtonProps) {
       className="flex gap-2 items-center rounded-full p-2 text-sky-500 hover:bg-sky-200 hover:text-sky-600 group"
     >
       <FontAwesomeIcon icon={faComment} />
-      {replies}
+      {comments}
     </button>
   );
 }
