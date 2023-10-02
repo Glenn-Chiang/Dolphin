@@ -13,7 +13,7 @@ const getPods = async () => {
       name: "Web dev",
       members: 80,
       description: "The community for frontend, backend and fullstack web developers",
-    },
+    }
   ];
   return pods;
 };
@@ -23,7 +23,8 @@ export default async function Pods() {
   const pods = await getPods();
   return (
     <main>
-      <h1>Explore Pods</h1>
+      <h1 className="pb-4">Explore Pods</h1>
+      <Searchbar placeholder="Search for a pod..."/>
       <ul className="py-4 flex flex-col gap-4">
         {pods.map((pod) => (
           <PodPreview key={pod.id} pod={pod} />
@@ -31,4 +32,10 @@ export default async function Pods() {
       </ul>
     </main>
   );
+}
+
+function Searchbar({placeholder}: {placeholder: string}) {
+  return (
+    <input className="bg-transparent border-b-2 focus:outline-none p-2 w-full" placeholder={placeholder}/>
+  )
 }
