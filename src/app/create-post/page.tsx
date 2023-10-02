@@ -1,4 +1,7 @@
+'use client'
+
 import { CancelButton, SubmitButton } from "@/components/buttons";
+import { useRouter } from "next/navigation";
 
 const getCommunities = () => {
   const communities = [
@@ -16,6 +19,8 @@ const getCommunities = () => {
 
 export default function CreatePost() {
   const communities = getCommunities();
+
+  const router = useRouter()
 
   return (
     <main className="bg-white p-4 rounded-xl shadow">
@@ -42,7 +47,7 @@ export default function CreatePost() {
         </div>
         <div className="flex gap-4">
           <SubmitButton />
-          <CancelButton />
+          <CancelButton onClick={() => router.back()}/>
         </div>
       </form>
     </main>

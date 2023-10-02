@@ -9,6 +9,7 @@ function SubmitButton() {
 function CancelButton({ onClick }: { onClick: () => void }) {
   return (
     <button
+    type="button"
       onClick={onClick}
       className="p-2 rounded-md text-slate-500 hover:text-black hover:bg-slate-200"
     >
