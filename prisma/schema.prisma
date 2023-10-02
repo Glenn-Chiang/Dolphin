@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  name String
+  posts Post[] @relation("authored")
+  comments Comment[]
+  likedPosts Post[] @relation("liked")
+  pods PodMember[]
+  createdPods Pod[]
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String   @db.VarChar(255)
+  content String 
+  author User @relation("authored", fields: [authorId], references: [id])
+  authorId Int
+  comments Comment[]
+  likedBy User[] @relation("liked")
+}
+
+model Comment {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  content String
+  author User @relation(fields: [authorId], references: [id])
+  authorId Int
+  post Post @relation(fields: [postId], references: [id])
+  postId Int
+}
+
+model Pod {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  name String
+  members PodMember[]
+  createdBy User @relation(fields: [creatorId], references: [id])
+  creatorId Int
+}
+
+// Many-to-many relationship between Users and Pods
+model PodMember {
+  memberId Int
+  member User @relation(fields: [memberId], references: [id])
+  podId Int
+  pod Pod @relation(fields: [podId], references: [id])
+  dateJoined DateTime @default(now())
+  @@id([memberId, podId])
+}
