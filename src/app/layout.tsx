@@ -33,7 +33,7 @@ export default function RootLayout({
 
 function Navbar() {
   return (
-    <nav className="bg-sky-500 text-white text-xl p-2 flex justify-between items-center fixed w-screen top-0 left-0">
+    <nav className="bg-sky-500 text-white text-xl p-2 flex justify-between items-center fixed w-screen top-0 left-0 z-10">
       <Link href={"/"} className="flex gap-2 items-center">
         <Image
           alt=""

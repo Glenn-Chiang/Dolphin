@@ -50,7 +50,7 @@ export default function Post({ params }: { params: { id: string } }) {
     return <div>Post not found</div>;
   }
   return (
-    <main className="flex flex-col gap-4">
+    <main className="flex flex-col gap-4 pb-4">
       <PostPreview post={post} />
       <CommentSection comments={comments}/>
     </main>

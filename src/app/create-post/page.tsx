@@ -46,7 +46,7 @@ export default function CreatePost() {
           />
         </div>
         <div className="flex gap-4">
-          <SubmitButton />
+          <SubmitButton text="Post"/>
           <CancelButton onClick={() => router.back()}/>
         </div>
       </form>
