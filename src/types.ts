@@ -3,11 +3,16 @@ type Post = {
   title: string;
   content: string;
   author: string;
-  // communityId: string;
   datePosted: Date;
   likes: number;
   comments: number;
 };
+
+type Comment = {
+  id: number;
+  content: string;
+
+}
 
 type Pod = {
   id: number;
@@ -16,4 +21,4 @@ type Pod = {
   description: string;
 };
 
-export type {Post, Pod}
+export type {Post, Pod, Comment}
