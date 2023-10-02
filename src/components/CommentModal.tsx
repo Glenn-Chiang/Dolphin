@@ -14,7 +14,7 @@ export default function CommentModal({close}: CommentModalProps) {
         <h1>Share your thoughts</h1>
         <textarea className="bg-slate-100 shadow rounded-md" />
         <div className="flex gap-2">
-          <SubmitButton />
+          <SubmitButton text="Post"/>
           <CancelButton onClick={close}/>
         </div>
       </form>
