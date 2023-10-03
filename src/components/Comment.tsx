@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from "react";
-import { Comment } from "@/types";
 import { LikeButton, CancelButton } from "./buttons";
+import { Comment } from "@prisma/client";
 
 type CommentProps = {
   comment: Comment;

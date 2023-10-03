@@ -1,6 +1,5 @@
 "use client";
 
-import { Post } from "@/types";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons/faEllipsisV";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons/faUserCircle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,6 +7,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import CommentModal from "./CommentModal";
 import { CommentButton, LikeButton } from "./buttons";
+import { Post } from "@prisma/client";
 
 type PostPreviewProps = {
   post: Post;
@@ -34,9 +34,9 @@ export default function PostPreview({ post }: PostPreviewProps) {
         <div className="flex gap-4 text-slate-500 items-center">
           <span className="flex gap-2 items-center py-2">
             <FontAwesomeIcon icon={faUserCircle} />
-            {post.author}
+            {post.authorId}
           </span>
-          <span>{post.datePosted.toLocaleString()}</span>
+          <span>{post.createdAt.toLocaleString()}</span>
         </div>
         <div className="py-2">{post.content}</div>
         <button className="absolute top-4 right-4">
@@ -45,10 +45,10 @@ export default function PostPreview({ post }: PostPreviewProps) {
         <div className="flex gap-4 py-2">
           <LikeButton
             liked={liked}
-            likes={post.likes}
+            likes={10}
             onClick={handleLikeClick}
           />
-          <CommentButton comments={post.comments} onClick={handleCommentClick} />
+          <CommentButton comments={10} onClick={handleCommentClick} />
         </div>
       </Link>
       {modalIsOpen && <CommentModal close={handleCommentClick}/>}
