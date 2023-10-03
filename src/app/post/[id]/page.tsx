@@ -1,50 +1,26 @@
 import PostCard from "@/components/PostCard";
-import { Comment, Post } from "@/types";
 import CommentSection from "./CommentSection";
+import { Comment } from "@prisma/client";
+import prisma from "@/db";
 
-const posts: Post[] = [
-  {
-    id: 1,
-    title: "Post 1",
-    content: "Hello world",
-    author: "glenn",
-    datePosted: new Date(),
-    likes: 10,
-    comments: 5,
-  },
-  {
-    id: 2,
-    title: "Post 2",
-    content: "Goodbye world",
-    author: "glenn",
-    datePosted: new Date(),
-    likes: 10,
-    comments: 5,
-  },
-];
-
-const getPost = (postId: number) => {
-  return posts.find((post) => (post.id = postId));
+const getPost = async (postId: number) => {
+  const post = await prisma.post.findUnique({
+    where: {
+      id: postId
+    },
+    include: {
+      author: true
+    }
+  })
+  return post
 };
 
-const comments: Comment[] = [
-  {
-    id: 1,
-    content: "Why is app router so unnecessarily complicated?",
-  },
-  {
-    id: 2,
-    content: "This framework seems to be more of a hindrance than anything",
-  },
-  {
-    id: 3,
-    content: "Useless piece of absolute trash",
-  },
-];
 
-export default function Post({ params }: { params: { id: string } }) {
+export default async function Post({ params }: { params: { id: string } }) {
   const postId = Number(params.id);
-  const post = getPost(postId);
+  const post = await getPost(postId);
+
+  const comments: Comment[] = []
 
   if (!post) {
     return <div>Post not found</div>;
