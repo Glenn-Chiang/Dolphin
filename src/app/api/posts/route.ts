@@ -6,4 +6,13 @@ export async function GET() {
   return Response.json(posts)
 }
 
-// Get 
+// Create new post in pod. Every post must be associated with exactly one pod.
+export async function POST(req: Request) {
+  const {title, content, podId, authorId} = await req.json()
+  const post = await prisma.post.create({
+    data: {
+      title, content, podId, authorId
+    }
+  })
+  return Response.json(post)
+}
