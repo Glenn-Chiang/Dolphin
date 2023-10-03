@@ -2,17 +2,16 @@ import prisma from "@/db";
 
 // Get all users
 export async function GET() {
-  const users = await prisma.user.findMany()
-  return Response.json(users)
+  const users = await prisma.user.findMany();
+  return Response.json(users);
 }
 
 // Create new user
 export async function POST(req: Request) {
-  const formData = await req.formData();
-  const name = formData.get("name");
+  const { name } = await req.json();
 
-  if (typeof name !== 'string') {
-    return new Response('Invalid name', {status: 400})
+  if (typeof name !== "string") {
+    return new Response("Invalid name", { status: 400 });
   }
 
   const user = await prisma.user.create({
@@ -20,6 +19,6 @@ export async function POST(req: Request) {
       name,
     },
   });
-  
-  return Response.json(user)
+
+  return Response.json(user);
 }
