@@ -47,7 +47,7 @@ export default async function Profile({
           <Link href={`/profile/${userId}/comments`}>Comments</Link>
           <Link href={`/profile/${userId}/pods`}>Pods</Link>
         </nav>
-        {children}
+        <div className="py-4">{children}</div>
       </section>
     </main>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { CancelButton, SubmitButton } from "@/components/buttons";
-import CommentComponent from "./Comment";
+import CommentComponent from "../../../components/Comment";
 import { Comment } from "@/types";
 
 type CommentSectionProps = {

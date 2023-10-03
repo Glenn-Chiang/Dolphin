@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Comment } from "@/types";
-import { LikeButton, CommentButton } from "@/components/buttons";
+import { LikeButton, CancelButton } from "./buttons";
 
 type CommentProps = {
   comment: Comment;
