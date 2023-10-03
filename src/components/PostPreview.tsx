@@ -36,7 +36,7 @@ export default function PostPreview({ post }: PostPreviewProps) {
             <FontAwesomeIcon icon={faUserCircle} />
             {post.authorId}
           </span>
-          <span>{post.createdAt.toLocaleString()}</span>
+          <span>{post.createdAt.toDateString()}</span>
         </div>
         <div className="py-2">{post.content}</div>
         <button className="absolute top-4 right-4">

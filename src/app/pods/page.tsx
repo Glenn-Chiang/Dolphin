@@ -1,21 +1,10 @@
 import PodPreview from "@/components/PodPreview";
+import prisma from "@/db";
+import { Pod } from "@prisma/client";
 import Link from "next/link";
 
 const getPods = async () => {
-  const pods = [
-    {
-      id: 1,
-      name: "Programming",
-      members: 100,
-      description: "Software engineering, data science, cybersecurity, game development etc",
-    },
-    {
-      id: 2,
-      name: "Web dev",
-      members: 80,
-      description: "The community for frontend, backend and fullstack web developers",
-    }
-  ];
+  const pods = await prisma.pod.findMany();
   return pods;
 };
 

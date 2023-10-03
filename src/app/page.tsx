@@ -1,28 +1,9 @@
 import Link from "next/link";
 import PostPreview from "../components/PostPreview";
-import { Post } from "@/types";
+import { Post } from "@prisma/client";
 
 const getPosts = async () => {
-  const posts: Post[] = [
-    {
-      id: 1,
-      title: "Post 1",
-      content: "Hello world",
-      author: "glenn",
-      datePosted: new Date(),
-      likes: 10,
-      comments: 5,
-    },
-    {
-      id: 2,
-      title: "Post 2",
-      content: "Goodbye world",
-      author: "glenn",
-      datePosted: new Date(),
-      likes: 10,
-      comments: 5,
-    },
-  ];
+  const posts = []
   return posts;
 };
 

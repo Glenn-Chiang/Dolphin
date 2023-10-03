@@ -8,15 +8,13 @@ export async function GET() {
 
 // Create new pod
 export async function POST(req: Request) {
-  const formData = await req.formData()
-  const podname = formData.get('podname') as string
-  const about = formData.get('about') as string
+  const {name, about, creatorId} = await req.json()
 
   const pod = await prisma.pod.create({
     data: {
-      name: podname,
-      about: about,
-      creatorId: 1, // TODO!!!
+      name,
+      about,
+      creatorId: Number(creatorId), 
     }
   })
   return Response.json(pod)
