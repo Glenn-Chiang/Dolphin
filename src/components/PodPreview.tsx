@@ -1,6 +1,6 @@
 "use client";
 
-import { Pod } from "@/types";
+import { Pod } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
 
@@ -15,10 +15,10 @@ export default function PodPreview({ pod }: PodPreviewProps) {
     <li className="bg-white p-4 pb-2 rounded-md relative shadow hover:shadow-lg transition">
       <Link href={`/pods/${pod.id}`}>
         <h2>{pod.name}</h2>
-        <p className="py-4">{pod.description}</p>
+        <p className="py-4">{pod.about}</p>
         <div className="flex gap-4 items-center">
           <JoinButton onClick={handleClickJoin} />
-          <span className="text-slate-500">{pod.members} members</span>
+          <span className="text-slate-500">{0} members</span>
         </div>
       </Link>
     </li>
