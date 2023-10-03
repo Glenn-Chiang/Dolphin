@@ -1,4 +1,4 @@
-import { CancelButton, SubmitButton } from "@/components/buttons";
+import { SubmitButton } from "@/components/buttons";
 import prisma from "@/db";
 import { redirect, useRouter } from "next/navigation";
 import Link from "next/link";
@@ -8,30 +8,26 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 export default function CreatePod() {
   const createPod = async (formData: FormData) => {
     "use server";
-    try {
-      const name = formData.get("name");
-      const about = formData.get("about");
+    const name = formData.get("name");
+    const about = formData.get("about");
 
-      if (typeof name !== "string") {
-        throw new Error("Invalid name");
-      }
-      if (typeof about !== "string") {
-        throw new Error("Invalid about");
-      }
-
-      await prisma.pod.create({
-        data: {
-          name,
-          about,
-          creatorId: 1, // TODO: Get current user
-        },
-      });
-      console.log("Pod created!");
-      
-      redirect("/pods");
-    } catch (error) {
-      console.log("Error creating pod", error);
+    if (typeof name !== "string") {
+      throw new Error("Invalid name");
     }
+    if (typeof about !== "string") {
+      throw new Error("Invalid about");
+    }
+
+    await prisma.pod.create({
+      data: {
+        name,
+        about,
+        creatorId: 1, // TODO: Get current user
+      },
+    });
+    console.log("Pod created!");
+
+    redirect("/pods");
   };
 
   return (

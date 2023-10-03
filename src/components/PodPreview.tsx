@@ -12,7 +12,7 @@ export default function PodPreview({ pod }: PodPreviewProps) {
   const handleClickJoin = () => {};
 
   return (
-    <li className="bg-white p-4 pb-2 rounded-md relative shadow hover:shadow-lg transition">
+    <article className="bg-white p-4 pb-2 rounded-md relative shadow hover:shadow-lg transition">
       <Link href={`/pods/${pod.id}`}>
         <h2>{pod.name}</h2>
         <p className="py-4">{pod.about}</p>
@@ -21,7 +21,7 @@ export default function PodPreview({ pod }: PodPreviewProps) {
           <span className="text-slate-500">{0} members</span>
         </div>
       </Link>
-    </li>
+    </article>
   );
 }
 
