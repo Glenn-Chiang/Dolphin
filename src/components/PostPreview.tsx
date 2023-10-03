@@ -32,7 +32,7 @@ export default function PostPreview({ post }: PostPreviewProps) {
       <Link href={`/post/${post.id}`}>
         <h2 className="">{post.title}</h2>
         <div className="flex gap-4 text-slate-500 items-center">
-          <span className="flex gap-2 items-center">
+          <span className="flex gap-2 items-center py-2">
             <FontAwesomeIcon icon={faUserCircle} />
             {post.author}
           </span>
