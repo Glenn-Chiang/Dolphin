@@ -19,7 +19,8 @@ export default function Register() {
       method: "POST",
       body: JSON.stringify({ name }),
     });
-    console.log(res.json());
+    const user = await res.json()
+    console.log(user);
   };
 
   return (
