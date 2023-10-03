@@ -1,37 +1,28 @@
+import PostPreview from "@/components/PostPreview";
 import prisma from "@/db";
-import PodCard from "./PodCard";
 
-const getPod = async (podId: number) => {
-  const pod = await prisma.pod.findUnique({
+const getPodPosts = async (podId: number) => {
+  const posts = await prisma.post.findMany({
     where: {
-      id: podId,
-    },
-    include: {
-      posts: {
-        include: {
-          author: {
-            select: {
-              name: true,
-            },
-          },
-        },
-      },
+      podId,
     },
   });
-  return pod
-}
-export default async function PodPage({params}: {params: {id: string}}) {
-  const postId = Number(params.id)
-  const pod = await getPod(postId)
+  return posts;
+};
 
-  if (!pod) {
-    return <section>Pod not found</section>
+export default async function PodPosts({ params }: { params: { id: string } }) {
+  const podId = Number(params.id);
+  const posts = await getPodPosts(podId);
+
+  if (posts.length === 0) {
+    return <section>This pod doesn&apos;t have any posts</section>;
   }
 
   return (
-    <main className="flex flex-col gap-4">
-      <PodCard pod={pod}/>
-      <section></section>
-    </main>
+    <section>
+      {posts.map((post) => (
+        <PostPreview key={post.id} post={post} />
+      ))}
+    </section>
   );
 }

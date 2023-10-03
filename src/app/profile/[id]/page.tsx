@@ -4,7 +4,7 @@ import prisma from "@/db";
 const getUserPosts = async (userId: number) => {
   const posts = await prisma.post.findMany({
     where: {
-      id: userId,
+      authorId: userId
     },
   });
   return posts;
