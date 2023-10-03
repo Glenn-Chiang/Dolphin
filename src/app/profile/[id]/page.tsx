@@ -6,6 +6,9 @@ const getUserPosts = async (userId: number) => {
     where: {
       authorId: userId,
     },
+    include: {
+      author: true
+    }
   });
   return posts;
 };

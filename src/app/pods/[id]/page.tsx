@@ -6,6 +6,9 @@ const getPodPosts = async (podId: number) => {
     where: {
       podId,
     },
+    include: {
+      author: true
+    }
   });
   return posts;
 };
