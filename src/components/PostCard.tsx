@@ -13,18 +13,18 @@ type PostPreviewProps = {
   post: Post;
 };
 
-export default function PostPreview({ post }: PostPreviewProps) {
-  const [liked, setLiked] = useState(false)
+export default function PostCard({ post }: PostPreviewProps) {
+  const [liked, setLiked] = useState(false);
 
   const handleLikeClick = () => {
-    setLiked(prev => !prev)
+    setLiked((prev) => !prev);
     return;
   };
 
-  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const handleCommentClick = () => {
-    setModalIsOpen(prev => !prev)
+    setModalIsOpen((prev) => !prev);
   };
 
   return (
@@ -43,15 +43,11 @@ export default function PostPreview({ post }: PostPreviewProps) {
           <FontAwesomeIcon icon={faEllipsisV} />
         </button>
         <div className="flex gap-4 py-2">
-          <LikeButton
-            liked={liked}
-            likes={10}
-            onClick={handleLikeClick}
-          />
+          <LikeButton liked={liked} likes={10} onClick={handleLikeClick} />
           <CommentButton comments={10} onClick={handleCommentClick} />
         </div>
       </Link>
-      {modalIsOpen && <CommentModal close={handleCommentClick}/>}
+      {modalIsOpen && <CommentModal close={handleCommentClick} />}
     </article>
   );
 }

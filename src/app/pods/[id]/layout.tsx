@@ -8,17 +8,6 @@ const getPod = async (podId: number) => {
     where: {
       id: podId,
     },
-    include: {
-      posts: {
-        include: {
-          author: {
-            select: {
-              name: true,
-            },
-          },
-        },
-      },
-    },
   });
   return pod;
 };

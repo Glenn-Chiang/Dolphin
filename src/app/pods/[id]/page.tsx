@@ -1,4 +1,4 @@
-import PostPreview from "@/components/PostPreview";
+import PostCard from "@/components/PostCard";
 import prisma from "@/db";
 
 const getPodPosts = async (podId: number) => {
@@ -25,7 +25,7 @@ export default async function PodPosts({ params }: { params: { id: string } }) {
   return (
     <section>
       {posts.map((post) => (
-        <PostPreview key={post.id} post={post} />
+        <PostCard key={post.id} post={post} />
       ))}
     </section>
   );

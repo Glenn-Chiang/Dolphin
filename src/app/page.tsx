@@ -1,9 +1,9 @@
 import Link from "next/link";
-import PostPreview from "../components/PostPreview";
+import PostCard from "../components/PostCard";
 import { Post } from "@prisma/client";
 
 const getPosts = async () => {
-  const posts = []
+  const posts = [];
   return posts;
 };
 
@@ -21,7 +21,7 @@ export default async function Home() {
       </div>
       <ul className="py-4 flex flex-col gap-4">
         {posts.map((post) => (
-          <PostPreview key={post.id} post={post} />
+          <PostCard key={post.id} post={post} />
         ))}
       </ul>
     </main>

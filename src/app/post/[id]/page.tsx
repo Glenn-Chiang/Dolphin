@@ -1,4 +1,4 @@
-import PostPreview from "@/components/PostPreview";
+import PostCard from "@/components/PostCard";
 import { Comment, Post } from "@/types";
 import CommentSection from "./CommentSection";
 
@@ -30,17 +30,17 @@ const getPost = (postId: number) => {
 const comments: Comment[] = [
   {
     id: 1,
-    content: 'Why is app router so unnecessarily complicated?'
+    content: "Why is app router so unnecessarily complicated?",
   },
   {
     id: 2,
-    content: 'This framework seems to be more of a hindrance than anything'
-  }, 
+    content: "This framework seems to be more of a hindrance than anything",
+  },
   {
     id: 3,
-    content: 'Useless piece of absolute trash'
-  }
-]
+    content: "Useless piece of absolute trash",
+  },
+];
 
 export default function Post({ params }: { params: { id: string } }) {
   const postId = Number(params.id);
@@ -51,8 +51,8 @@ export default function Post({ params }: { params: { id: string } }) {
   }
   return (
     <main className="flex flex-col gap-4 pb-4">
-      <PostPreview post={post} />
-      <CommentSection comments={comments}/>
+      <PostCard post={post} />
+      <CommentSection comments={comments} />
     </main>
   );
 }

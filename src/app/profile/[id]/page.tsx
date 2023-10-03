@@ -1,16 +1,20 @@
-import PostPreview from "@/components/PostPreview";
+import PostCard from "@/components/PostCard";
 import prisma from "@/db";
 
 const getUserPosts = async (userId: number) => {
   const posts = await prisma.post.findMany({
     where: {
-      authorId: userId
+      authorId: userId,
     },
   });
   return posts;
 };
 
-export default async function ProfilePosts({ params }: { params: { id: string } }) {
+export default async function ProfilePosts({
+  params,
+}: {
+  params: { id: string };
+}) {
   const userId = Number(params.id);
   const posts = await getUserPosts(userId);
 
@@ -21,7 +25,7 @@ export default async function ProfilePosts({ params }: { params: { id: string } 
   return (
     <section>
       {posts.map((post) => (
-        <PostPreview key={post.id} post={post} />
+        <PostCard key={post.id} post={post} />
       ))}
     </section>
   );
