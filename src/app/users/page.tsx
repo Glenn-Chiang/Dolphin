@@ -1,8 +1,7 @@
 import prisma from "@/db";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { User } from "@prisma/client";
-import Link from "next/link";
+import UserCard from "@/components/UserCard";
 
 const getUsers = async () => {
   const users = await prisma.user.findMany();
@@ -19,24 +18,10 @@ export default async function Users() {
       </h1>
       <ul className="py-4 flex flex-col gap-4">
         {users.map((user) => (
-          <UserItem key={user.id} user={user} />
+          <UserCard key={user.id} user={user} />
         ))}
       </ul>
     </main>
   );
 }
 
-function UserItem({ user }: { user: User }) {
-  return (
-    <article className="bg-white rounded-md shadow p-4">
-      <Link href={`/profile/${user.id}`}>
-        <h2>{user.name}</h2>
-        <p className="flex gap-2 text-slate-500">
-          <span>Joined on</span>
-          <span>{user.createdAt.toLocaleDateString()}</span>
-        </p>
-        <p>{user.about}</p>
-      </Link>
-    </article>
-  );
-}

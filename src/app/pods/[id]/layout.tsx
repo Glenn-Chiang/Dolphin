@@ -42,9 +42,10 @@ export default async function PodPage({
       <section className="bg-white rounded-md shadow p-4 ">
         <nav className="flex gap-4 font-medium">
           <Link href={`/pods/${podId}`}>Posts</Link>
+          <Link href={`/pods/${podId}/members`}>Members</Link>
         </nav>
-        <div className="py-4">{children}</div>
       </section>
+        {children}
     </main>
   );
 }
