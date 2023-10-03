@@ -10,7 +10,7 @@ datasource db {
 model User {
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now())
-  name String
+  name String @db.VarChar(25)
   posts Post[] @relation("authored")
   comments Comment[]
   likedPosts Post[] @relation("liked")
@@ -46,7 +46,8 @@ model Comment {
 model Pod {
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now())
-  name String
+  name String @db.VarChar(25)
+  about String @db.VarChar(500)
   members PodMember[]
   createdBy User @relation(fields: [creatorId], references: [id])
   creatorId Int
