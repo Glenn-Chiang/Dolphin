@@ -41,14 +41,12 @@ export default async function Profile({
         </p>
         <p className="">{user.about}</p>
       </section>
-      <section className="bg-white rounded-md shadow p-4 ">
-        <nav className="flex gap-4 font-medium">
+        <nav className="flex gap-4 font-medium bg-white p-4 rounded-md shadow">
           <Link href={`/profile/${userId}`}>Posts</Link>
           <Link href={`/profile/${userId}/comments`}>Comments</Link>
           <Link href={`/profile/${userId}/pods`}>Pods</Link>
         </nav>
-        <div className="py-4">{children}</div>
-      </section>
+      {children}
     </main>
   );
 }
