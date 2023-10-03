@@ -28,6 +28,8 @@ model Post {
   authorId Int
   comments Comment[]
   likedBy User[] @relation("liked")
+  pod Pod @relation(fields: [podId], references: [id])
+  podId Int
 }
 
 model Comment {
@@ -48,6 +50,7 @@ model Pod {
   members PodMember[]
   createdBy User @relation(fields: [creatorId], references: [id])
   creatorId Int
+  posts Post[]
 }
 
 // Many-to-many relationship between Users and Pods
