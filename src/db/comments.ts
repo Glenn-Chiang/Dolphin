@@ -1,3 +1,4 @@
+import { getCurrentUser } from "@/auth";
 import prisma from "./db";
 
 const getPostComments = async (postId: number) => {
@@ -24,4 +25,15 @@ const getUserComments = async (userId: number) => {
   return comments
 };
 
-export { getPostComments, getUserComments };
+const createComment = async (postId: number, content: string) => {
+  const comments = await prisma.comment.create({
+    data: {
+      postId,
+      content,
+      authorId: getCurrentUser()
+    }
+  })
+  return comments
+}
+
+export { getPostComments, getUserComments, createComment };
