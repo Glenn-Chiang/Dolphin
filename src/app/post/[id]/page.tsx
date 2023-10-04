@@ -1,20 +1,7 @@
 import PostCard from "@/components/PostCard";
 import CommentSection from "./CommentSection";
 import { Comment } from "@prisma/client";
-import prisma from "@/db/db";
-
-const getPost = async (postId: number) => {
-  const post = await prisma.post.findUnique({
-    where: {
-      id: postId,
-    },
-    include: {
-      author: true,
-      pod: true,
-    },
-  });
-  return post;
-};
+import { getPost } from "@/db/posts";
 
 export default async function Post({ params }: { params: { id: string } }) {
   const postId = Number(params.id);

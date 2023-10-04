@@ -1,43 +1,6 @@
-import { getCurrentUser } from "@/auth";
 import { SubmitButton } from "@/components/buttons";
-import prisma from "@/db/db";
-import { redirect } from "next/navigation";
-
-const getPods = async () => {
-  const pods = await prisma.pod.findMany();
-  return pods;
-};
-
-const createPost = async (formData: FormData) => {
-  "use server";
-
-  const title = formData.get("title");
-  if (typeof title !== "string") {
-    throw new Error("Invalid title");
-  }
-  const content = formData.get("content");
-  if (typeof content !== "string") {
-    throw new Error("Invalid content");
-  }
-  const podId = formData.get("podId");
-  if (typeof podId !== "string") {
-    throw new Error("Invalid podId");
-  }
-
-  const authorId = getCurrentUser();
-
-  await prisma.post.create({
-    data: {
-      title,
-      content,
-      podId: Number(podId),
-      authorId,
-    },
-  });
-
-  console.log("Post created!");
-  redirect(`/profile/${authorId}`);
-};
+import { createPost } from "@/db/posts";
+import { getPods } from "@/db/pods";
 
 export default async function CreatePost() {
   const pods = await getPods();
