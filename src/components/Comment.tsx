@@ -1,11 +1,11 @@
 'use client'
 
 import { useState } from "react";
-import { LikeButton, CancelButton } from "./buttons";
-import { Comment } from "@prisma/client";
+import { LikeButton } from "./buttons";
+import { CommentDetail } from "@/types";
 
 type CommentProps = {
-  comment: Comment;
+  comment: CommentDetail;
 };
 
 export default function Comment({ comment }: CommentProps) {
@@ -19,6 +19,7 @@ export default function Comment({ comment }: CommentProps) {
 
   return (
     <article className="py-4">
+      <p>{comment.author.name}</p>
       <p>{comment.content}</p>
       <div className="flex gap-2">
         <LikeButton onClick={handleLikeClick} liked={liked} />

@@ -1,8 +1,8 @@
-import { Comment } from "@prisma/client";
+import { CommentDetail } from "@/types";
 import CommentComponent from "../../../components/Comment";
 import CommentForm from "./CommentForm";
 
-export default function CommentSection({ comments }: {comments: Comment[]}) {
+export default function CommentSection({ comments }: {comments: CommentDetail[]}) {
   return (
     <>
       <CommentForm />
