@@ -1,5 +1,5 @@
 import PodPreview from "@/components/PodPreview";
-import prisma from "@/db";
+import prisma from "@/db/db";
 
 const getUserPods = async (userId: number) => {
   const pods = await prisma.pod.findMany({

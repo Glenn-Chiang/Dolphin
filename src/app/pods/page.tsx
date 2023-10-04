@@ -1,5 +1,5 @@
 import PodPreview from "@/components/PodPreview";
-import prisma from "@/db";
+import prisma from "@/db/db";
 import { Pod } from "@prisma/client";
 import Link from "next/link";
 
@@ -15,9 +15,9 @@ export default async function Pods() {
     <main>
       <div className="flex justify-between items-center">
         <h1 className="pb-4">Explore Pods</h1>
-        <CreatePodButton/>
+        <CreatePodButton />
       </div>
-      <Searchbar placeholder="Search for a pod..."/>
+      <Searchbar placeholder="Search for a pod..." />
       <ul className="py-4 flex flex-col gap-4">
         {pods.map((pod) => (
           <PodPreview key={pod.id} pod={pod} />
@@ -38,8 +38,11 @@ function CreatePodButton() {
   );
 }
 
-function Searchbar({placeholder}: {placeholder: string}) {
+function Searchbar({ placeholder }: { placeholder: string }) {
   return (
-    <input className="bg-transparent border-b-2 focus:outline-none p-2 w-full" placeholder={placeholder}/>
-  )
+    <input
+      className="bg-transparent border-b-2 focus:outline-none p-2 w-full"
+      placeholder={placeholder}
+    />
+  );
 }

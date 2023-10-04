@@ -1,18 +1,5 @@
 import PostCard from "@/components/PostCard";
-import prisma from "@/db";
-
-const getPodPosts = async (podId: number) => {
-  const posts = await prisma.post.findMany({
-    where: {
-      podId,
-    },
-    include: {
-      author: true,
-      pod: true
-    }
-  });
-  return posts;
-};
+import { getPodPosts } from "@/db/posts";
 
 export default async function PodPosts({ params }: { params: { id: string } }) {
   const podId = Number(params.id);
@@ -27,7 +14,7 @@ export default async function PodPosts({ params }: { params: { id: string } }) {
   }
 
   return (
-    <section>
+    <section className="flex flex-col gap-4">
       {posts.map((post) => (
         <PostCard key={post.id} post={post} />
       ))}

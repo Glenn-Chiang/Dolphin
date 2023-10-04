@@ -1,4 +1,4 @@
-import prisma from "@/db";
+import prisma from "@/db/db";
 import { User } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
@@ -51,7 +51,13 @@ export default async function Profile({
   );
 }
 
-function TabLink({ href, children }: { href: string; children: React.ReactNode }) {
+function TabLink({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
   return (
     <Link href={href} className="hover:bg-slate-200 p-2 rounded-full">
       <h2>{children}</h2>

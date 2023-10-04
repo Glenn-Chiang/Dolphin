@@ -1,6 +1,6 @@
 import { getCurrentUser } from "@/auth";
 import { SubmitButton } from "@/components/buttons";
-import prisma from "@/db";
+import prisma from "@/db/db";
 import { redirect } from "next/navigation";
 
 const getPods = async () => {

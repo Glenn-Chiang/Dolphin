@@ -1,5 +1,5 @@
 import UserCard from "@/components/UserCard";
-import prisma from "@/db";
+import prisma from "@/db/db";
 
 const getPodMembers = async (podId: number) => {
   const members = await prisma.user.findMany({

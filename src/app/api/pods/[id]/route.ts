@@ -1,4 +1,4 @@
-import prisma from "@/db";
+import prisma from "@/db/db";
 
 // Get all posts in pod, including author name
 export async function GET({ params }: { params: { id: string } }) {

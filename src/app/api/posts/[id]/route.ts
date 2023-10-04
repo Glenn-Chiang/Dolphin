@@ -1,4 +1,4 @@
-import prisma from "@/db";
+import prisma from "@/db/db";
 
 // Get post by id
 export async function GET({ params }: { params: { id: string } }) {

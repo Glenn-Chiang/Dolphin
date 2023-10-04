@@ -1,4 +1,4 @@
-import prisma from "@/db";
+import prisma from "@/db/db";
 import PodCard from "./PodCard";
 import Link from "next/link";
 import React from "react";
@@ -26,7 +26,7 @@ export default async function PodPage({
   }
 
   return (
-    <main className="flex flex-col gap-4">
+    <main className="flex flex-col gap-4 pb-4">
       <PodCard pod={pod} />
       <section className="bg-white rounded-md shadow p-4 ">
         <nav className="flex gap-4 font-medium">
@@ -34,7 +34,7 @@ export default async function PodPage({
           <Link href={`/pods/${podId}/members`}>Members</Link>
         </nav>
       </section>
-        {children}
+      {children}
     </main>
   );
 }

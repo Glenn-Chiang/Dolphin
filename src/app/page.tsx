@@ -1,22 +1,6 @@
 import Link from "next/link";
 import PostCard from "../components/PostCard";
-import { Post } from "@prisma/client";
-import prisma from "@/db";
-
-// Get all posts sorted by date created
-// TODO: Pagination or infinite query
-const getPosts = async () => {
-  const posts = await prisma.post.findMany({
-    orderBy: {
-      createdAt: 'desc'
-    },
-    include: {
-      author: true,
-      pod: true
-    }
-  }) 
-  return posts
-};
+import { getPosts } from "@/db/posts";
 
 export default async function Home() {
   const posts = await getPosts();

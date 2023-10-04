@@ -1,4 +1,4 @@
-import prisma from "@/db";
+import prisma from "@/db/db";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UserCard from "@/components/UserCard";
@@ -24,4 +24,3 @@ export default async function Users() {
     </main>
   );
 }
-

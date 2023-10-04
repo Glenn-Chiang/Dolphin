@@ -1,5 +1,5 @@
 import { SubmitButton } from "@/components/buttons";
-import prisma from "@/db";
+import prisma from "@/db/db";
 import { redirect, useRouter } from "next/navigation";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
