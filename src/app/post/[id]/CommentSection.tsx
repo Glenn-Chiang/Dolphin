@@ -2,11 +2,7 @@ import { Comment } from "@prisma/client";
 import CommentComponent from "../../../components/Comment";
 import CommentForm from "./CommentForm";
 
-type CommentSectionProps = {
-  comments: Comment[];
-};
-
-export default function CommentSection({ comments }: CommentSectionProps) {
+export default function CommentSection({ comments }: {comments: Comment[]}) {
   return (
     <>
       <CommentForm />
