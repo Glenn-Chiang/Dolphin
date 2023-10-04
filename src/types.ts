@@ -4,9 +4,14 @@ import { Prisma } from "@prisma/client";
 const postDetail = Prisma.validator<Prisma.PostDefaultArgs>()({
   include: {
     author: true,
-    pod: true
-  }
-})
+    pod: true,
+    _count: {
+      select: {
+        comments: true,
+      },
+    },
+  },
+});
 
 // Comment with author name
 const commentDetail = Prisma.validator<Prisma.CommentDefaultArgs>()({

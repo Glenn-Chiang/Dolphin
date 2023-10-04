@@ -10,11 +10,7 @@ import { CommentButton, LikeButton } from "./buttons";
 import { PostDetail } from "@/types";
 import DolphinIcon from "./DolphinIcon";
 
-type PostPreviewProps = {
-  post: PostDetail;
-};
-
-export default function PostCard({ post }: PostPreviewProps) {
+export default function PostCard({ post }: {post: PostDetail}) {
   const [liked, setLiked] = useState(false);
 
   const handleLikeClick = () => {
@@ -31,7 +27,10 @@ export default function PostCard({ post }: PostPreviewProps) {
   return (
     <article className="bg-white p-4 pb-2 rounded-md relative shadow hover:shadow-lg transition">
       <Link href={`/post/${post.id}`}>
-        <Link href={`/pods/${post.podId}`} className="text-sky-500 font-medium -m-2 p-2 flex gap-2 items-center w-max rounded-xl hover:bg-sky-200">
+        <Link
+          href={`/pods/${post.podId}`}
+          className="text-sky-500 font-medium -m-2 p-2 flex gap-2 items-center w-max rounded-xl hover:bg-sky-200"
+        >
           <DolphinIcon />
           {post.pod.name}
         </Link>
@@ -52,7 +51,10 @@ export default function PostCard({ post }: PostPreviewProps) {
         </button>
         <div className="flex gap-4 py-2">
           <LikeButton liked={liked} likes={10} onClick={handleLikeClick} />
-          <CommentButton comments={10} onClick={handleCommentClick} />
+          <CommentButton
+            comments={post._count.comments}
+            onClick={handleCommentClick}
+          />
         </div>
       </Link>
       {modalIsOpen && <CommentModal close={handleCommentClick} />}

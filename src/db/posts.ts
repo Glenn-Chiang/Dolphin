@@ -10,6 +10,11 @@ const getPosts = async () => {
     include: {
       author: true,
       pod: true,
+      _count: {
+        select: {
+          comments: true,
+        },
+      },
     },
   });
   return posts;
@@ -23,6 +28,11 @@ const getPodPosts = async (podId: number) => {
     include: {
       author: true,
       pod: true,
+      _count: {
+        select: {
+          comments: true,
+        },
+      },
     },
     orderBy: {
       createdAt: "desc",
@@ -39,6 +49,11 @@ const getUserPosts = async (userId: number) => {
     include: {
       author: true,
       pod: true,
+      _count: {
+        select: {
+          comments: true
+        }
+      }
     },
     orderBy: {
       createdAt: "desc",
@@ -55,6 +70,11 @@ const getPost = async (postId: number) => {
     include: {
       author: true,
       pod: true,
+      _count: {
+        select: {
+          comments: true,
+        },
+      },
     },
   });
   return post;
@@ -93,12 +113,12 @@ const createPost = async (formData: FormData) => {
 
 const likePost = async (postId: number) => {
   const userId = getCurrentUser()
-  await prisma.post.update({
-    where: {
-      id: postId
-    },
+  // await prisma.post.update({
+  //   where: {
+  //     id: postId
+  //   },
     
-  })
+  // })
 }
 
 export { getPosts, getPodPosts, getUserPosts, getPost, createPost, likePost };
