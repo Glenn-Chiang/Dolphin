@@ -8,6 +8,7 @@ const postDetail = Prisma.validator<Prisma.PostDefaultArgs>()({
     _count: {
       select: {
         comments: true,
+        likedBy: true
       },
     },
   },
