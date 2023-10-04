@@ -13,14 +13,17 @@ export default function CommentForm() {
   const params = useParams();
   const postId = Number(params.id);
 
-  const { register, handleSubmit } = useForm<CommentFormValues>();
+  const { register, handleSubmit, reset } = useForm<CommentFormValues>();
 
   const onSubmit: SubmitHandler<CommentFormValues> = (formValues) => {
     const { content } = formValues;
     createComment(postId, content);
+    reset();
   };
 
-  const handleCancel = () => {};
+  const handleCancel = () => {
+    reset();
+  };
 
   return (
     <form
@@ -32,6 +35,7 @@ export default function CommentForm() {
         {...register("content", {
           required: "You cannot post a blank comment",
         })}
+        defaultValue={""}
         className="bg-slate-100 rounded-md p-2"
       />
       <div className="flex gap-2">
