@@ -91,4 +91,14 @@ const createPost = async (formData: FormData) => {
   redirect(`/profile/${authorId}`);
 };
 
-export { getPosts, getPodPosts, getUserPosts, getPost, createPost };
+const likePost = async (postId: number) => {
+  const userId = getCurrentUser()
+  await prisma.post.update({
+    where: {
+      id: postId
+    },
+    
+  })
+}
+
+export { getPosts, getPodPosts, getUserPosts, getPost, createPost, likePost };
