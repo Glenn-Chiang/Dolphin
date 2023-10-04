@@ -18,4 +18,24 @@ const getPodMembers = async (podId: number) => {
   return members;
 };
 
-export {getUsers, getPodMembers}
+const getUser = async (userId: number) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    include: {
+      posts: true,
+      pods: true,
+      comments: true,
+    },
+  });
+
+  return user;
+};
+
+
+const updateProfile = async (userId: number, about: string) => {
+  
+}
+
+export {getUsers, getPodMembers, getUser, updateProfile}

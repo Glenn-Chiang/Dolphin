@@ -1,22 +1,7 @@
-import prisma from "@/db/db";
+import { getUser } from "@/db/users";
 import Link from "next/link";
 import React from "react";
 import Banner from "./Banner";
-
-const getUser = async (userId: number) => {
-  const user = await prisma.user.findUnique({
-    where: {
-      id: userId,
-    },
-    include: {
-      posts: true,
-      pods: true,
-      comments: true,
-    },
-  });
-
-  return user;
-};
 
 export default async function Profile({
   params,
