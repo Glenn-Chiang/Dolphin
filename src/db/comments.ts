@@ -11,6 +11,9 @@ const getPostComments = async (postId: number) => {
     include: {
       author: true,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
   return comments;
 };
@@ -22,6 +25,9 @@ const getUserComments = async (userId: number) => {
     },
     include: {
       author: true,
+    },
+    orderBy: {
+      createdAt: "desc",
     },
   });
   return comments;
