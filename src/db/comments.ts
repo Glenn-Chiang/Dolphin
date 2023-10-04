@@ -33,6 +33,7 @@ const createComment = async (postId: number, content: string) => {
       authorId: getCurrentUser()
     }
   })
+  console.log('Comment posted')
   return comments
 }
 
