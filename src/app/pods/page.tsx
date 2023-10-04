@@ -1,12 +1,6 @@
 import PodPreview from "@/components/PodPreview";
-import prisma from "@/db/db";
-import { Pod } from "@prisma/client";
+import { getPods } from "@/db/pods";
 import Link from "next/link";
-
-const getPods = async () => {
-  const pods = await prisma.pod.findMany();
-  return pods;
-};
 
 // Page displaying all 'pods' (communities) on the platform
 export default async function Pods() {

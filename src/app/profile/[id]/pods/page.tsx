@@ -1,14 +1,5 @@
 import PodPreview from "@/components/PodPreview";
-import prisma from "@/db/db";
-
-const getUserPods = async (userId: number) => {
-  const pods = await prisma.pod.findMany({
-    where: {
-      id: userId,
-    },
-  });
-  return pods;
-};
+import { getUserPods } from "@/db/pods";
 
 export default async function ProfilePods({
   params,

@@ -1,16 +1,8 @@
-import prisma from "@/db/db";
-import PodCard from "./PodCard";
+import { getPod } from "@/db/pods";
 import Link from "next/link";
 import React from "react";
+import PodCard from "./PodCard";
 
-const getPod = async (podId: number) => {
-  const pod = await prisma.pod.findUnique({
-    where: {
-      id: podId,
-    },
-  });
-  return pod;
-};
 export default async function PodPage({
   params,
   children,
