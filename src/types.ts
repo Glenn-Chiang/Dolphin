@@ -1,10 +1,11 @@
 import { Prisma } from "@prisma/client";
 
 // Post with author name
-const postWithAuthor = Prisma.validator<Prisma.PostDefaultArgs>()({
+const postDetail = Prisma.validator<Prisma.PostDefaultArgs>()({
   include: {
-    author: true
+    author: true,
+    pod: true
   }
 })
 
-export type PostWithAuthor = Prisma.PostGetPayload<typeof postWithAuthor>
+export type PostDetail = Prisma.PostGetPayload<typeof postDetail>

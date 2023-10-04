@@ -7,11 +7,11 @@ import Link from "next/link";
 import React, { useState } from "react";
 import CommentModal from "./CommentModal";
 import { CommentButton, LikeButton } from "./buttons";
-import { Post } from "@prisma/client";
-import { PostWithAuthor } from "@/types";
+import { PostDetail } from "@/types";
+import DolphinIcon from "./DolphinIcon";
 
 type PostPreviewProps = {
-  post: PostWithAuthor;
+  post: PostDetail;
 };
 
 export default function PostCard({ post }: PostPreviewProps) {
@@ -31,9 +31,16 @@ export default function PostCard({ post }: PostPreviewProps) {
   return (
     <article className="bg-white p-4 pb-2 rounded-md relative shadow hover:shadow-lg transition">
       <Link href={`/post/${post.id}`}>
+        <p className="text-sky-500 font-medium">
+          <DolphinIcon />
+          {post.pod.name}
+        </p>
         <h2 className="">{post.title}</h2>
         <div className="flex gap-4 text-slate-500 items-center">
-          <Link href={`/profile/${post.authorId}`} className="flex gap-2 items-center py-2 hover:text-sky-500">
+          <Link
+            href={`/profile/${post.authorId}`}
+            className="flex gap-2 items-center py-2 hover:text-sky-500"
+          >
             <FontAwesomeIcon icon={faUserCircle} />
             {post.author.name}
           </Link>

@@ -1,9 +1,9 @@
 import "../globals.css";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
-import Image from "next/image";
 import Link from "next/link";
-import dolphinIcon from "../../public/images/dolphin.png";
+import Image from "next/image";
+import DolphinIcon from "@/components/DolphinIcon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { config } from '@fortawesome/fontawesome-svg-core'
@@ -35,13 +35,7 @@ function Navbar() {
   return (
     <nav className="bg-sky-500 text-white text-xl p-2 flex justify-between items-center fixed w-screen top-0 left-0 z-10">
       <Link href={"/"} className="flex gap-2 items-center">
-        <Image
-          alt=""
-          src={dolphinIcon}
-          width={40}
-          height={40}
-          className="filter invert"
-        />
+        <DolphinIcon/>
         Dolphin
       </Link>
       <Link href={"/profile"} >
