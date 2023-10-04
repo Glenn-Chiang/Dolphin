@@ -1,15 +1,5 @@
-import prisma from "@/db/db";
-
 import Comment from "@/components/Comment";
-
-const getUserComments = async (userId: number) => {
-  const comments = await prisma.comment.findMany({
-    where: {
-      authorId: userId,
-    },
-  });
-  return comments;
-};
+import { getUserComments } from "@/db/comments";
 
 export default async function ProfileComments({
   params,
@@ -24,7 +14,7 @@ export default async function ProfileComments({
   }
 
   return (
-    <section>
+    <section className="flex flex-col gap-4">
       {comments.map((comment) => (
         <Comment key={comment.id} comment={comment} />
       ))}
