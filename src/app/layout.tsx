@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import DolphinIcon from "@/components/DolphinIcon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
@@ -33,14 +33,20 @@ export default function RootLayout({
 
 function Navbar() {
   return (
-    <nav className="bg-sky-500 text-white text-xl p-2 flex justify-between items-center fixed w-screen top-0 left-0 z-10">
+    <nav className="bg-sky-500 text-white text-xl p-2 flex justify-between items-center fixed w-screen top-0 left-0 z-10 font-medium">
       <Link href={"/"} className="flex gap-2 items-center">
         <DolphinIcon/>
         Dolphin
       </Link>
-      <Link href={"/profile"} >
-        <FontAwesomeIcon icon={faUserCircle} />
-      </Link>
+      <div className="flex gap-4 items-center">
+        <Link href={'/create-post'} className="flex gap-2 items-center bg-slate-200 text-sky-500 p-1 rounded-md">
+          <FontAwesomeIcon icon={faPlus}/>
+          Post
+        </Link>
+        <Link href={"/profile"} >
+          <FontAwesomeIcon icon={faUserCircle} />
+        </Link>
+      </div>
     </nav>
   );
 }
