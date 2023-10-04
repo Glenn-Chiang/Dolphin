@@ -1,12 +1,8 @@
-import prisma from "@/db/db";
+import UserCard from "@/components/UserCard";
+import { getUsers } from "@/db/users";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import UserCard from "@/components/UserCard";
 
-const getUsers = async () => {
-  const users = await prisma.user.findMany();
-  return users;
-};
 
 export default async function Users() {
   const users = await getUsers();

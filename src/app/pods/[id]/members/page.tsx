@@ -1,18 +1,6 @@
 import UserCard from "@/components/UserCard";
-import prisma from "@/db/db";
+import { getPodMembers } from "@/db/users";
 
-const getPodMembers = async (podId: number) => {
-  const members = await prisma.user.findMany({
-    where: {
-      pods: {
-        some: {
-          podId,
-        },
-      },
-    },
-  });
-  return members;
-};
 
 export default async function PodMembers({ podId }: { podId: number }) {
   const users = await getPodMembers(podId);
