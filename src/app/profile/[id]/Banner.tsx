@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { User } from "@prisma/client";
 import { useState } from "react";
-import ProfileModal from "@/components/ProfileModal";
+import ProfileModal from "@/app/profile/[id]/ProfileModal";
 
 export default function Banner({ user }: { user: User }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);

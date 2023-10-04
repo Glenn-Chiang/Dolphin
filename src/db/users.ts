@@ -1,4 +1,7 @@
+"use server";
+import { getCurrentUser } from "@/auth";
 import prisma from "./db";
+import { revalidatePath } from "next/cache";
 
 const getUsers = async () => {
   const users = await prisma.user.findMany();
@@ -33,9 +36,19 @@ const getUser = async (userId: number) => {
   return user;
 };
 
+const updateProfile = async (about: string) => {
+  const userId = getCurrentUser();
+  console.log(about)
+  await prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data: {
+      about: about
+    }
+  });
+  console.log("About updated:", about);
+  revalidatePath(`/profile/${userId}`);
+};
 
-const updateProfile = async (userId: number, about: string) => {
-  
-}
-
-export {getUsers, getPodMembers, getUser, updateProfile}
+export { getUsers, getPodMembers, getUser, updateProfile };

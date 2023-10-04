@@ -4,9 +4,14 @@ import { faComment } from "@fortawesome/free-solid-svg-icons/faComment";
 import { faHeart } from "@fortawesome/free-solid-svg-icons/faHeart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function SubmitButton({text}: {text: string}) {
+type SubmitButtonProps = {
+  text: string
+  onClick?: () => void
+}
+
+function SubmitButton({text, onClick}: SubmitButtonProps) {
   return (
-    <button className="bg-sky-500 text-white p-2 rounded-md shadow shadow-sky-500 hover:shadow-md hover:shadow-sky-500">
+    <button onClick={onClick} className="bg-sky-500 text-white p-2 rounded-md shadow shadow-sky-500 hover:shadow-md hover:shadow-sky-500">
       {text}
     </button>
   );
