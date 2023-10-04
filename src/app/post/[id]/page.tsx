@@ -9,7 +9,8 @@ const getPost = async (postId: number) => {
       id: postId
     },
     include: {
-      author: true
+      author: true,
+      pod: true
     }
   })
   return post

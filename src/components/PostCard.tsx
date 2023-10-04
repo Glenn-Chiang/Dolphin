@@ -31,15 +31,15 @@ export default function PostCard({ post }: PostPreviewProps) {
   return (
     <article className="bg-white p-4 pb-2 rounded-md relative shadow hover:shadow-lg transition">
       <Link href={`/post/${post.id}`}>
-        <p className="text-sky-500 font-medium">
+        <Link href={`/pods/${post.podId}`} className="text-sky-500 font-medium -m-2 p-2 flex gap-2 items-center w-max rounded-xl hover:bg-sky-200">
           <DolphinIcon />
           {post.pod.name}
-        </p>
-        <h2 className="">{post.title}</h2>
+        </Link>
+        <h2 className="py-4">{post.title}</h2>
         <div className="flex gap-4 text-slate-500 items-center">
           <Link
             href={`/profile/${post.authorId}`}
-            className="flex gap-2 items-center py-2 hover:text-sky-500"
+            className="flex gap-2 items-center hover:text-sky-500"
           >
             <FontAwesomeIcon icon={faUserCircle} />
             {post.author.name}

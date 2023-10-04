@@ -8,7 +8,7 @@ export default function DolphinIcon() {
       src={dolphinIcon}
       width={40}
       height={40}
-      className="filter invert"
+      className="filter invert bg-orange-500 p-2 rounded-full"
     />
   );
 }

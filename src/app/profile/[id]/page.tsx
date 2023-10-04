@@ -7,7 +7,8 @@ const getUserPosts = async (userId: number) => {
       authorId: userId,
     },
     include: {
-      author: true
+      author: true,
+      pod: true
     }
   });
   return posts;
