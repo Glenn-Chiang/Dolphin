@@ -41,12 +41,20 @@ export default async function Profile({
         </p>
         <p className="">{user.about}</p>
       </section>
-        <nav className="flex gap-4 font-medium bg-white p-4 rounded-md shadow">
-          <Link href={`/profile/${userId}`}>Posts</Link>
-          <Link href={`/profile/${userId}/comments`}>Comments</Link>
-          <Link href={`/profile/${userId}/pods`}>Pods</Link>
-        </nav>
+      <nav className="flex gap-4 font-medium bg-white p-4 rounded-md shadow">
+        <TabLink href={`/profile/${userId}`}>Posts</TabLink>
+        <TabLink href={`/profile/${userId}/comments`}>Comments</TabLink>
+        <TabLink href={`/profile/${userId}/pods`}>Pods</TabLink>
+      </nav>
       {children}
     </main>
+  );
+}
+
+function TabLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <Link href={href} className="hover:bg-slate-200 p-2 rounded-full">
+      <h2>{children}</h2>
+    </Link>
   );
 }
