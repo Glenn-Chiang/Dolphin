@@ -1,5 +1,7 @@
+"use server";
 import { getCurrentUser } from "@/auth";
 import prisma from "./db";
+import { revalidatePath } from "next/cache";
 
 const getPostComments = async (postId: number) => {
   const comments = await prisma.comment.findMany({
@@ -10,7 +12,7 @@ const getPostComments = async (postId: number) => {
       author: true,
     },
   });
-  return comments
+  return comments;
 };
 
 const getUserComments = async (userId: number) => {
@@ -22,7 +24,7 @@ const getUserComments = async (userId: number) => {
       author: true,
     },
   });
-  return comments
+  return comments;
 };
 
 const createComment = async (postId: number, content: string) => {
@@ -30,11 +32,11 @@ const createComment = async (postId: number, content: string) => {
     data: {
       postId,
       content,
-      authorId: getCurrentUser()
-    }
-  })
-  console.log('Comment posted')
-  return comments
-}
+      authorId: getCurrentUser(),
+    },
+  });
+  console.log("Comment posted");
+  revalidatePath(`/post/${postId}`);
+};
 
 export { getPostComments, getUserComments, createComment };

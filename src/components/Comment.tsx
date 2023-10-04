@@ -1,8 +1,11 @@
-'use client'
+"use client";
 
 import { useState } from "react";
-import { LikeButton } from "./buttons";
+import { LikeButton, CommentButton } from "./buttons";
 import { CommentDetail } from "@/types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 type CommentProps = {
   comment: CommentDetail;
@@ -18,8 +21,17 @@ export default function Comment({ comment }: CommentProps) {
   const handleReplyClick = () => {};
 
   return (
-    <article className="py-4">
-      <p>{comment.author.name}</p>
+    <article className="p-4 bg-white rounded-md shadow">
+      <div className="flex items-center">
+        <Link
+          href={`/profile/${comment.authorId}`}
+          className="flex gap-2 items-center text-slate-500 hover:text-sky-500 w-max p-2 -ml-2"
+        >
+          <FontAwesomeIcon icon={faUserCircle} />
+          {comment.author.name}
+        </Link>
+        <span className="text-slate-500">{comment.createdAt.toDateString()}</span>
+      </div>
       <p>{comment.content}</p>
       <div className="flex gap-2">
         <LikeButton onClick={handleLikeClick} liked={liked} />
