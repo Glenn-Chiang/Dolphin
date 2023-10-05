@@ -15,9 +15,9 @@ export default function PodPreview({ pod }: { pod: PodDetail }) {
 
   const handleClick = () => {
     if (alreadyJoined) {
-      joinPod(pod.id);
-    } else {
       leavePod(pod.id);
+    } else {
+      joinPod(pod.id);
     }
   };
 

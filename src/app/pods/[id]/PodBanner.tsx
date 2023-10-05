@@ -14,9 +14,9 @@ export default function PodBanner({ pod }: { pod: PodDetail }) {
 
   const handleClick = () => {
     if (alreadyJoined) {
-      joinPod(pod.id);
-    } else {
       leavePod(pod.id);
+    } else {
+      joinPod(pod.id);
     }
   };
 

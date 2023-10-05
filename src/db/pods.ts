@@ -3,6 +3,7 @@
 import { getCurrentUser } from "@/auth";
 import prisma from "./db";
 import { redirect } from "next/navigation";
+import { revalidatePath } from 'next/cache';
 
 const getPods = async () => {
   const pods = await prisma.pod.findMany({
@@ -87,6 +88,8 @@ const joinPod = async (podId: number) => {
     },
   });
   console.log('Joined pod!')
+  revalidatePath('/pods')
+  revalidatePath(`/users/${userId}/pods`)
 };
 
 const leavePod = async (podId: number) => {
@@ -100,6 +103,8 @@ const leavePod = async (podId: number) => {
     }
   })
   console.log('Left pod!')
+  revalidatePath('/pods')
+  revalidatePath(`/users/${userId}/pods`)
 }
 
 export { getPods, getPod, getUserPods, createPod, joinPod, leavePod };
