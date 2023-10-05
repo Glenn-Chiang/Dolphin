@@ -1,11 +1,11 @@
 "use client";
 
 import { getCurrentUser } from "@/auth";
-import { Pod } from "@prisma/client";
+import { PodDetail } from "@/types";
 import Link from "next/link";
 import React from "react";
 
-export default function PodPreview({ pod }: {pod: Pod}) {
+export default function PodPreview({ pod }: {pod: PodDetail}) {
   const userId = getCurrentUser()
   // const alreadyJoined 
   const handleClickJoin = () => {};
