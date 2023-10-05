@@ -1,9 +1,9 @@
 import PostCard from "@/components/PostCard";
-import { getNewPodPosts } from "@/db/posts";
+import { getHotPodPosts } from "@/db/posts";
 
 export default async function PodPosts({ params }: { params: { id: string } }) {
   const podId = Number(params.id);
-  const posts = await getNewPodPosts(podId);
+  const posts = await getHotPodPosts(podId);
 
   if (!posts.length) {
     return (
