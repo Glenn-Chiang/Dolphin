@@ -32,7 +32,7 @@ export default function PodBanner({ pod }: { pod: PodDetail }) {
       </p>
       <div className="flex gap-4 items-center">
         <JoinButton onClick={handleClick} alreadyJoined={alreadyJoined} />
-        <span className="text-slate-500">{0} members</span>
+        <span className="text-slate-500">{pod.members.length} members</span>
       </div>
     </section>
   );
