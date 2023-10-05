@@ -9,12 +9,14 @@ import CommentModal from "./CommentModal";
 import { CommentButton, LikeButton } from "./buttons";
 import { PostDetail } from "@/types";
 import DolphinIcon from "./DolphinIcon";
+import { likePost } from "@/db/posts";
 
 export default function PostCard({ post }: {post: PostDetail}) {
   const [liked, setLiked] = useState(false);
 
   const handleLikeClick = () => {
     setLiked((prev) => !prev);
+    likePost(post.id)
     return;
   };
 
@@ -50,7 +52,7 @@ export default function PostCard({ post }: {post: PostDetail}) {
           <FontAwesomeIcon icon={faEllipsisV} />
         </button>
         <div className="flex gap-4 py-2">
-          <LikeButton liked={liked} likes={10} onClick={handleLikeClick} />
+          <LikeButton liked={liked} likes={post._count.likedBy} onClick={handleLikeClick} />
           <CommentButton
             comments={post._count.comments}
             onClick={handleCommentClick}

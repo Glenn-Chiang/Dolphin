@@ -1,3 +1,5 @@
+"use server";
+
 import { getCurrentUser } from "@/auth";
 import prisma from "./db";
 import { redirect } from "next/navigation";
@@ -13,7 +15,7 @@ const getPosts = async () => {
       _count: {
         select: {
           comments: true,
-          likedBy: true
+          likedBy: true,
         },
       },
     },
@@ -85,8 +87,6 @@ const getPost = async (postId: number) => {
 };
 
 const createPost = async (formData: FormData) => {
-  "use server";
-
   const title = formData.get("title");
   if (typeof title !== "string") {
     throw new Error("Invalid title");
@@ -129,6 +129,8 @@ const likePost = async (postId: number) => {
       },
     },
   });
+  console.log("Post liked!");
 };
 
 export { getPosts, getPodPosts, getUserPosts, getPost, createPost, likePost };
+

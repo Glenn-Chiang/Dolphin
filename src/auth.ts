@@ -1,5 +1,5 @@
 const getCurrentUser = () => {
-  return 1
+  return Math.random() >= 0.5 ? 1 : 2
 }
 
 export {getCurrentUser}
