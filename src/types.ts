@@ -5,6 +5,7 @@ const postDetail = Prisma.validator<Prisma.PostDefaultArgs>()({
   include: {
     author: true,
     pod: true,
+    likedBy: true,
     _count: {
       select: {
         comments: true,
