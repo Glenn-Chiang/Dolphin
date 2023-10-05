@@ -1,5 +1,6 @@
 "use server";
 
+import { getCurrentUser } from "@/auth";
 import prisma from "./db";
 import { redirect } from "next/navigation";
 
@@ -55,13 +56,28 @@ const createPod = async (formData: FormData) => {
   redirect("/pods");
 };
 
-const joinPod = async (userId: number, podId: number) => {
+const joinPod = async (podId: number) => {
+  const userId = getCurrentUser()
   await prisma.podMember.create({
     data: {
       podId,
       memberId: userId,
     },
   });
+  console.log('Joined pod!')
 };
 
-export { getPods, getPod, getUserPods, createPod, joinPod };
+const leavePod = async (podId: number) => {
+  const userId = getCurrentUser()
+  await prisma.podMember.delete({
+    where: {
+      memberId_podId: {
+        memberId: userId,
+        podId
+      }
+    }
+  })
+  console.log('Left pod!')
+}
+
+export { getPods, getPod, getUserPods, createPod, joinPod, leavePod };

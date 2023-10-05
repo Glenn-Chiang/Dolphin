@@ -30,6 +30,11 @@ function CancelButton({ onClick }: { onClick: () => void }) {
 }
 
 
+function JoinButton({podId}: {podId: number}) {
+  
+}
+
+
 type LikeButtonProps = {
   liked: boolean;
   likes: number;
