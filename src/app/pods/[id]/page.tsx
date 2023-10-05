@@ -1,4 +1,5 @@
 import PostCard from "@/components/PostCard";
+import SortMenu from "@/components/SortMenu";
 import { getPodPosts } from "@/db/posts";
 
 export default async function PodPosts({ params }: { params: { id: string } }) {
@@ -15,6 +16,7 @@ export default async function PodPosts({ params }: { params: { id: string } }) {
 
   return (
     <section className="flex flex-col gap-4">
+      <SortMenu/>
       {posts.map((post) => (
         <PostCard key={post.id} post={post} />
       ))}
