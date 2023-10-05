@@ -4,8 +4,9 @@ import { getCurrentUser } from "@/auth";
 import prisma from "./db";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { PostDetail } from "@/types";
 
-const getPosts = async () => {
+const getPosts = async (): Promise<PostDetail[]> => {
   const posts = await prisma.post.findMany({
     orderBy: {
       createdAt: "desc",
@@ -13,6 +14,7 @@ const getPosts = async () => {
     include: {
       author: true,
       pod: true,
+      likedBy: true,
       _count: {
         select: {
           comments: true,
@@ -24,7 +26,7 @@ const getPosts = async () => {
   return posts;
 };
 
-const getPodPosts = async (podId: number) => {
+const getPodPosts = async (podId: number): Promise<PostDetail[]> => {
   const posts = await prisma.post.findMany({
     where: {
       podId,
@@ -32,6 +34,7 @@ const getPodPosts = async (podId: number) => {
     include: {
       author: true,
       pod: true,
+      likedBy: true,
       _count: {
         select: {
           comments: true,
@@ -46,7 +49,7 @@ const getPodPosts = async (podId: number) => {
   return posts;
 };
 
-const getUserPosts = async (userId: number) => {
+const getUserPosts = async (userId: number): Promise<PostDetail[]> => {
   const posts = await prisma.post.findMany({
     where: {
       authorId: userId,
@@ -54,6 +57,7 @@ const getUserPosts = async (userId: number) => {
     include: {
       author: true,
       pod: true,
+      likedBy: true,
       _count: {
         select: {
           comments: true,
@@ -68,7 +72,7 @@ const getUserPosts = async (userId: number) => {
   return posts;
 };
 
-const getPost = async (postId: number) => {
+const getPost = async (postId: number): Promise<PostDetail | null> => {
   const post = await prisma.post.findUnique({
     where: {
       id: postId,
@@ -76,6 +80,7 @@ const getPost = async (postId: number) => {
     include: {
       author: true,
       pod: true,
+      likedBy: true,
       _count: {
         select: {
           comments: true,
