@@ -1,4 +1,4 @@
-import PodPreview from "@/components/PodPreview";
+import PodCard from "@/components/PodCard";
 import { getPods } from "@/db/pods";
 import Link from "next/link";
 
@@ -14,7 +14,7 @@ export default async function Pods() {
       <Searchbar placeholder="Search for a pod..." />
       <ul className="py-4 flex flex-col gap-4">
         {pods.map((pod) => (
-          <PodPreview key={pod.id} pod={pod} />
+          <PodCard key={pod.id} pod={pod} />
         ))}
       </ul>
     </main>

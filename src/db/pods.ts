@@ -104,7 +104,7 @@ const leavePod = async (podId: number) => {
   })
   console.log('Left pod!')
   revalidatePath('/pods')
-  revalidatePath(`/users/${userId}/pods`)
+  revalidatePath(`/profile/${userId}/pods`)
 }
 
 export { getPods, getPod, getUserPods, createPod, joinPod, leavePod };

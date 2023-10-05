@@ -1,4 +1,4 @@
-import PodPreview from "@/components/PodPreview";
+import PodCard from "@/components/PodCard";
 import { getUserPods } from "@/db/pods";
 
 export default async function ProfilePods({
@@ -10,13 +10,17 @@ export default async function ProfilePods({
   const pods = await getUserPods(userId);
 
   if (pods.length === 0) {
-    return <section className="bg-white rounded-md text-slate-500 p-4 shadow">This user hasn&apos;t joined any pods</section>;
+    return (
+      <section className="bg-white rounded-md text-slate-500 p-4 shadow">
+        This user hasn&apos;t joined any pods
+      </section>
+    );
   }
 
   return (
     <section>
       {pods.map((pod) => (
-        <PodPreview key={pod.id} pod={pod} />
+        <PodCard key={pod.id} pod={pod} />
       ))}
     </section>
   );

@@ -7,7 +7,7 @@ import React from "react";
 import { joinPod, leavePod } from "@/db/pods";
 import { JoinButton } from "./buttons";
 
-export default function PodPreview({ pod }: { pod: PodDetail }) {
+export default function PodCard({ pod }: { pod: PodDetail }) {
   const userId = getCurrentUser();
   const alreadyJoined = !!pod.members.find(
     (member) => member.memberId === userId
@@ -27,8 +27,8 @@ export default function PodPreview({ pod }: { pod: PodDetail }) {
         <h2>{pod.name}</h2>
         <p className="py-4">{pod.about}</p>
         <div className="flex gap-4 items-center">
-          <JoinButton onClick={handleClick} alreadyJoined={alreadyJoined}/>
-          <span className="text-slate-500">{0} members</span>
+          <JoinButton onClick={handleClick} alreadyJoined={alreadyJoined} />
+          <span className="text-slate-500">{pod.members.length} members</span>
         </div>
       </Link>
     </article>
