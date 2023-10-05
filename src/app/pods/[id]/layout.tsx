@@ -22,7 +22,7 @@ export default async function PodPage({
   return (
     <main className="flex flex-col gap-4 pb-4">
       <PodBanner pod={pod} />
-      <PodLinks podId={podId}/>
+      <PodLinks podId={podId} />
       {children}
     </main>
   );
