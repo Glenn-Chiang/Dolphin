@@ -42,7 +42,8 @@ const createComment = async (postId: number, content: string) => {
     },
   });
   console.log("Comment posted");
-  revalidatePath(`/post/${postId}`);
+  revalidatePath('/')
+  // revalidatePath(`/post/${postId}`);
 };
 
 export { getPostComments, getUserComments, createComment };

@@ -64,7 +64,7 @@ export default function PostCard({ post }: {post: PostDetail}) {
           />
         </div>
       </Link>
-      {modalIsOpen && <CommentModal close={handleCommentClick} />}
+      {modalIsOpen && <CommentModal close={handleCommentClick} post={post}/>}
     </article>
   );
 }
