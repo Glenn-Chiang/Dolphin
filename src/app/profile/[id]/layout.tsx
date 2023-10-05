@@ -1,5 +1,5 @@
+import TabLink from "@/components/TabLink";
 import { getUser } from "@/db/users";
-import Link from "next/link";
 import React from "react";
 import Banner from "./Banner";
 
@@ -26,19 +26,5 @@ export default async function Profile({
       </nav>
       {children}
     </main>
-  );
-}
-
-function TabLink({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <Link href={href} className="hover:bg-slate-200 p-2 rounded-full">
-      <h2>{children}</h2>
-    </Link>
   );
 }

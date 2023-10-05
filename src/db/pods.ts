@@ -89,7 +89,7 @@ const joinPod = async (podId: number) => {
   });
   console.log('Joined pod!')
   revalidatePath('/pods')
-  revalidatePath(`/users/${userId}/pods`)
+  revalidatePath(`/profile/${userId}/pods`)
 };
 
 const leavePod = async (podId: number) => {

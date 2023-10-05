@@ -13,7 +13,7 @@ export default async function PodMembers({ podId }: { podId: number }) {
     );
   }
   return (
-    <section>
+    <section className="flex flex-col gap-4">
       {users.map((user) => (
         <UserCard key={user.id} user={user} />
       ))}
