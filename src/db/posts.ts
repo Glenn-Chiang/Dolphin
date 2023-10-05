@@ -27,13 +27,13 @@ const getPosts = async (): Promise<PostDetail[]> => {
 };
 
 const sortOptions = {
-  'new': {
-    createdAt: 'desc'
+  new: {
+    createdAt: "desc",
   },
-  'top': {
-    likedBy: 'desc'
-  }
-}
+  top: {
+    likedBy: "desc",
+  },
+};
 
 const getPodPosts = async (podId: number): Promise<PostDetail[]> => {
   const posts = await prisma.post.findMany({
@@ -179,7 +179,25 @@ const likePost = async (postId: number) => {
     });
   }
 
-  revalidatePath('/')
+  revalidatePath("/");
 };
 
-export { getPosts, getPodPosts, getUserPosts, getPost, createPost, likePost };
+const deletePost = async (postId: number) => {
+  await prisma.post.delete({
+    where: {
+      id: postId,
+    },
+  });
+  console.log("Post deleted!");
+  revalidatePath("/");
+};
+
+export {
+  getPosts,
+  getPodPosts,
+  getUserPosts,
+  getPost,
+  createPost,
+  likePost,
+  deletePost,
+};

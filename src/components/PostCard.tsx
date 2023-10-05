@@ -9,8 +9,9 @@ import CommentModal from "./CommentModal";
 import { CommentButton, LikeButton, MenuButton } from "./buttons";
 import { PostDetail } from "@/types";
 import DolphinIcon from "./DolphinIcon";
-import { likePost } from "@/db/posts";
+import { deletePost, likePost } from "@/db/posts";
 import { getCurrentUser } from "@/auth";
+import ContextMenu from "./ContextMenu";
 
 export default function PostCard({ post }: { post: PostDetail }) {
   const userId = getCurrentUser();
@@ -36,7 +37,12 @@ export default function PostCard({ post }: { post: PostDetail }) {
     setCommentModalIsOpen((prev) => !prev);
   };
 
-  const handleMoreClick = () => {};
+  const [menuIsShown, setMenuIsShown] = useState(false);
+  const toggleMenu = () => {
+    setMenuIsShown((prev) => !prev);
+  };
+
+  const handleEdit = () => {};
 
   return (
     <article className="bg-white p-4 pb-2 rounded-md relative shadow hover:shadow-lg transition">
@@ -60,7 +66,9 @@ export default function PostCard({ post }: { post: PostDetail }) {
           <span>{post.createdAt.toDateString()}</span>
         </div>
         <div className="py-2">{post.content}</div>
-        {isOwnPost && <MenuButton onClick={handleMoreClick} />}
+        {isOwnPost && (
+          <MenuButton onClick={toggleMenu} isToggled={menuIsShown} />
+        )}
         <div className="flex gap-4 py-2">
           <LikeButton liked={liked} likes={likes} onClick={handleLikeClick} />
           <CommentButton
@@ -69,6 +77,12 @@ export default function PostCard({ post }: { post: PostDetail }) {
           />
         </div>
       </Link>
+      {menuIsShown && (
+        <ContextMenu
+          handleEditClick={handleEdit}
+          handleDeleteClick={() => deletePost(post.id)}
+        />
+      )}
       {commentModalIsOpen && (
         <CommentModal close={handleCommentClick} post={post} />
       )}
