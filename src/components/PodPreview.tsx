@@ -4,11 +4,7 @@ import { Pod } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
 
-type PodPreviewProps = {
-  pod: Pod;
-};
-
-export default function PodPreview({ pod }: PodPreviewProps) {
+export default function PodPreview({ pod }: {pod: Pod}) {
   const handleClickJoin = () => {};
 
   return (

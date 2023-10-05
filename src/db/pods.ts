@@ -5,7 +5,15 @@ import prisma from "./db";
 import { redirect } from "next/navigation";
 
 const getPods = async () => {
-  const pods = await prisma.pod.findMany();
+  const pods = await prisma.pod.findMany({
+    include: {
+      members: {
+        select: {
+          memberId: true
+        }
+      }
+    }
+  });
   return pods;
 };
 
@@ -14,6 +22,13 @@ const getPod = async (podId: number) => {
     where: {
       id: podId,
     },
+    include: {
+      members: {
+        select: {
+          memberId: true
+        }
+      }
+    }
   });
   return pod;
 };
@@ -26,6 +41,13 @@ const getUserPods = async (userId: number) => {
           member: {
             id: userId,
           },
+        },
+      },
+    },
+    include: {
+      members: {
+        select: {
+          memberId: true,
         },
       },
     },
