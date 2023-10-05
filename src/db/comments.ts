@@ -46,4 +46,14 @@ const createComment = async (postId: number, content: string) => {
   // revalidatePath(`/post/${postId}`);
 };
 
-export { getPostComments, getUserComments, createComment };
+const deleteComment = async (commentId: number) => {
+  await prisma.comment.delete({
+    where: {
+      id: commentId
+    }
+  })
+  console.log('Comment deleted')
+  revalidatePath('/')
+}
+
+export { getPostComments, getUserComments, createComment, deleteComment };

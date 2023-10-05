@@ -26,6 +26,15 @@ const getPosts = async (): Promise<PostDetail[]> => {
   return posts;
 };
 
+const sortOptions = {
+  'new': {
+    createdAt: 'desc'
+  },
+  'top': {
+    likedBy: 'desc'
+  }
+}
+
 const getPodPosts = async (podId: number): Promise<PostDetail[]> => {
   const posts = await prisma.post.findMany({
     where: {
