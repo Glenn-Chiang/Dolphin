@@ -1,3 +1,5 @@
+"use server";
+
 import prisma from "./db";
 import { redirect } from "next/navigation";
 
@@ -21,17 +23,16 @@ const getUserPods = async (userId: number) => {
       members: {
         some: {
           member: {
-            id: userId
-          }
-        }
-      }
+            id: userId,
+          },
+        },
+      },
     },
   });
   return pods;
 };
 
 const createPod = async (formData: FormData) => {
-  "use server";
   const name = formData.get("name");
   const about = formData.get("about");
 
@@ -54,6 +55,13 @@ const createPod = async (formData: FormData) => {
   redirect("/pods");
 };
 
-// const joinPod = async (userId: number, podId)
+const joinPod = async (userId: number, podId: number) => {
+  await prisma.podMember.create({
+    data: {
+      podId,
+      memberId: userId,
+    },
+  });
+};
 
-export { getPods, getPod, getUserPods, createPod };
+export { getPods, getPod, getUserPods, createPod, joinPod };
