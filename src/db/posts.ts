@@ -51,34 +51,36 @@ const getTopPodPosts = async (podId: number): Promise<PostDetail[]> => {
     include: includedData,
     orderBy: {
       likedBy: {
-        _count: 'desc'
-      }
+        _count: "desc",
+      },
     },
   });
   return posts;
 };
 
-const getYesterday = () => {
-  const date = new Date()
-  date.setDate(date.getDate() - 1)
-  return date
-}
+// const getYesterday = () => {
+//   const date = new Date()
+//   date.setDate(date.getDate() - 1)
+//   return date
+// }
 
 // Get all posts in pod within the last 24h sorted by like count
 const getHotPodPosts = async (podId: number): Promise<PostDetail[]> => {
   const posts = await prisma.post.findMany({
     where: {
       podId,
-      createdAt: {
-        gte: getYesterday()
-      }
     },
     include: includedData,
-    orderBy: {
-      likedBy: {
+    orderBy: [
+      {
+        createdAt: 'desc'
+      },
+      {
+        likedBy: {
         _count: "desc",
       },
-    },
+      }
+    ]
   });
   return posts;
 };
