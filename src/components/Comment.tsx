@@ -1,16 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import { LikeButton, CommentButton, MenuButton } from "./buttons";
-import { CommentDetail } from "@/types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEdit,
-  faTrash,
-  faUserCircle,
-} from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
 import { getCurrentUser } from "@/auth";
+import { deleteComment } from "@/db/comments";
+import { CommentDetail } from "@/types";
+import {
+  faUserCircle
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
+import { useState } from "react";
+import { CommentButton, LikeButton, MenuButton } from "./buttons";
+import ContextMenu from "./ContextMenu";
 
 type CommentProps = {
   comment: CommentDetail;
@@ -34,6 +34,10 @@ export default function Comment({ comment }: CommentProps) {
     setMenuIsShown((prev) => !prev);
   };
 
+  const handleEdit = () => {
+
+  }
+
   return (
     <article className="p-4 bg-white rounded-md shadow relative">
       <div className="flex items-center">
@@ -53,35 +57,16 @@ export default function Comment({ comment }: CommentProps) {
         <LikeButton onClick={handleLikeClick} liked={liked} />
         <CommentButton onClick={handleReplyClick} />
       </div>
-      {isOwnComment && <MenuButton onClick={toggleMenu} isToggled={menuIsShown}/>}
-      {menuIsShown && <ContextMenu />}
+      {isOwnComment && (
+        <MenuButton onClick={toggleMenu} isToggled={menuIsShown} />
+      )}
+      {menuIsShown && (
+        <ContextMenu
+          handleDeleteClick={() => deleteComment(comment.id)}
+          handleEditClick={handleEdit}
+        />
+      )}
     </article>
   );
 }
 
-function ContextMenu() {
-  return (
-    <div className="absolute right-2 top-16 z-10 shadow bg-slate-100 rounded-md text-slate-600 flex flex-col items-start ">
-      <EditButton />
-      <DeleteButton />
-    </div>
-  );
-}
-
-function EditButton() {
-  return (
-    <button className="p-3 flex gap-2 items-center hover:bg-slate-200 w-full rounded-t-md">
-      <FontAwesomeIcon icon={faEdit} />
-      Edit
-    </button>
-  );
-}
-
-function DeleteButton() {
-  return (
-    <button className="p-3 flex gap-2 items-center hover:bg-slate-200 w-full rounded-b-md">
-      <FontAwesomeIcon icon={faTrash} />
-      Delete
-    </button>
-  );
-}
