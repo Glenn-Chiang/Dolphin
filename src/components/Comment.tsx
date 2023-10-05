@@ -1,17 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { LikeButton, CommentButton } from "./buttons";
+import { LikeButton, CommentButton, MoreButton } from "./buttons";
 import { CommentDetail } from "@/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { getCurrentUser } from "@/auth";
 
 type CommentProps = {
   comment: CommentDetail;
 };
 
 export default function Comment({ comment }: CommentProps) {
+  const userId = getCurrentUser()
+  const isOwnComment = userId === comment.authorId
+
   const [liked, setLiked] = useState(false);
 
   const handleLikeClick = () => {
@@ -21,7 +25,7 @@ export default function Comment({ comment }: CommentProps) {
   const handleReplyClick = () => {};
 
   return (
-    <article className="p-4 bg-white rounded-md shadow">
+    <article className="p-4 bg-white rounded-md shadow relative">
       <div className="flex items-center">
         <Link
           href={`/profile/${comment.authorId}`}
@@ -37,6 +41,7 @@ export default function Comment({ comment }: CommentProps) {
         <LikeButton onClick={handleLikeClick} liked={liked} />
         <CommentButton onClick={handleReplyClick} />
       </div>
+      {isOwnComment && <MoreButton/>}
     </article>
   );
 }
