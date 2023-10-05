@@ -22,5 +22,17 @@ const commentDetail = Prisma.validator<Prisma.CommentDefaultArgs>()({
   }
 })
 
+// Pod with members
+const podDetail = Prisma.validator<Prisma.PodDefaultArgs>()({
+  include: {
+    members: {
+      select: {
+        memberId: true
+      }
+    }
+  }
+})
+
 export type PostDetail = Prisma.PostGetPayload<typeof postDetail>
 export type CommentDetail = Prisma.CommentGetPayload<typeof commentDetail>
+export type PodDetail = Prisma.PodGetPayload<typeof podDetail>
