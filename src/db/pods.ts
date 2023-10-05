@@ -18,7 +18,9 @@ const getPod = async (podId: number) => {
 const getUserPods = async (userId: number) => {
   const pods = await prisma.pod.findMany({
     where: {
-      id: userId,
+      members: {
+        
+      },
     },
   });
   return pods;

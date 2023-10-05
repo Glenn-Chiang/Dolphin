@@ -1,7 +1,7 @@
 import { getPod } from "@/db/pods";
 import Link from "next/link";
 import React from "react";
-import PodCard from "./PodCard";
+import PodBanner from "./PodBanner";
 
 export default async function PodPage({
   params,
@@ -19,7 +19,7 @@ export default async function PodPage({
 
   return (
     <main className="flex flex-col gap-4 pb-4">
-      <PodCard pod={pod} />
+      <PodBanner pod={pod} />
       <section className="bg-white rounded-md shadow p-4 ">
         <nav className="flex gap-4 font-medium">
           <Link href={`/pods/${podId}`}>Posts</Link>
