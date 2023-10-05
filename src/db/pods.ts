@@ -19,8 +19,12 @@ const getUserPods = async (userId: number) => {
   const pods = await prisma.pod.findMany({
     where: {
       members: {
-        
-      },
+        some: {
+          member: {
+            id: userId
+          }
+        }
+      }
     },
   });
   return pods;
@@ -49,5 +53,7 @@ const createPod = async (formData: FormData) => {
 
   redirect("/pods");
 };
+
+// const joinPod = async (userId: number, podId)
 
 export { getPods, getPod, getUserPods, createPod };

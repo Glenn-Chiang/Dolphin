@@ -10,7 +10,7 @@ export default async function ProfilePods({
   const pods = await getUserPods(userId);
 
   if (pods.length === 0) {
-    return <section>This user hasn&apos;t joined any pods</section>;
+    return <section className="bg-white rounded-md text-slate-500 p-4 shadow">This user hasn&apos;t joined any pods</section>;
   }
 
   return (

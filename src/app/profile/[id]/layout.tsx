@@ -19,7 +19,7 @@ export default async function Profile({
   return (
     <main className="flex flex-col gap-4">
       <Banner user={user}/>      
-      <nav className="flex gap-4 font-medium bg-white p-4 rounded-md shadow">
+      <nav className="flex gap-4 font-medium bg-white p-2 rounded-md shadow">
         <TabLink href={`/profile/${userId}`}>Posts</TabLink>
         <TabLink href={`/profile/${userId}/comments`}>Comments</TabLink>
         <TabLink href={`/profile/${userId}/pods`}>Pods</TabLink>
