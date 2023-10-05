@@ -1,5 +1,4 @@
 import PostCard from "@/components/PostCard";
-import SortLinks from "@/components/SortLinks";
 import { getPodPosts } from "@/db/posts";
 
 export default async function PodPosts({ params }: { params: { id: string } }) {

@@ -6,51 +6,35 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { PostDetail } from "@/types";
 
+const includedData = {
+  author: true,
+  pod: true,
+  likedBy: true,
+  _count: {
+    select: {
+      comments: true,
+      likedBy: true,
+    },
+  },
+};
+
 const getPosts = async (): Promise<PostDetail[]> => {
   const posts = await prisma.post.findMany({
     orderBy: {
       createdAt: "desc",
     },
-    include: {
-      author: true,
-      pod: true,
-      likedBy: true,
-      _count: {
-        select: {
-          comments: true,
-          likedBy: true,
-        },
-      },
-    },
+    include: includedData
   });
   return posts;
 };
 
-const sortOptions = {
-  new: {
-    createdAt: "desc",
-  },
-  top: {
-    likedBy: "desc",
-  },
-};
 
 const getPodPosts = async (podId: number): Promise<PostDetail[]> => {
   const posts = await prisma.post.findMany({
     where: {
       podId,
     },
-    include: {
-      author: true,
-      pod: true,
-      likedBy: true,
-      _count: {
-        select: {
-          comments: true,
-          likedBy: true,
-        },
-      },
-    },
+    include: includedData,
     orderBy: {
       createdAt: "desc",
     },
@@ -63,17 +47,7 @@ const getUserPosts = async (userId: number): Promise<PostDetail[]> => {
     where: {
       authorId: userId,
     },
-    include: {
-      author: true,
-      pod: true,
-      likedBy: true,
-      _count: {
-        select: {
-          comments: true,
-          likedBy: true,
-        },
-      },
-    },
+    include: includedData,
     orderBy: {
       createdAt: "desc",
     },
@@ -86,17 +60,7 @@ const getPost = async (postId: number): Promise<PostDetail | null> => {
     where: {
       id: postId,
     },
-    include: {
-      author: true,
-      pod: true,
-      likedBy: true,
-      _count: {
-        select: {
-          comments: true,
-          likedBy: true,
-        },
-      },
-    },
+    include: includedData
   });
   return post;
 };
