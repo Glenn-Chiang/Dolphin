@@ -10,9 +10,11 @@ import { CommentButton, LikeButton } from "./buttons";
 import { PostDetail } from "@/types";
 import DolphinIcon from "./DolphinIcon";
 import { likePost } from "@/db/posts";
+import { getCurrentUser } from "@/auth";
 
 export default function PostCard({ post }: {post: PostDetail}) {
-  const [liked, setLiked] = useState(false);
+  const userId = getCurrentUser()
+  const [liked, setLiked] = useState(!!post.likedBy.find(user => user.id === userId));
   const [likes, setLikes] = useState(post._count.likedBy);
 
   const handleLikeClick = () => {
