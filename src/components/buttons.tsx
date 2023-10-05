@@ -1,6 +1,7 @@
 "use client";
 
 import { getCurrentUser } from "@/auth";
+import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { faComment } from "@fortawesome/free-solid-svg-icons/faComment";
 import { faHeart } from "@fortawesome/free-solid-svg-icons/faHeart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -100,4 +101,17 @@ function CommentButton({ comments, onClick }: CommentButtonProps) {
   );
 }
 
-export { SubmitButton, CancelButton, LikeButton, CommentButton, JoinButton };
+
+function MoreButton({onClick}: {onClick: () => void}) {
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.preventDefault();
+    onClick();
+  };
+  return (
+    <button onClick={handleClick} className="absolute top-4 right-4 hover:bg-slate-200 p-2 w-10 h-10 -mr-2 rounded-full">
+      <FontAwesomeIcon icon={faEllipsisV} />
+    </button>
+  );
+}
+
+export { SubmitButton, CancelButton, LikeButton, CommentButton, JoinButton, MoreButton };

@@ -6,30 +6,39 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import React, { useState } from "react";
 import CommentModal from "./CommentModal";
-import { CommentButton, LikeButton } from "./buttons";
+import { CommentButton, LikeButton, MoreButton } from "./buttons";
 import { PostDetail } from "@/types";
 import DolphinIcon from "./DolphinIcon";
 import { likePost } from "@/db/posts";
 import { getCurrentUser } from "@/auth";
 
-export default function PostCard({ post }: {post: PostDetail}) {
-  const userId = getCurrentUser()
-  const [liked, setLiked] = useState(!!post.likedBy.find(user => user.id === userId));
+export default function PostCard({ post }: { post: PostDetail }) {
+  const userId = getCurrentUser();
+
+  const isOwnPost = userId === post.authorId;
+
+  const [liked, setLiked] = useState(
+    !!post.likedBy.find((user) => user.id === userId)
+  );
   const [likes, setLikes] = useState(post._count.likedBy);
 
   const handleLikeClick = () => {
     // Optimistically update like button UI
     setLiked((prev) => !prev);
-    setLikes(prev => liked ? prev - 1 : prev + 1)
-    likePost(post.id)
+    setLikes((prev) => (liked ? prev - 1 : prev + 1));
+    likePost(post.id);
     return;
   };
 
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [commentModalIsOpen, setCommentModalIsOpen] = useState(false);
 
   const handleCommentClick = () => {
-    setModalIsOpen((prev) => !prev);
+    setCommentModalIsOpen((prev) => !prev);
   };
+
+  const handleMoreClick = () => {
+    
+  }
 
   return (
     <article className="bg-white p-4 pb-2 rounded-md relative shadow hover:shadow-lg transition">
@@ -53,9 +62,7 @@ export default function PostCard({ post }: {post: PostDetail}) {
           <span>{post.createdAt.toDateString()}</span>
         </div>
         <div className="py-2">{post.content}</div>
-        <button className="absolute top-4 right-4">
-          <FontAwesomeIcon icon={faEllipsisV} />
-        </button>
+        {isOwnPost && <MoreButton onClick={handleMoreClick} />}
         <div className="flex gap-4 py-2">
           <LikeButton liked={liked} likes={likes} onClick={handleLikeClick} />
           <CommentButton
@@ -64,7 +71,8 @@ export default function PostCard({ post }: {post: PostDetail}) {
           />
         </div>
       </Link>
-      {modalIsOpen && <CommentModal close={handleCommentClick} post={post}/>}
+      {commentModalIsOpen && <CommentModal close={handleCommentClick} post={post} />}
     </article>
   );
 }
+
