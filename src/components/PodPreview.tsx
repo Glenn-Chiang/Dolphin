@@ -4,11 +4,22 @@ import { getCurrentUser } from "@/auth";
 import { PodDetail } from "@/types";
 import Link from "next/link";
 import React from "react";
+import { joinPod, leavePod } from "@/db/pods";
+import { JoinButton } from "./buttons";
 
-export default function PodPreview({ pod }: {pod: PodDetail}) {
-  const userId = getCurrentUser()
-  // const alreadyJoined 
-  const handleClickJoin = () => {};
+export default function PodPreview({ pod }: { pod: PodDetail }) {
+  const userId = getCurrentUser();
+  const alreadyJoined = !!pod.members.find(
+    (member) => member.memberId === userId
+  );
+
+  const handleClick = () => {
+    if (alreadyJoined) {
+      joinPod(pod.id);
+    } else {
+      leavePod(pod.id);
+    }
+  };
 
   return (
     <article className="bg-white p-4 pb-2 rounded-md relative shadow hover:shadow-lg transition">
@@ -16,30 +27,10 @@ export default function PodPreview({ pod }: {pod: PodDetail}) {
         <h2>{pod.name}</h2>
         <p className="py-4">{pod.about}</p>
         <div className="flex gap-4 items-center">
-          <JoinButton onClick={handleClickJoin} />
+          <JoinButton onClick={handleClick} alreadyJoined={alreadyJoined}/>
           <span className="text-slate-500">{0} members</span>
         </div>
       </Link>
     </article>
-  );
-}
-
-type JoinButtonProps = {
-  onClick: () => void;
-};
-
-function JoinButton({ onClick }: JoinButtonProps) {
-  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
-    event.preventDefault(); // don't nevigate to link path when button is clicked
-    onClick();
-  };
-
-  return (
-    <button
-      onClick={handleClick}
-      className="bg-sky-500 text-white p-2 rounded-md shadow hover:shadow-lg hover:bg-sky-400"
-    >
-      Join Pod
-    </button>
   );
 }

@@ -2,7 +2,7 @@
 
 import { getCurrentUser } from "@/auth";
 import DolphinIcon from "@/components/DolphinIcon";
-import { SubmitButton } from "@/components/buttons";
+import { JoinButton, SubmitButton } from "@/components/buttons";
 import { joinPod, leavePod } from "@/db/pods";
 import { PodDetail } from "@/types";
 
@@ -38,18 +38,3 @@ export default function PodBanner({ pod }: { pod: PodDetail }) {
   );
 }
 
-type JoinButtonProps = {
-  alreadyJoined: boolean;
-  onClick: () => void;
-};
-
-function JoinButton({ alreadyJoined, onClick }: JoinButtonProps) {
-  return (
-    <button
-      onClick={onClick}
-      className="bg-sky-500 p-2 rounded-md shadow text-white shadow-sky-500 hover:shadow-md hover:shadow-sky-500"
-    >
-      {alreadyJoined ? "Leave" : "Join"} Pod
-    </button>
-  );
-}

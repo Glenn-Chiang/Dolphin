@@ -33,6 +33,27 @@ function CancelButton({ onClick }: { onClick: () => void }) {
   );
 }
 
+type JoinButtonProps = {
+  alreadyJoined: boolean;
+  onClick: () => void;
+};
+
+function JoinButton({ alreadyJoined, onClick }: JoinButtonProps) {
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.preventDefault(); // don't nevigate to link path when button is clicked
+    onClick();
+  };
+
+  return (
+    <button
+      onClick={handleClick}
+      className="bg-sky-500 p-2 rounded-md shadow text-white shadow-sky-500 hover:shadow-md hover:shadow-sky-500"
+    >
+      {alreadyJoined ? "Leave" : "Join"} Pod
+    </button>
+  );
+}
+
 type LikeButtonProps = {
   liked: boolean;
   likes: number;
@@ -79,4 +100,4 @@ function CommentButton({ comments, onClick }: CommentButtonProps) {
   );
 }
 
-export { SubmitButton, CancelButton, LikeButton, CommentButton };
+export { SubmitButton, CancelButton, LikeButton, CommentButton, JoinButton };
