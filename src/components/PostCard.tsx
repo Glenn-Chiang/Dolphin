@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import React, { useState } from "react";
 import CommentModal from "./CommentModal";
-import { CommentButton, LikeButton, MoreButton } from "./buttons";
+import { CommentButton, LikeButton, MenuButton } from "./buttons";
 import { PostDetail } from "@/types";
 import DolphinIcon from "./DolphinIcon";
 import { likePost } from "@/db/posts";
@@ -36,9 +36,7 @@ export default function PostCard({ post }: { post: PostDetail }) {
     setCommentModalIsOpen((prev) => !prev);
   };
 
-  const handleMoreClick = () => {
-    
-  }
+  const handleMoreClick = () => {};
 
   return (
     <article className="bg-white p-4 pb-2 rounded-md relative shadow hover:shadow-lg transition">
@@ -62,7 +60,7 @@ export default function PostCard({ post }: { post: PostDetail }) {
           <span>{post.createdAt.toDateString()}</span>
         </div>
         <div className="py-2">{post.content}</div>
-        {isOwnPost && <MoreButton onClick={handleMoreClick} />}
+        {isOwnPost && <MenuButton onClick={handleMoreClick} />}
         <div className="flex gap-4 py-2">
           <LikeButton liked={liked} likes={likes} onClick={handleLikeClick} />
           <CommentButton
@@ -71,8 +69,9 @@ export default function PostCard({ post }: { post: PostDetail }) {
           />
         </div>
       </Link>
-      {commentModalIsOpen && <CommentModal close={handleCommentClick} post={post} />}
+      {commentModalIsOpen && (
+        <CommentModal close={handleCommentClick} post={post} />
+      )}
     </article>
   );
 }
-
