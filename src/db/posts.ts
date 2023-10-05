@@ -3,6 +3,7 @@
 import { getCurrentUser } from "@/auth";
 import prisma from "./db";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 const getPosts = async () => {
   const posts = await prisma.post.findMany({
@@ -116,21 +117,53 @@ const createPost = async (formData: FormData) => {
 };
 
 const likePost = async (postId: number) => {
+  // Get current user's liked posts
   const userId = getCurrentUser();
-  await prisma.post.update({
+  const user = await prisma.user.findUnique({
     where: {
-      id: postId,
+      id: userId,
     },
-    data: {
-      likedBy: {
-        connect: {
-          id: userId, // Add user to post's likedBy field
-        },
-      },
+    include: {
+      likedPosts: true,
     },
   });
-  console.log("Post liked!");
+
+  if (!user) {
+    console.log("User not found");
+    return;
+  }
+
+  const alreadyLiked = user.likedPosts.some((post) => post.id === postId);
+
+  if (alreadyLiked) {
+    // Unlike post if user had already liked post
+    await prisma.post.update({
+      where: {
+        id: postId,
+      },
+      data: {
+        likedBy: {
+          disconnect: {
+            id: userId,
+          },
+        },
+      },
+    });
+    // Like post if user has not yet liked post
+  } else {
+    await prisma.post.update({
+      where: {
+        id: postId,
+      },
+      data: {
+        likedBy: {
+          connect: {
+            id: userId,
+          },
+        },
+      },
+    });
+  }
 };
 
 export { getPosts, getPodPosts, getUserPosts, getPost, createPost, likePost };
-

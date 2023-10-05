@@ -13,9 +13,12 @@ import { likePost } from "@/db/posts";
 
 export default function PostCard({ post }: {post: PostDetail}) {
   const [liked, setLiked] = useState(false);
+  const [likes, setLikes] = useState(post._count.likedBy);
 
   const handleLikeClick = () => {
+    // Optimistically update like button UI
     setLiked((prev) => !prev);
+    setLikes(prev => liked ? prev - 1 : prev + 1)
     likePost(post.id)
     return;
   };
@@ -52,7 +55,7 @@ export default function PostCard({ post }: {post: PostDetail}) {
           <FontAwesomeIcon icon={faEllipsisV} />
         </button>
         <div className="flex gap-4 py-2">
-          <LikeButton liked={liked} likes={post._count.likedBy} onClick={handleLikeClick} />
+          <LikeButton liked={liked} likes={likes} onClick={handleLikeClick} />
           <CommentButton
             comments={post._count.comments}
             onClick={handleCommentClick}
