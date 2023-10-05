@@ -23,13 +23,13 @@ const getPosts = async (): Promise<PostDetail[]> => {
     orderBy: {
       createdAt: "desc",
     },
-    include: includedData
+    include: includedData,
   });
   return posts;
 };
 
-
-const getPodPosts = async (podId: number): Promise<PostDetail[]> => {
+// Get all posts in pod sorted by date created
+const getNewPodPosts = async (podId: number): Promise<PostDetail[]> => {
   const posts = await prisma.post.findMany({
     where: {
       podId,
@@ -37,6 +37,47 @@ const getPodPosts = async (podId: number): Promise<PostDetail[]> => {
     include: includedData,
     orderBy: {
       createdAt: "desc",
+    },
+  });
+  return posts;
+};
+
+// Get all posts in pod sorted by like count
+const getTopPodPosts = async (podId: number): Promise<PostDetail[]> => {
+  const posts = await prisma.post.findMany({
+    where: {
+      podId,
+    },
+    include: includedData,
+    orderBy: {
+      likedBy: {
+        _count: 'desc'
+      }
+    },
+  });
+  return posts;
+};
+
+const getYesterday = () => {
+  const date = new Date()
+  date.setDate(date.getDate() - 1)
+  return date
+}
+
+// Get all posts in pod within the last 24h sorted by like count
+const getHotPodPosts = async (podId: number): Promise<PostDetail[]> => {
+  const posts = await prisma.post.findMany({
+    where: {
+      podId,
+      createdAt: {
+        gte: getYesterday()
+      }
+    },
+    include: includedData,
+    orderBy: {
+      likedBy: {
+        _count: "desc",
+      },
     },
   });
   return posts;
@@ -60,7 +101,7 @@ const getPost = async (postId: number): Promise<PostDetail | null> => {
     where: {
       id: postId,
     },
-    include: includedData
+    include: includedData,
   });
   return post;
 };
@@ -158,7 +199,9 @@ const deletePost = async (postId: number) => {
 
 export {
   getPosts,
-  getPodPosts,
+  getNewPodPosts,
+  getTopPodPosts,
+  getHotPodPosts,
   getUserPosts,
   getPost,
   createPost,
