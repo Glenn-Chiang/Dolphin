@@ -1,17 +1,16 @@
 "use client";
 
-import { faEllipsisV } from "@fortawesome/free-solid-svg-icons/faEllipsisV";
+import { getCurrentUser } from "@/auth";
+import { deletePost, likePost } from "@/db/posts";
+import { PostDetail } from "@/types";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons/faUserCircle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import React, { useState } from "react";
+import { useState } from "react";
 import CommentModal from "./CommentModal";
-import { CommentButton, LikeButton, MenuButton } from "./buttons";
-import { PostDetail } from "@/types";
-import DolphinIcon from "./DolphinIcon";
-import { deletePost, likePost } from "@/db/posts";
-import { getCurrentUser } from "@/auth";
 import ContextMenu from "./ContextMenu";
+import DolphinIcon from "./DolphinIcon";
+import { CommentButton, LikeButton, MenuButton } from "./buttons";
 
 export default function PostCard({ post }: { post: PostDetail }) {
   const userId = getCurrentUser();

@@ -10,7 +10,7 @@ export default async function CreatePost() {
       <h1>Create a Post</h1>
       <form action={createPost} className="py-4 flex flex-col gap-4">
         <div className="flex flex-col gap-2">
-          <label htmlFor="pod">Select a Pod</label>
+          <label className="font-medium" htmlFor="pod">Select a Pod</label>
           <select
             id="pod"
             name="podId"
@@ -24,7 +24,7 @@ export default async function CreatePost() {
           </select>
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="title">Title</label>
+          <label className="font-medium" htmlFor="title">Title</label>
           <input
             id="title"
             name="title"
@@ -32,7 +32,7 @@ export default async function CreatePost() {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="content">Content</label>
+          <label className="font-medium" htmlFor="content">Content</label>
           <textarea
             id="content"
             name="content"
