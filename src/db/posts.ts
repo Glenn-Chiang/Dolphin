@@ -169,6 +169,8 @@ const likePost = async (postId: number) => {
       },
     });
   }
+
+  revalidatePath('/')
 };
 
 export { getPosts, getPodPosts, getUserPosts, getPost, createPost, likePost };
