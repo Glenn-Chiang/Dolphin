@@ -6,7 +6,7 @@ export default function CommentSection({ comments }: {comments: CommentDetail[]}
   return (
     <>
       <CommentForm />
-      <h2>Comments</h2>
+      <h2 className="p-2">Comments</h2>
       {comments.length ? (
         <ul className="flex flex-col gap-4">
           {comments.map((comment) => (

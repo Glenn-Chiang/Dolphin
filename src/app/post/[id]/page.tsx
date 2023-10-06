@@ -2,6 +2,7 @@ import PostCard from "@/components/PostCard";
 import CommentSection from "./CommentSection";
 import { getPost } from "@/db/posts";
 import { getPostComments } from "@/db/comments";
+import Backbar from "./Backbar";
 
 export default async function Post({ params }: { params: { id: string } }) {
   const postId = Number(params.id);
@@ -13,8 +14,10 @@ export default async function Post({ params }: { params: { id: string } }) {
   }
   return (
     <main className="flex flex-col gap-4 pb-4">
+      <Backbar/>
       <PostCard post={post} />
       <CommentSection comments={comments} />
     </main>
   );
 }
+
