@@ -11,6 +11,7 @@ import CommentModal from "./CommentModal";
 import ContextMenu from "./ContextMenu";
 import DolphinIcon from "./DolphinIcon";
 import { CommentButton, LikeButton, MenuButton } from "./buttons";
+import { useRouter } from 'next/navigation';
 
 export default function PostCard({ post }: { post: PostDetail }) {
   const userId = getCurrentUser();
@@ -41,7 +42,11 @@ export default function PostCard({ post }: { post: PostDetail }) {
     setMenuIsShown((prev) => !prev);
   };
 
-  const handleEdit = () => {};
+  const router = useRouter()
+
+  const handleEditClick = () => {
+    router.push(`/post/${post.id}/edit`)
+  };
 
   return (
     <article className="bg-white p-4 pb-2 rounded-md relative shadow hover:shadow-lg transition">
@@ -78,7 +83,7 @@ export default function PostCard({ post }: { post: PostDetail }) {
       </Link>
       {menuIsShown && (
         <ContextMenu
-          handleEditClick={handleEdit}
+          handleEditClick={handleEditClick}
           handleDeleteClick={() => deletePost(post.id)}
         />
       )}
