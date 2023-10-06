@@ -1,5 +1,5 @@
 import React from "react";
-import SortMenu from "@/components/SortLinks";
+import SortMenu from "@/components/SortMenu";
 
 type PodPostsLayoutProps = {
   params: { id: string };

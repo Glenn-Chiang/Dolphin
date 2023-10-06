@@ -17,15 +17,15 @@ type SortMenuProps = {
 export default function SortMenu({context, id}: SortMenuProps) {
   return (
     <div className="bg-white shadow rounded-xl p-2 flex gap-4 items-center ">
-      <SortLink href={`/${context}/${id}?sort=hot`} >
+      <SortLink context={context} id={id} sortOrder="hot">
         <FontAwesomeIcon icon={faFire} />
         Hot
       </SortLink>
-      <SortLink href={`/${context}/${id}?sort=new`} >
+      <SortLink context={context} id={id} sortOrder="new">
         <FontAwesomeIcon icon={faStarOfLife} />
         New
       </SortLink>
-      <SortLink href={`/${context}/${id}?sort=top`} >
+      <SortLink context={context} id={id} sortOrder="top">
         <FontAwesomeIcon icon={faRocket} />
         Top
       </SortLink>
@@ -34,19 +34,20 @@ export default function SortMenu({context, id}: SortMenuProps) {
 }
 
 type SortLinkProps = {
-  href: string;
+  context: 'profile' | 'pods'
+  id: number
+  sortOrder: 'hot' | 'new' | 'top'
   children: React.ReactNode;
 };
 
-function SortLink({ href, children }: SortLinkProps) {
-  const activePath = usePathname() // Does not contain search params
+function SortLink({ context, id, sortOrder, children }: SortLinkProps) {
   const searchParams = useSearchParams()
-  const sortOrder = searchParams.get('sort') // 'new', 'top', 'hot'
-  const isActive = href === activePath + `?sort=${sortOrder}`
+  const currentSortOrder = searchParams.get('sort')
+  const isActive = sortOrder === currentSortOrder
   
   return (
     <Link
-      href={href}
+      href={`/${context}/${id}?sort=${sortOrder}`}
       className={`p-2 rounded-full flex gap-2 items-center ${
         isActive ? "text-sky-600 bg-sky-200" : "hover:bg-slate-200"
       }`}

@@ -1,5 +1,5 @@
 import PostCard from "@/components/PostCard";
-import SortMenu from "@/components/SortLinks";
+import SortMenu from "@/components/SortMenu";
 import { getHotUserPosts, getNewUserPosts, getTopUserPosts } from "@/db/posts";
 import { PostDetail } from "@/types";
 
