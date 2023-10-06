@@ -234,6 +234,21 @@ const deletePost = async (postId: number) => {
   revalidatePath("/");
 };
 
+// Only content is patched
+const editPost = async (postId: number, content: string) => {
+  await prisma.post.update({
+    where: {
+      id: postId,
+    },
+    data: {
+      content,
+    },
+  });
+  console.log("Post edited!");
+  revalidatePath("/");
+  redirect(`/post/${postId}`);
+};
+
 export {
   getPosts,
   getNewPodPosts,
@@ -246,4 +261,5 @@ export {
   createPost,
   likePost,
   deletePost,
+  editPost,
 };

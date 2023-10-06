@@ -10,7 +10,7 @@ export default function Backbar() {
     <div className=''>
       <button onClick={() => router.back()} className='flex gap-2 items-center hover:bg-slate-200 p-2 rounded-md'>
         <FontAwesomeIcon icon={faChevronLeft}/>
-        Back to posts
+        Back
       </button>
     </div>
   )
