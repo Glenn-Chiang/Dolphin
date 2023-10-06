@@ -14,10 +14,10 @@ export default async function ProfilePosts({
   }
 
   return (
-    <section className="flex flex-col gap-4">
+    <>
       {posts.map((post) => (
         <PostCard key={post.id} post={post} />
       ))}
-    </section>
+    </>
   );
 }

@@ -6,16 +6,15 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Post } from "@prisma/client";
 
 type CommentModalProps = {
-  close: () => void
-  post: Post
-}
+  close: () => void;
+  post: Post;
+};
 
 type CommentFormValues = {
   content: string;
 };
 
-export default function CommentModal({close, post}: CommentModalProps) {
-
+export default function CommentModal({ close, post }: CommentModalProps) {
   const { register, handleSubmit } = useForm<CommentFormValues>();
 
   const onSubmit: SubmitHandler<CommentFormValues> = (formValues) => {
@@ -29,6 +28,7 @@ export default function CommentModal({close, post}: CommentModalProps) {
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <h1>Share your thoughts</h1>
         <textarea
+          autoFocus
           className="bg-slate-100 shadow rounded-md p-2"
           {...register("content", {
             required: "You cannot post a blank comment",

@@ -7,22 +7,27 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TabLink from "./TabLink";
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
-export default function SortLinks({ podId }: { podId: number }) {
-  const path = usePathname()
+type SortMenuProps = {
+  context: "profile" | "pods";
+  id: number;
+};
+
+export default function SortMenu({context, id}: SortMenuProps) {
+  const path = usePathname();
   return (
     <div className="bg-white shadow rounded-xl p-2 flex gap-4 items-center ">
-      <SortLink href={`/pods/${podId}`} activePath={path}>
+      <SortLink href={`/${context}/${id}`} activePath={path}>
         <FontAwesomeIcon icon={faFire} />
         Hot
       </SortLink>
-      <SortLink href={`/pods/${podId}/new`} activePath={path}>
+      <SortLink href={`/${context}/${id}/new`} activePath={path}>
         <FontAwesomeIcon icon={faStarOfLife} />
         New
       </SortLink>
-      <SortLink href={`/pods/${podId}/top`} activePath={path}>
+      <SortLink href={`/${context}/${id}/top`} activePath={path}>
         <FontAwesomeIcon icon={faRocket} />
         Top
       </SortLink>
@@ -42,13 +47,10 @@ function SortLink({ activePath, href, children }: SortLinkProps) {
     <Link
       href={href}
       className={`p-2 rounded-full flex gap-2 items-center ${
-        isActive
-          ? "text-sky-600 bg-sky-200"
-          : "hover:bg-slate-200"
+        isActive ? "text-sky-600 bg-sky-200" : "hover:bg-slate-200"
       }`}
     >
       {children}
     </Link>
   );
 }
-
