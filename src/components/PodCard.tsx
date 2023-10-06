@@ -28,7 +28,7 @@ export default function PodCard({ pod }: { pod: PodDetail }) {
         <p className="py-4">{pod.about}</p>
         <div className="flex gap-4 items-center">
           <JoinButton onClick={handleClick} alreadyJoined={alreadyJoined} />
-          <span className="text-slate-500">{pod.members.length} members</span>
+          <span className="text-slate-500">{pod.members.length} member{pod.members.length !== 1 && 's'}</span>
         </div>
       </Link>
     </article>

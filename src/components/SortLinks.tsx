@@ -6,9 +6,8 @@ import {
   faStarOfLife,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import TabLink from "./TabLink";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { usePathname, useSearchParams } from 'next/navigation';
 
 type SortMenuProps = {
   context: "profile" | "pods";
@@ -16,18 +15,17 @@ type SortMenuProps = {
 };
 
 export default function SortMenu({context, id}: SortMenuProps) {
-  const path = usePathname();
   return (
     <div className="bg-white shadow rounded-xl p-2 flex gap-4 items-center ">
-      <SortLink href={`/${context}/${id}`} activePath={path}>
+      <SortLink href={`/${context}/${id}?sort=hot`} >
         <FontAwesomeIcon icon={faFire} />
         Hot
       </SortLink>
-      <SortLink href={`/${context}/${id}/new`} activePath={path}>
+      <SortLink href={`/${context}/${id}?sort=new`} >
         <FontAwesomeIcon icon={faStarOfLife} />
         New
       </SortLink>
-      <SortLink href={`/${context}/${id}/top`} activePath={path}>
+      <SortLink href={`/${context}/${id}?sort=top`} >
         <FontAwesomeIcon icon={faRocket} />
         Top
       </SortLink>
@@ -36,13 +34,16 @@ export default function SortMenu({context, id}: SortMenuProps) {
 }
 
 type SortLinkProps = {
-  activePath: string;
   href: string;
   children: React.ReactNode;
 };
 
-function SortLink({ activePath, href, children }: SortLinkProps) {
-  const isActive = activePath === href;
+function SortLink({ href, children }: SortLinkProps) {
+  const activePath = usePathname() // Does not contain search params
+  const searchParams = useSearchParams()
+  const sortOrder = searchParams.get('sort') // 'new', 'top', 'hot'
+  const isActive = href === activePath + `?sort=${sortOrder}`
+  
   return (
     <Link
       href={href}

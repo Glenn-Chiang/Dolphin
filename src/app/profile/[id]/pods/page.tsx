@@ -18,7 +18,7 @@ export default async function ProfilePods({
   }
 
   return (
-    <section>
+    <section className="flex flex-col gap-4">
       {pods.map((pod) => (
         <PodCard key={pod.id} pod={pod} />
       ))}
