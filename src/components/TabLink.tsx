@@ -8,7 +8,7 @@ type TabLinkProps = {
 };
 
 export default function TabLink({ activePath, href, children }: TabLinkProps) {
-  const isActive = activePath === href
+  const isActive = activePath.startsWith(href)
   return (
     <Link
       href={href}
