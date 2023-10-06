@@ -1,5 +1,5 @@
 import PostCard from "@/components/PostCard";
-import { getUserPosts } from "@/db/posts";
+import { getHotUserPosts } from "@/db/posts";
 
 export default async function ProfilePosts({
   params,
@@ -7,7 +7,7 @@ export default async function ProfilePosts({
   params: { id: string };
 }) {
   const userId = Number(params.id);
-  const posts = await getUserPosts(userId);
+  const posts = await getHotUserPosts(userId);
 
   if (posts.length === 0) {
     return <section>This user hasn&apos;t made any posts</section>;

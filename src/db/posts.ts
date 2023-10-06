@@ -73,19 +73,19 @@ const getHotPodPosts = async (podId: number): Promise<PostDetail[]> => {
     include: includedData,
     orderBy: [
       {
-        createdAt: 'desc'
+        createdAt: "desc",
       },
       {
         likedBy: {
-        _count: "desc",
+          _count: "desc",
+        },
       },
-      }
-    ]
+    ],
   });
   return posts;
 };
 
-const getUserPosts = async (userId: number): Promise<PostDetail[]> => {
+const getNewUserPosts = async (userId: number): Promise<PostDetail[]> => {
   const posts = await prisma.post.findMany({
     where: {
       authorId: userId,
@@ -94,6 +94,41 @@ const getUserPosts = async (userId: number): Promise<PostDetail[]> => {
     orderBy: {
       createdAt: "desc",
     },
+  });
+  return posts;
+};
+
+const getTopUserPosts = async (userId: number): Promise<PostDetail[]> => {
+  const posts = await prisma.post.findMany({
+    where: {
+      authorId: userId,
+    },
+    include: includedData,
+    orderBy: {
+      likedBy: {
+        _count: "desc",
+      },
+    },
+  });
+  return posts;
+};
+
+const getHotUserPosts = async (userId: number): Promise<PostDetail[]> => {
+  const posts = await prisma.post.findMany({
+    where: {
+      authorId: userId,
+    },
+    include: includedData,
+    orderBy: [
+      {
+        createdAt: "desc",
+      },
+      {
+        likedBy: {
+          _count: "desc",
+        },
+      },
+    ],
   });
   return posts;
 };
@@ -204,7 +239,9 @@ export {
   getNewPodPosts,
   getTopPodPosts,
   getHotPodPosts,
-  getUserPosts,
+  getNewUserPosts,
+  getTopUserPosts,
+  getHotUserPosts,
   getPost,
   createPost,
   likePost,
