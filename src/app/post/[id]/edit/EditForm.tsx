@@ -6,6 +6,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { editPost } from "@/db/posts";
 import Link from 'next/link';
 import DolphinIcon from "@/components/DolphinIcon";
+import { useRouter } from 'next/navigation';
 
 type EditFormValues = {
   content: string;
@@ -14,9 +15,12 @@ type EditFormValues = {
 export default function EditPostForm({ post }: { post: PostDetail }) {
   const { register, handleSubmit } = useForm<EditFormValues>();
 
+  const router = useRouter()
+
   const onSubmit: SubmitHandler<EditFormValues> = async (formValues) => {
     const {content} = formValues
     await editPost(post.id, content)
+    router.push(`/post/${post.id}`)
   }
 
   return (

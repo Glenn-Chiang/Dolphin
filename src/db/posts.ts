@@ -246,7 +246,7 @@ const editPost = async (postId: number, content: string) => {
   });
   console.log("Post edited!");
   revalidatePath("/");
-  redirect(`/post/${postId}`);
+  // redirect(`/post/${postId}`);
 };
 
 export {
