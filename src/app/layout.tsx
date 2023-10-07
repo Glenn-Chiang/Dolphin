@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" spellCheck='false'>
       <body>
         <Navbar />
         <div className="mt-20 mb-10 px-4">{children}</div>
