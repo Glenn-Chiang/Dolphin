@@ -49,7 +49,7 @@ const getUserComments = async (userId: number) => {
 };
 
 const createComment = async (postId: number, content: string) => {
-  const comments = await prisma.comment.create({
+  await prisma.comment.create({
     data: {
       postId,
       content,
@@ -60,6 +60,19 @@ const createComment = async (postId: number, content: string) => {
   revalidatePath("/");
   // revalidatePath(`/post/${postId}`);
 };
+
+const createReply = async (postId: number, commentId: number, content: string) => {
+  await prisma.comment.create({
+    data: {
+      postId,
+      parentCommentId: commentId,
+      content,
+      authorId: getCurrentUser()
+    }
+  })
+  console.log('Reply posted')
+  revalidatePath('/')
+}
 
 const deleteComment = async (commentId: number) => {
   await prisma.comment.delete({
@@ -148,5 +161,6 @@ export {
   createComment,
   deleteComment,
   editComment,
-  likeComment
+  likeComment,
+  createReply
 };
