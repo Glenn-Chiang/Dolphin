@@ -14,9 +14,22 @@ model User {
   about String @db.VarChar(500) @default("")
   posts Post[] @relation("authored")
   comments Comment[]
-  likedPosts Post[] @relation("liked")
   pods PodMember[]
+  likedPosts Post[] @relation("liked")
+  likedComments Comment[] @relation("liked")
   createdPods Pod[]
+  followers Follows[] @relation("following")
+  following Follows[] @relation("follower")
+}
+
+model Follows {
+  follower User @relation("follower", fields: [followerId], references: [id])
+  followerId Int
+  following User @relation("following", fields: [followingId], references: [id])
+  followingId Int
+  dateFollowed DateTime @default(now())
+
+  @@id([followerId, followingId])
 }
 
 model Post {
@@ -42,6 +55,10 @@ model Comment {
   authorId Int
   post Post @relation(fields: [postId], references: [id])
   postId Int
+  likedBy User[] @relation("liked")
+  parentCommentId Int?
+  parentComment Comment? @relation("CommentReplies", fields: [parentCommentId], references: [id])
+  replies Comment[] @relation("CommentReplies") // Each comment may have 0 or more replies
 }
 
 model Pod {
