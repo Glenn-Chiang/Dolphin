@@ -9,30 +9,44 @@ const postDetail = Prisma.validator<Prisma.PostDefaultArgs>()({
     _count: {
       select: {
         comments: true,
-        likedBy: true
+        likedBy: true,
       },
     },
   },
 });
 
-// Comment with author name
+// Comment with author name, likedBy userIds and reply count
 const commentDetail = Prisma.validator<Prisma.CommentDefaultArgs>()({
   include: {
-    author: true
-  }
-})
+    author: {
+      select: {
+        name: true,
+      },
+    },
+    likedBy: {
+      select: {
+        id: true,
+      },
+    },
+    _count: {
+      select: {
+        replies: true,
+      },
+    },
+  },
+});
 
 // Pod with members
 const podDetail = Prisma.validator<Prisma.PodDefaultArgs>()({
   include: {
     members: {
       select: {
-        memberId: true
-      }
-    }
-  }
-})
+        memberId: true,
+      },
+    },
+  },
+});
 
-export type PostDetail = Prisma.PostGetPayload<typeof postDetail>
-export type CommentDetail = Prisma.CommentGetPayload<typeof commentDetail>
-export type PodDetail = Prisma.PodGetPayload<typeof podDetail>
+export type PostDetail = Prisma.PostGetPayload<typeof postDetail>;
+export type CommentDetail = Prisma.CommentGetPayload<typeof commentDetail>;
+export type PodDetail = Prisma.PodGetPayload<typeof podDetail>;

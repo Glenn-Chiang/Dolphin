@@ -1,7 +1,7 @@
 "use client";
 
 import { getCurrentUser } from "@/auth";
-import { deleteComment } from "@/db/comments";
+import { deleteComment, likeComment } from "@/db/comments";
 import { CommentDetail } from "@/types";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,10 +19,11 @@ export default function Comment({ comment }: CommentProps) {
   const userId = getCurrentUser();
   const isOwnComment = userId === comment.authorId;
 
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(!!comment.likedBy.find(user => user.id === userId));
 
-  const handleLikeClick = () => {
+  const handleLikeClick = async () => {
     setLiked((prev) => !prev);
+    await likeComment(comment.id)
   };
 
   const handleReplyClick = () => {};
@@ -53,11 +54,11 @@ export default function Comment({ comment }: CommentProps) {
           {comment.createdAt.toDateString()}
         </span>
       </div>
-      <p>{comment.content}</p>
-      {/* <div className="flex gap-2">
-        <LikeButton onClick={handleLikeClick} liked={liked} />
-        <CommentButton onClick={handleReplyClick} />
-      </div> */}
+      <p className="py-2">{comment.content}</p>
+      <div className="flex gap-2 -ml-2">
+        <LikeButton onClick={handleLikeClick} liked={liked} likes={comment.likedBy.length}/>
+        <CommentButton onClick={handleReplyClick} comments={comment._count.replies}/>
+      </div>
       {isOwnComment && (
         <MenuButton onClick={toggleMenu} isToggled={menuIsShown} />
       )}

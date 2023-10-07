@@ -2,15 +2,32 @@
 import { getCurrentUser } from "@/auth";
 import prisma from "./db";
 import { revalidatePath } from "next/cache";
+import { CommentDetail } from "@/types";
 
-const getPostComments = async (postId: number) => {
+const includedData = {
+  author: {
+    select: {
+      name: true,
+    },
+  },
+  likedBy: {
+    select: {
+      id: true,
+    },
+  },
+  _count: {
+    select: {
+      replies: true,
+    },
+  },
+};
+
+const getPostComments = async (postId: number): Promise<CommentDetail[]> => {
   const comments = await prisma.comment.findMany({
     where: {
       postId,
     },
-    include: {
-      author: true,
-    },
+    include: includedData,
     orderBy: {
       createdAt: "desc",
     },
@@ -23,9 +40,7 @@ const getUserComments = async (userId: number) => {
     where: {
       authorId: userId,
     },
-    include: {
-      author: true,
-    },
+    include: includedData,
     orderBy: {
       createdAt: "desc",
     },
@@ -67,7 +82,7 @@ const editComment = async (commentId: number, content: string) => {
   });
   console.log("Comment edited!");
   revalidatePath(`/posts/${comment.postId}`);
-  revalidatePath(`/profile/${comment.authorId}/comments`)
+  revalidatePath(`/profile/${comment.authorId}/comments`);
 };
 
 const likeComment = async (commentId: number) => {
@@ -78,49 +93,54 @@ const likeComment = async (commentId: number) => {
       id: userId,
     },
     include: {
-      likedPosts: true,
+      likedComments: {
+        select: {
+          id: true,
+        },
+      },
     },
   });
-  
+
   if (!user) {
     console.log("User not found");
     return;
   }
-  
-  const alreadyLiked = user.likedPosts.some((post) => post.id === commentId);
-  
-  if (alreadyLiked) {
-    // Unlike post if user had already liked post
-    await prisma.post.update({
-      where: {
-        id: commentId,
-      },
-      data: {
-        likedBy: {
-          disconnect: {
-            id: userId,
-          },
-        },
-      },
-    });
-    // Like post if user has not yet liked post
-  } else {
-    await prisma.post.update({
-      where: {
-        id: commentId,
-      },
-      data: {
-        likedBy: {
-          connect: {
-            id: userId,
-          },
-        },
-      },
-    });
-  }
-  revalidatePath("/");
-};
 
+  const alreadyLiked = user.likedComments.some(
+    (comment) => comment.id === commentId
+  );
+
+  const comment = alreadyLiked
+    ? // Unlike comment if user had already liked comment
+      await prisma.comment.update({
+        where: {
+          id: commentId,
+        },
+        data: {
+          likedBy: {
+            disconnect: {
+              id: userId,
+            },
+          },
+        },
+      })
+    : // Like comment if user has not yet liked comment
+      await prisma.comment.update({
+        where: {
+          id: commentId,
+        },
+        data: {
+          likedBy: {
+            connect: {
+              id: userId,
+            },
+          },
+        },
+      });
+
+  revalidatePath(`/post/${comment.postId}`);
+  revalidatePath(`/profile/${comment.authorId}/comments`);
+};
 
 export {
   getPostComments,
@@ -128,4 +148,5 @@ export {
   createComment,
   deleteComment,
   editComment,
+  likeComment
 };
