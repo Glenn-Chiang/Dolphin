@@ -26,7 +26,7 @@ export default function RootLayout({
       <body>
         <TopNav />
         <SideNav />
-        <div className="absolute sm:left-1/4 sm:w-3/4 mt-16 mb-10 px-4 ">
+        <div className="absolute sm:left-1/4 sm:w-3/4 mt-16 mb-10 p-4 ">
           {children}
         </div>
       </body>
@@ -36,7 +36,7 @@ export default function RootLayout({
 
 function SideNav() {
   return (
-    <section className="hidden sm:flex fixed w-1/4 mt-14 left-0 top-0 h-screen overflow-y-auto bg-slate-200 z-10 py-2 px-4">
+    <section className="hidden sm:flex fixed w-1/4 mt-16 left-0 top-0 h-screen overflow-y-auto bg-slate-200 z-10 py-2 px-4">
       <h1>Your Pods</h1>
     </section>
   );
@@ -44,7 +44,7 @@ function SideNav() {
 
 function TopNav() {
   return (
-    <nav className="bg-sky-500 text-white text-xl p-2 flex justify-between items-center fixed w-screen top-0 left-0 z-20 font-medium">
+    <nav className="bg-sky-500 text-white text-xl p-2 flex justify-between items-center fixed h-16 w-screen top-0 left-0 z-20 font-medium">
       <Link href={"/"} className="flex gap-2 items-center">
         <DolphinIcon />
         Dolphin
