@@ -26,7 +26,9 @@ export default function RootLayout({
       <body>
         <TopNav />
         <SideNav />
-        <div className="absolute sm:left-1/4 mt-16 mb-10 px-4">{children}</div>
+        <div className="absolute sm:left-1/4 sm:w-3/4 mt-16 mb-10 px-4 ">
+          {children}
+        </div>
       </body>
     </html>
   );
