@@ -1,13 +1,15 @@
-import "../globals.css";
+import { getCurrentUser } from "@/auth";
+import DolphinIcon from "@/components/DolphinIcon";
+import PodLink from "@/components/PodLink";
+import { getUserPods } from "@/db/pods";
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { faPlus, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import Link from "next/link";
-import Image from "next/image";
-import DolphinIcon from "@/components/DolphinIcon";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faUserCircle } from "@fortawesome/free-solid-svg-icons";
-import { config } from "@fortawesome/fontawesome-svg-core";
-import "@fortawesome/fontawesome-svg-core/styles.css";
+import "../globals.css";
 config.autoAddCss = false;
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -34,13 +36,19 @@ export default function RootLayout({
   );
 }
 
-function SideNav() {
+async function SideNav() {
+  const userId = getCurrentUser()
+  const pods = await getUserPods(userId)
   return (
-    <section className="hidden sm:flex fixed w-1/4 mt-16 left-0 top-0 h-screen overflow-y-auto bg-slate-200 z-10 py-2 px-4">
-      <h1>Your Pods</h1>
+    <section className="hidden sm:flex flex-col fixed w-1/4 mt-16 left-0 top-0 h-screen overflow-y-auto z-10 p-4 bg-slate-50 shadow">
+      <h1 className="">Your Pods</h1>
+      <nav className="flex flex-col py-4 -mx-2">
+        {pods.map(pod => <PodLink key={pod.id} pod={pod}/>)}
+      </nav>
     </section>
   );
 }
+
 
 function TopNav() {
   return (
