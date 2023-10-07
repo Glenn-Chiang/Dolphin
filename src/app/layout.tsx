@@ -41,16 +41,16 @@ async function Sidebar() {
   const pods = await getUserPods(userId);
   return (
     <section className="hidden sm:flex flex-col justify-between fixed w-1/4 pt-20 left-0 top-0 h-screen z-10 p-4 bg-slate-50 shadow">
-      <div>
+      <div className="flex flex-col gap-2">
         <h1 className="">Your Pods</h1>
-        <nav className="flex flex-col py-4 -mx-2 max-h-96 overflow-auto">
+        <nav className="flex flex-col -mx-2 max-h-80 overflow-auto">
           {pods.map((pod) => (
             <PodLink key={pod.id} pod={pod} />
           ))}
         </nav>
         <Link
           href={"/pods"}
-          className="text-sky-500 font-medium hover:text-sky-400"
+          className="text-sky-500 font-medium hover:text-sky-400 py-2"
         >
           Explore all pods
         </Link>
@@ -92,18 +92,9 @@ function TopNav() {
         <DolphinIcon />
         Dolphin
       </Link>
-      <div className="flex gap-4 items-center">
-        <Link
-          href={"/create-post"}
-          className="flex gap-2 items-center bg-slate-200 text-sky-500 p-1 rounded-md"
-        >
-          <FontAwesomeIcon icon={faPlus} />
-          Post
-        </Link>
-        <Link href={"/profile"}>
-          <FontAwesomeIcon icon={faUserCircle} />
-        </Link>
-      </div>
+      <Link href={"/profile"}>
+        <FontAwesomeIcon icon={faUserCircle} />
+      </Link>
     </nav>
   );
 }

@@ -67,16 +67,30 @@ const createPod = async (formData: FormData) => {
     throw new Error("Invalid about");
   }
 
+  const creatorId = getCurrentUser()
+
   await prisma.pod.create({
     data: {
       name,
       about,
-      creatorId: 1, // TODO: Get current user
+      creatorId,
+      members: {
+        create: [
+          {
+            member: {
+              connect: {
+                id: creatorId
+              }
+            }
+          }
+        ]
+      }
     },
-  });
-  console.log("Pod created!");
 
-  redirect("/pods");
+  });
+
+  console.log("Pod created!");
+  redirect(`/profile/${creatorId}/pods`);
 };
 
 const joinPod = async (podId: number) => {
