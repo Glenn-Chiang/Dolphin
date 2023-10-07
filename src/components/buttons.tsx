@@ -48,7 +48,11 @@ function JoinButton({ alreadyJoined, onClick }: JoinButtonProps) {
   return (
     <button
       onClick={handleClick}
-      className="bg-sky-500 p-2 rounded-md shadow text-white shadow-sky-500 hover:shadow-md hover:shadow-sky-500"
+      className={` p-2 rounded-md shadow ${
+        alreadyJoined
+          ? "text-slate-500 bg-slate-200 hover:bg-slate-300"
+          : "text-white bg-sky-500 shadow-sky-500 hover:shadow-md hover:shadow-sky-500"
+      }`}
     >
       {alreadyJoined ? "Leave" : "Join"} Pod
     </button>

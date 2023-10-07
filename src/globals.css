@@ -22,4 +22,7 @@
   a {
     @apply transition
   }
+  input, textarea {
+    @apply bg-slate-100 rounded-md shadow p-2
+  }
 }

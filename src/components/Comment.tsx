@@ -10,6 +10,7 @@ import { useState } from "react";
 import { CommentButton, LikeButton, MenuButton } from "./buttons";
 import ContextMenu from "./ContextMenu";
 import EditCommentModal from "./EditCommentModal";
+import ReplyModal from "./ReplyModal";
 
 type CommentProps = {
   comment: CommentDetail;
@@ -19,17 +20,20 @@ export default function Comment({ comment }: CommentProps) {
   const userId = getCurrentUser();
   const isOwnComment = userId === comment.authorId;
 
-  const [liked, setLiked] = useState(!!comment.likedBy.find(user => user.id === userId));
-
+  const [liked, setLiked] = useState(
+    !!comment.likedBy.find((user) => user.id === userId)
+  );
   const handleLikeClick = async () => {
     setLiked((prev) => !prev);
-    await likeComment(comment.id)
+    await likeComment(comment.id);
   };
 
-  const handleReplyClick = () => {};
+  const [replyModalIsShown, setReplyModalIsShown] = useState(false);
+  const handleReplyClick = () => {
+    setReplyModalIsShown(true);
+  };
 
   const [menuIsShown, setMenuIsShown] = useState(false);
-
   const toggleMenu = () => {
     setMenuIsShown((prev) => !prev);
   };
@@ -56,8 +60,15 @@ export default function Comment({ comment }: CommentProps) {
       </div>
       <p className="py-2">{comment.content}</p>
       <div className="flex gap-2 -ml-2">
-        <LikeButton onClick={handleLikeClick} liked={liked} likes={comment.likedBy.length}/>
-        <CommentButton onClick={handleReplyClick} comments={comment._count.replies}/>
+        <LikeButton
+          onClick={handleLikeClick}
+          liked={liked}
+          likes={comment.likedBy.length}
+        />
+        <CommentButton
+          onClick={handleReplyClick}
+          comments={comment._count.replies}
+        />
       </div>
       {isOwnComment && (
         <MenuButton onClick={toggleMenu} isToggled={menuIsShown} />
@@ -71,6 +82,12 @@ export default function Comment({ comment }: CommentProps) {
       {editModalIsShown && (
         <EditCommentModal
           close={() => setEditModalIsShown(false)}
+          comment={comment}
+        />
+      )}
+      {replyModalIsShown && (
+        <ReplyModal
+          close={() => setReplyModalIsShown(false)}
           comment={comment}
         />
       )}
