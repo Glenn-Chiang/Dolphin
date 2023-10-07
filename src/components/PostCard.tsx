@@ -23,12 +23,11 @@ export default function PostCard({ post }: { post: PostDetail }) {
   );
   const [likes, setLikes] = useState(post._count.likedBy);
 
-  const handleLikeClick = () => {
+  const handleLikeClick = async () => {
     // Optimistically update like button UI
     setLiked((prev) => !prev);
     setLikes((prev) => (liked ? prev - 1 : prev + 1));
-    likePost(post.id);
-    return;
+    await likePost(post.id);
   };
 
   const [commentModalIsOpen, setCommentModalIsOpen] = useState(false);

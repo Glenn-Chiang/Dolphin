@@ -183,12 +183,12 @@ const likePost = async (postId: number) => {
       likedPosts: true,
     },
   });
-
+  
   if (!user) {
     console.log("User not found");
     return;
   }
-
+  
   const alreadyLiked = user.likedPosts.some((post) => post.id === postId);
 
   if (alreadyLiked) {
@@ -220,7 +220,6 @@ const likePost = async (postId: number) => {
       },
     });
   }
-
   revalidatePath("/");
 };
 

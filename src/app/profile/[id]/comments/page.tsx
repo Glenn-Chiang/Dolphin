@@ -10,7 +10,11 @@ export default async function ProfileComments({
   const comments = await getUserComments(userId);
 
   if (comments.length === 0) {
-    return <section>This user hasn&apos;t made any comments</section>;
+    return (
+      <section className="bg-white rounded-md p-4 shadow text-slate-500">
+        This user hasn&apos;t made any comments
+      </section>
+    );
   }
 
   return (

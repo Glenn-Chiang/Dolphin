@@ -1,11 +1,7 @@
 import { SubmitButton } from "@/components/buttons";
 import { createPod } from "@/db/pods";
-import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 export default function CreatePod() {
-  
   return (
     <main className="bg-white p-4 rounded-xl shadow">
       <h1>Create a Pod!</h1>
@@ -30,10 +26,6 @@ export default function CreatePod() {
           <SubmitButton text="Create" />
         </div>
       </form>
-      <Link href={"/pods"} className="flex gap-2 items-center text-slate-500">
-        <FontAwesomeIcon icon={faArrowLeft} />
-        Back
-      </Link>
     </main>
   );
 }

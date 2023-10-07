@@ -38,7 +38,11 @@ export default async function PodPosts({
   const posts = await getPodPosts(podId, sortOrder);
 
   if (posts.length === 0) {
-    return <section>This pod doesn&apos;t have any posts</section>;
+    return (
+      <section className="bg-white rounded-md p-4 shadow text-slate-500">
+        This Pod doesn&apos;t have any posts
+      </section>
+    );
   }
 
   return (

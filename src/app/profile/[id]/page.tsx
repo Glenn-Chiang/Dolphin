@@ -38,7 +38,11 @@ export default async function ProfilePosts({
   const posts = await getUserPosts(userId, sortOrder);
 
   if (posts.length === 0) {
-    return <section>This user hasn&apos;t made any posts</section>;
+    return (
+      <section className="bg-white rounded-md p-4 shadow text-slate-500">
+        This user hasn&apos;t made any posts
+      </section>
+    );
   }
 
   return (

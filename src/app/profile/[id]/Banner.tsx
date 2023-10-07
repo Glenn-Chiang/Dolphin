@@ -18,12 +18,13 @@ export default function Banner({ user }: { user: User }) {
 
   return (
     <section className="bg-white rounded-md shadow p-4 flex flex-col gap-2 relative">
-      <div className="flex gap-4 items-center">
+      <div className="flex gap-2 items-center">
         <FontAwesomeIcon
           icon={faUserCircle}
           className="text-4xl text-sky-500"
         />
-        <h1>{user.name}</h1>
+        <h1>{user.name} </h1>
+        {isOwnProfile && <h2 className="text-slate-500">(You)</h2>}
       </div>
       <p className="flex gap-2 text-slate-500 items-center">
         <FontAwesomeIcon icon={faCalendar} />
