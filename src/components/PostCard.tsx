@@ -69,7 +69,7 @@ export default function PostCard({ post }: { post: PostDetail }) {
           </Link>
           <span>{post.createdAt.toDateString()}</span>
         </div>
-        <div className="py-2">{post.content}</div>
+        <div className="py-2 whitespace-pre-wrap">{post.content}</div>
         {isOwnPost && (
           <MenuButton onClick={toggleMenu} isToggled={menuIsShown} />
         )}

@@ -1,4 +1,3 @@
-import { SubmitButton } from "@/components/buttons";
 import { getPost } from "@/db/posts";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,14 +14,13 @@ export default async function EditPost({ params }: { params: { id: string } }) {
 
   return (
     <>
-      <Backbar />
-      <main className="bg-white p-4 rounded-xl shadow mt-2">
-        <h1 className="flex gap-2 items-center">
-          <FontAwesomeIcon icon={faEdit} />
+      <div className="flex gap-2 pb-4 items-center">
+        <Backbar />
+        <h2>
           Edit your post
-        </h1>
-        <EditPostForm post={post}/>
-      </main>
+        </h2>
+      </div>
+      <EditPostForm post={post} />
     </>
   );
 }

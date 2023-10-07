@@ -4,6 +4,8 @@ import { PostDetail } from "@/types";
 import { SubmitButton } from "@/components/buttons";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { editPost } from "@/db/posts";
+import Link from 'next/link';
+import DolphinIcon from "@/components/DolphinIcon";
 
 type EditFormValues = {
   content: string;
@@ -18,7 +20,17 @@ export default function EditPostForm({ post }: { post: PostDetail }) {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="py-4 flex flex-col gap-4">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="bg-white p-4 rounded-xl shadow flex flex-col gap-4"
+    >
+      <Link
+        href={`/pods/${post.podId}`}
+        className="text-sky-500 font-medium -m-2 p-2 flex gap-2 items-center w-max rounded-xl hover:bg-sky-200"
+      >
+        <DolphinIcon />
+        {post.pod.name}
+      </Link>
       <div className="flex flex-col gap-2">
         <label className="font-medium">Title</label>
         <span>{post.title}</span>
