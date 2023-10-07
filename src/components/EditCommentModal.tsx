@@ -4,6 +4,7 @@ import { Comment } from "@prisma/client";
 import Modal from "./Modal";
 import { SubmitButton } from "./buttons";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { editComment } from "@/db/comments";
 
 type EditCommentModalProps = {
   close: () => void;
@@ -22,6 +23,8 @@ export default function EditCommentModal({
 
   const onSubmit: SubmitHandler<EditFormValues> = async (formValues) => {
     const { content } = formValues;
+    await editComment(comment.id, content);
+    close()
   };
 
   return (

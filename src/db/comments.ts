@@ -42,18 +42,38 @@ const createComment = async (postId: number, content: string) => {
     },
   });
   console.log("Comment posted");
-  revalidatePath('/')
+  revalidatePath("/");
   // revalidatePath(`/post/${postId}`);
 };
 
 const deleteComment = async (commentId: number) => {
   await prisma.comment.delete({
     where: {
-      id: commentId
-    }
-  })
-  console.log('Comment deleted')
-  revalidatePath('/')
-}
+      id: commentId,
+    },
+  });
+  console.log("Comment deleted");
+  revalidatePath("/");
+};
 
-export { getPostComments, getUserComments, createComment, deleteComment };
+const editComment = async (commentId: number, content: string) => {
+  const comment = await prisma.comment.update({
+    where: {
+      id: commentId,
+    },
+    data: {
+      content,
+    },
+  });
+  console.log("Comment edited!");
+  revalidatePath(`/posts/${comment.postId}`);
+  revalidatePath(`/profile/${comment.authorId}/comments`)
+};
+
+export {
+  getPostComments,
+  getUserComments,
+  createComment,
+  deleteComment,
+  editComment,
+};
