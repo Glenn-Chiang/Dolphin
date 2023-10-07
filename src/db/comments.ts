@@ -70,6 +70,58 @@ const editComment = async (commentId: number, content: string) => {
   revalidatePath(`/profile/${comment.authorId}/comments`)
 };
 
+const likeComment = async (commentId: number) => {
+  // Get current user's liked posts
+  const userId = getCurrentUser();
+  const user = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    include: {
+      likedPosts: true,
+    },
+  });
+  
+  if (!user) {
+    console.log("User not found");
+    return;
+  }
+  
+  const alreadyLiked = user.likedPosts.some((post) => post.id === commentId);
+  
+  if (alreadyLiked) {
+    // Unlike post if user had already liked post
+    await prisma.post.update({
+      where: {
+        id: commentId,
+      },
+      data: {
+        likedBy: {
+          disconnect: {
+            id: userId,
+          },
+        },
+      },
+    });
+    // Like post if user has not yet liked post
+  } else {
+    await prisma.post.update({
+      where: {
+        id: commentId,
+      },
+      data: {
+        likedBy: {
+          connect: {
+            id: userId,
+          },
+        },
+      },
+    });
+  }
+  revalidatePath("/");
+};
+
+
 export {
   getPostComments,
   getUserComments,
