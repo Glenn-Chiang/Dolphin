@@ -12,7 +12,7 @@ export default function PodLink({ pod }: { pod: Pod }) {
     <Link
       href={`/pods/${pod.id}`}
       className={`flex gap-2 items-center p-2 rounded-md font-medium ${
-        isActive ? "bg-sky-200 text-sky-600" : ""
+        isActive ? "bg-sky-200 text-sky-600" : "hover:bg-slate-200"
       }`}
     >
       <DolphinIcon />

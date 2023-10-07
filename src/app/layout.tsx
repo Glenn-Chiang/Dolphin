@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="en" spellCheck="false">
       <body>
         <TopNav />
-        <SideNav />
+        <Sidebar />
         <div className="absolute sm:left-1/4 sm:w-3/4 mt-16 mb-10 p-4 ">
           {children}
         </div>
@@ -36,19 +36,54 @@ export default function RootLayout({
   );
 }
 
-async function SideNav() {
-  const userId = getCurrentUser()
-  const pods = await getUserPods(userId)
+async function Sidebar() {
+  const userId = getCurrentUser();
+  const pods = await getUserPods(userId);
   return (
-    <section className="hidden sm:flex flex-col fixed w-1/4 mt-16 left-0 top-0 h-screen overflow-y-auto z-10 p-4 bg-slate-50 shadow">
-      <h1 className="">Your Pods</h1>
-      <nav className="flex flex-col py-4 -mx-2">
-        {pods.map(pod => <PodLink key={pod.id} pod={pod}/>)}
-      </nav>
+    <section className="hidden sm:flex flex-col justify-between fixed w-1/4 pt-20 left-0 top-0 h-screen z-10 p-4 bg-slate-50 shadow">
+      <div>
+        <h1 className="">Your Pods</h1>
+        <nav className="flex flex-col py-4 -mx-2 max-h-96 overflow-auto">
+          {pods.map((pod) => (
+            <PodLink key={pod.id} pod={pod} />
+          ))}
+        </nav>
+        <Link
+          href={"/pods"}
+          className="text-sky-500 font-medium hover:text-sky-400"
+        >
+          Explore all pods
+        </Link>
+      </div>
+      <div className="flex gap-2 justify-center flex-col md:flex-row ">
+        <CreatePostButton />
+        <CreatePodButton />
+      </div>
     </section>
   );
 }
 
+function CreatePostButton() {
+  return (
+    <Link
+      href={"/create-post"}
+      className="p-2 rounded-md shadow font-medium bg-sky-500 hover:bg-sky-400 text-white"
+    >
+      Create Post
+    </Link>
+  );
+}
+
+function CreatePodButton() {
+  return (
+    <Link
+      href={"/create-pod"}
+      className="p-2 rounded-md shadow font-medium bg-sky-500 hover:bg-sky-400 text-white"
+    >
+      Create Pod
+    </Link>
+  );
+}
 
 function TopNav() {
   return (
