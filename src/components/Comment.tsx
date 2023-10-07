@@ -3,14 +3,13 @@
 import { getCurrentUser } from "@/auth";
 import { deleteComment } from "@/db/comments";
 import { CommentDetail } from "@/types";
-import {
-  faUserCircle
-} from "@fortawesome/free-solid-svg-icons";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useState } from "react";
 import { CommentButton, LikeButton, MenuButton } from "./buttons";
 import ContextMenu from "./ContextMenu";
+import EditCommentModal from "./EditCommentModal";
 
 type CommentProps = {
   comment: CommentDetail;
@@ -34,9 +33,11 @@ export default function Comment({ comment }: CommentProps) {
     setMenuIsShown((prev) => !prev);
   };
 
+  const [editModalIsShown, setEditModalIsShown] = useState(false);
   const handleEdit = () => {
-
-  }
+    setMenuIsShown(false);
+    setEditModalIsShown(true);
+  };
 
   return (
     <article className="p-4 bg-white rounded-md shadow relative">
@@ -53,10 +54,10 @@ export default function Comment({ comment }: CommentProps) {
         </span>
       </div>
       <p>{comment.content}</p>
-      <div className="flex gap-2">
+      {/* <div className="flex gap-2">
         <LikeButton onClick={handleLikeClick} liked={liked} />
         <CommentButton onClick={handleReplyClick} />
-      </div>
+      </div> */}
       {isOwnComment && (
         <MenuButton onClick={toggleMenu} isToggled={menuIsShown} />
       )}
@@ -66,7 +67,12 @@ export default function Comment({ comment }: CommentProps) {
           handleEditClick={handleEdit}
         />
       )}
+      {editModalIsShown && (
+        <EditCommentModal
+          close={() => setEditModalIsShown(false)}
+          comment={comment}
+        />
+      )}
     </article>
   );
 }
-
