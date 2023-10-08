@@ -26,6 +26,7 @@ const getPostComments = async (postId: number): Promise<CommentDetail[]> => {
   const comments = await prisma.comment.findMany({
     where: {
       postId,
+      parentCommentId: null
     },
     include: includedData,
     orderBy: {
