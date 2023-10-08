@@ -1,16 +1,20 @@
 import { CommentDetail } from "@/types";
-import CommentComponent from "../../../components/Comment";
 import CommentForm from "./CommentForm";
+import CommentThread from "@/components/comment/CommentThread";
 
-export default function CommentSection({ comments }: {comments: CommentDetail[]}) {
+export default function CommentSection({
+  comments,
+}: {
+  comments: CommentDetail[];
+}) {
   return (
     <>
       <CommentForm />
-      <h2 className="p-2">Comments</h2>
+      <h2 className="p-2">Comments ({comments.length})</h2>
       {comments.length ? (
         <ul className="flex flex-col gap-4">
           {comments.map((comment) => (
-            <CommentComponent key={comment.id} comment={comment} />
+            <CommentThread key={comment.id} comment={comment} />
           ))}
         </ul>
       ) : (

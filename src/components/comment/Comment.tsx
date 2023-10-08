@@ -7,16 +7,13 @@ import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useState } from "react";
-import { CommentButton, LikeButton, MenuButton } from "./buttons";
-import ContextMenu from "./ContextMenu";
+import { CommentButton, LikeButton, MenuButton } from "../buttons";
+import ContextMenu from "../ContextMenu";
 import EditCommentModal from "./EditCommentModal";
-import ReplyModal from "./ReplyModal";
+import ReplyModal from "../ReplyModal";
 
-type CommentProps = {
-  comment: CommentDetail;
-};
-
-export default function Comment({ comment }: CommentProps) {
+// 1 top-level parent comment with its replies
+export default function Comment({ comment }: { comment: CommentDetail }) {
   const userId = getCurrentUser();
   const isOwnComment = userId === comment.authorId;
 
@@ -45,7 +42,7 @@ export default function Comment({ comment }: CommentProps) {
   };
 
   return (
-    <article className="p-4 bg-white rounded-md shadow relative">
+    <article className="relative">
       <div className="flex items-center">
         <Link
           href={`/profile/${comment.authorId}`}
@@ -65,10 +62,12 @@ export default function Comment({ comment }: CommentProps) {
           liked={liked}
           likes={comment.likedBy.length}
         />
-        <CommentButton
-          onClick={handleReplyClick}
-          comments={comment._count.replies}
-        />
+        {!comment.parentCommentId && (
+          <CommentButton
+            onClick={handleReplyClick}
+            comments={comment._count.replies}
+          />
+        )}
       </div>
       {isOwnComment && (
         <MenuButton onClick={toggleMenu} isToggled={menuIsShown} />

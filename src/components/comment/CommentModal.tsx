@@ -1,6 +1,6 @@
 import React from "react";
-import { CancelButton, SubmitButton } from "./buttons";
-import Modal from "./Modal";
+import { CancelButton, SubmitButton } from "../buttons";
+import Modal from "../Modal";
 import { createComment } from "@/db/comments";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Post } from "@prisma/client";

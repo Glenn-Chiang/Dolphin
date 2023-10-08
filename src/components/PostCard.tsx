@@ -7,11 +7,11 @@ import { faUserCircle } from "@fortawesome/free-solid-svg-icons/faUserCircle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useState } from "react";
-import CommentModal from "./CommentModal";
+import CommentModal from "./comment/CommentModal";
 import ContextMenu from "./ContextMenu";
 import DolphinIcon from "./DolphinIcon";
 import { CommentButton, LikeButton, MenuButton } from "./buttons";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 export default function PostCard({ post }: { post: PostDetail }) {
   const userId = getCurrentUser();
@@ -41,10 +41,10 @@ export default function PostCard({ post }: { post: PostDetail }) {
     setMenuIsShown((prev) => !prev);
   };
 
-  const router = useRouter()
+  const router = useRouter();
 
   const handleEditClick = () => {
-    router.push(`/post/${post.id}/edit`)
+    router.push(`/post/${post.id}/edit`);
   };
 
   return (

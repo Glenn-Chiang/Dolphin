@@ -1,4 +1,4 @@
-import Comment from "@/components/Comment";
+import CommentThread from "@/components/comment/CommentThread";
 import { getUserComments } from "@/db/comments";
 
 export default async function ProfileComments({
@@ -20,7 +20,7 @@ export default async function ProfileComments({
   return (
     <section className="flex flex-col gap-4">
       {comments.map((comment) => (
-        <Comment key={comment.id} comment={comment} />
+        <CommentThread key={comment.id} comment={comment} />
       ))}
     </section>
   );

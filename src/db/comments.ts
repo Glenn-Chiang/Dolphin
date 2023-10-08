@@ -35,6 +35,7 @@ const getPostComments = async (postId: number): Promise<CommentDetail[]> => {
   return comments;
 };
 
+
 const getUserComments = async (userId: number) => {
   const comments = await prisma.comment.findMany({
     where: {
@@ -47,6 +48,19 @@ const getUserComments = async (userId: number) => {
   });
   return comments;
 };
+
+const getReplies = async (commentId: number) => {
+  const replies = await prisma.comment.findMany({
+    where: {
+      parentCommentId: commentId
+    },
+    include: includedData,
+    orderBy: {
+      createdAt: 'desc'
+    }
+  })
+  return replies
+}
 
 const createComment = async (postId: number, content: string) => {
   await prisma.comment.create({
@@ -162,5 +176,6 @@ export {
   deleteComment,
   editComment,
   likeComment,
-  createReply
+  createReply,
+  getReplies
 };
