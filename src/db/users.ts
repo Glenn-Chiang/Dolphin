@@ -3,6 +3,19 @@ import { getCurrentUser } from "@/auth";
 import prisma from "./db";
 import { revalidatePath } from "next/cache";
 
+const includedData = {
+  followers: {
+    select: {
+      followerId: true,
+    },
+  },
+  _count: {
+    select: {
+      following: true,
+    },
+  },
+};
+
 const getUsers = async () => {
   const users = await prisma.user.findMany();
   return users;
@@ -17,6 +30,7 @@ const getPodMembers = async (podId: number) => {
         },
       },
     },
+    include: includedData
   });
   return members;
 };
@@ -26,44 +40,35 @@ const getFollowedUsers = async (userId: number) => {
     where: {
       followers: {
         some: {
-          followerId: userId
-        }
-      }
-    }
-  })
-  return users
-}
+          followerId: userId,
+        },
+      },
+    },
+    include: includedData
+  });
+  return users;
+};
 
 const getFollowers = async (userId: number) => {
   const followers = await prisma.user.findMany({
     where: {
       following: {
         some: {
-          followingId: userId
-        }
-      }
-    }
-  })
-  return followers
-}
+          followingId: userId,
+        },
+      },
+    },
+    include: includedData
+  });
+  return followers;
+};
 
 const getUser = async (userId: number) => {
   const user = await prisma.user.findUnique({
     where: {
       id: userId,
     },
-    include: {
-      followers: {
-        select: {
-          followerId: true
-        }
-      },
-      _count: {
-        select: {
-          following: true
-        }
-      }
-    },
+    include: includedData,
   });
 
   return user;
@@ -71,17 +76,24 @@ const getUser = async (userId: number) => {
 
 const updateProfile = async (about: string) => {
   const userId = getCurrentUser();
-  console.log(about)
+  console.log(about);
   await prisma.user.update({
     where: {
       id: userId,
     },
     data: {
-      about: about
-    }
+      about: about,
+    },
   });
   console.log("About updated:", about);
   revalidatePath(`/profile/${userId}`);
 };
 
-export { getUsers, getPodMembers, getUser, updateProfile, getFollowers, getFollowedUsers };
+export {
+  getUsers,
+  getPodMembers,
+  getUser,
+  updateProfile,
+  getFollowers,
+  getFollowedUsers,
+};
