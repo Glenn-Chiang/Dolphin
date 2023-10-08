@@ -13,7 +13,7 @@ export default function TabLink({ activePath, href, children }: TabLinkProps) {
     <Link
       href={href}
       className={`p-2 rounded-2xl ${
-        isActive ? "text-sky-500 underline underline-offset-4" : "hover:text-sky-500 "
+        isActive ? "text-sky-500 underline underline-offset-8" : "hover:text-sky-500 "
       }`}
     >
       <h2>{children}</h2>

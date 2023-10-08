@@ -21,6 +21,32 @@ const getPodMembers = async (podId: number) => {
   return members;
 };
 
+const getFollowedUsers = async (userId: number) => {
+  const users = await prisma.user.findMany({
+    where: {
+      followers: {
+        some: {
+          followerId: userId
+        }
+      }
+    }
+  })
+  return users
+}
+
+const getFollowers = async (userId: number) => {
+  const followers = await prisma.user.findMany({
+    where: {
+      following: {
+        some: {
+          followingId: userId
+        }
+      }
+    }
+  })
+  return followers
+}
+
 const getUser = async (userId: number) => {
   const user = await prisma.user.findUnique({
     where: {
@@ -58,4 +84,4 @@ const updateProfile = async (about: string) => {
   revalidatePath(`/profile/${userId}`);
 };
 
-export { getUsers, getPodMembers, getUser, updateProfile };
+export { getUsers, getPodMembers, getUser, updateProfile, getFollowers, getFollowedUsers };
