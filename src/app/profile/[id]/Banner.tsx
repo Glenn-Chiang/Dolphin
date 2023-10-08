@@ -12,13 +12,16 @@ import ProfileModal from "@/app/profile/[id]/ProfileModal";
 import { getCurrentUser } from "@/auth";
 import { SubmitButton } from "@/components/buttons";
 import { UserDetail } from "@/types";
+import { follow } from "@/db/follows";
 
 export default function Banner({ user }: { user: UserDetail }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const isOwnProfile = getCurrentUser() === user.id;
 
-  const handleFollowClick = () => {};
+  const handleFollowClick = async () => {
+    await follow(user.id);
+  };
 
   return (
     <section className="bg-white rounded-md shadow p-4 flex flex-col gap-4 relative">
