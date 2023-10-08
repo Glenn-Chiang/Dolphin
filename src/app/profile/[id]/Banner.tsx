@@ -10,14 +10,18 @@ import { User } from "@prisma/client";
 import { useState } from "react";
 import ProfileModal from "@/app/profile/[id]/ProfileModal";
 import { getCurrentUser } from "@/auth";
+import { SubmitButton } from "@/components/buttons";
+import { UserDetail } from "@/types";
 
-export default function Banner({ user }: { user: User }) {
+export default function Banner({ user }: { user: UserDetail }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const isOwnProfile = getCurrentUser() === user.id;
 
+  const handleFollowClick = () => {};
+
   return (
-    <section className="bg-white rounded-md shadow p-4 flex flex-col gap-2 relative">
+    <section className="bg-white rounded-md shadow p-4 flex flex-col gap-4 relative">
       <div className="flex gap-2 items-center">
         <FontAwesomeIcon
           icon={faUserCircle}
@@ -32,11 +36,34 @@ export default function Banner({ user }: { user: User }) {
         <span>{user.createdAt.toLocaleDateString()}</span>
       </p>
       <p className="">{user.about}</p>
+      <div className="flex gap-4">
+        <div className="">
+          {user._count.followers}{" "}
+          <span className="text-slate-500">followers</span>
+        </div>
+        <div className="">
+          {user._count.following}{" "}
+          <span className="text-slate-500">following</span>
+        </div>
+      </div>
+      {isOwnProfile || <FollowButton onClick={handleFollowClick} />}
       {isOwnProfile && <EditButton onClick={() => setModalIsOpen(true)} />}
       {modalIsOpen && (
         <ProfileModal about={user.about} close={() => setModalIsOpen(false)} />
       )}
     </section>
+  );
+}
+
+type FollowButtonProps = {
+  onClick: () => void;
+};
+
+function FollowButton({ onClick }: FollowButtonProps) {
+  return (
+    <div>
+      <SubmitButton text="Follow" onClick={onClick} />
+    </div>
   );
 }
 

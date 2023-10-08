@@ -27,9 +27,12 @@ const getUser = async (userId: number) => {
       id: userId,
     },
     include: {
-      posts: true,
-      pods: true,
-      comments: true,
+      _count: {
+        select: {
+          followers: true,
+          following: true
+        }
+      }
     },
   });
 

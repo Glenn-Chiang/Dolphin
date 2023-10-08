@@ -47,6 +47,19 @@ const podDetail = Prisma.validator<Prisma.PodDefaultArgs>()({
   },
 });
 
+// User with follower and following count
+const userDetail = Prisma.validator<Prisma.UserDefaultArgs>()({
+  include: {
+    _count: {
+      select: {
+        followers: true,
+        following: true,
+      },
+    },
+  },
+});
+
 export type PostDetail = Prisma.PostGetPayload<typeof postDetail>;
 export type CommentDetail = Prisma.CommentGetPayload<typeof commentDetail>;
 export type PodDetail = Prisma.PodGetPayload<typeof podDetail>;
+export type UserDetail = Prisma.UserGetPayload<typeof userDetail>;
