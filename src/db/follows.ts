@@ -2,19 +2,35 @@
 
 import { getCurrentUser } from "@/auth";
 import prisma from "./db";
-import { revalidatePath } from 'next/cache';
+import { revalidatePath } from "next/cache";
 
-const follow = async (followingId: number) => { // followingId: id of user whom you want to follow
-  const followerId = getCurrentUser()
+const follow = async (followingId: number) => {
+  // followingId: id of user whom you want to follow
+  const followerId = getCurrentUser();
   await prisma.follows.create({
     data: {
       followerId,
       followingId,
     },
   });
-  console.log('Followed')
-  revalidatePath(`/profile/${followerId}`)
-  revalidatePath(`/profile/${followingId}`)
+  console.log("Followed");
+  revalidatePath(`/profile/${followerId}`);
+  revalidatePath(`/profile/${followingId}`);
 };
 
-export { follow };
+const unfollow = async (followingId: number) => {
+  const followerId = getCurrentUser();
+  await prisma.follows.delete({
+    where: {
+      followerId_followingId: {
+        followerId,
+        followingId,
+      },
+    },
+  });
+  console.log('Unfollowed')
+  revalidatePath(`/profile/${followerId}`);
+  revalidatePath(`/profile/${followingId}`);
+};
+
+export { follow, unfollow };

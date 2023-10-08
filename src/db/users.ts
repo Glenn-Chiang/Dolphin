@@ -27,9 +27,13 @@ const getUser = async (userId: number) => {
       id: userId,
     },
     include: {
+      followers: {
+        select: {
+          followerId: true
+        }
+      },
       _count: {
         select: {
-          followers: true,
           following: true
         }
       }

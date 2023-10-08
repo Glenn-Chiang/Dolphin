@@ -50,9 +50,13 @@ const podDetail = Prisma.validator<Prisma.PodDefaultArgs>()({
 // User with follower and following count
 const userDetail = Prisma.validator<Prisma.UserDefaultArgs>()({
   include: {
+    followers: {
+      select: {
+        followerId: true
+      }
+    },
     _count: {
       select: {
-        followers: true,
         following: true,
       },
     },

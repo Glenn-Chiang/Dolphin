@@ -10,17 +10,25 @@ import { User } from "@prisma/client";
 import { useState } from "react";
 import ProfileModal from "@/app/profile/[id]/ProfileModal";
 import { getCurrentUser } from "@/auth";
-import { SubmitButton } from "@/components/buttons";
+import { FollowButton, SubmitButton } from "@/components/buttons";
 import { UserDetail } from "@/types";
-import { follow } from "@/db/follows";
+import { follow, unfollow } from "@/db/follows";
 
 export default function Banner({ user }: { user: UserDetail }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const isOwnProfile = getCurrentUser() === user.id;
 
+  const alreadyFollowed = !!user.followers.find(
+    (follower) => follower.followerId === getCurrentUser()
+  );
+
   const handleFollowClick = async () => {
-    await follow(user.id);
+    if (alreadyFollowed) {
+      await unfollow(user.id);
+    } else {
+      await follow(user.id);
+    }
   };
 
   return (
@@ -41,7 +49,7 @@ export default function Banner({ user }: { user: UserDetail }) {
       <p className="">{user.about}</p>
       <div className="flex gap-4">
         <div className="">
-          {user._count.followers}{" "}
+          {user.followers.length}{" "}
           <span className="text-slate-500">followers</span>
         </div>
         <div className="">
@@ -49,24 +57,19 @@ export default function Banner({ user }: { user: UserDetail }) {
           <span className="text-slate-500">following</span>
         </div>
       </div>
-      {isOwnProfile || <FollowButton onClick={handleFollowClick} />}
+      {isOwnProfile || (
+        <div>
+          <FollowButton
+            alreadyFollowed={alreadyFollowed}
+            onClick={handleFollowClick}
+          />
+        </div>
+      )}
       {isOwnProfile && <EditButton onClick={() => setModalIsOpen(true)} />}
       {modalIsOpen && (
         <ProfileModal about={user.about} close={() => setModalIsOpen(false)} />
       )}
     </section>
-  );
-}
-
-type FollowButtonProps = {
-  onClick: () => void;
-};
-
-function FollowButton({ onClick }: FollowButtonProps) {
-  return (
-    <div>
-      <SubmitButton text="Follow" onClick={onClick} />
-    </div>
   );
 }
 

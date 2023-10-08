@@ -59,6 +59,26 @@ function JoinButton({ alreadyJoined, onClick }: JoinButtonProps) {
   );
 }
 
+type FollowButtonProps = {
+  onClick: () => void;
+  alreadyFollowed: boolean;
+};
+
+function FollowButton({ onClick, alreadyFollowed }: FollowButtonProps) {
+  return (
+    <button
+      onClick={onClick}
+      className={` p-2 rounded-md shadow ${
+        alreadyFollowed
+          ? "text-slate-500 bg-slate-200 hover:bg-slate-300"
+          : "text-white bg-sky-500 shadow-sky-500 hover:shadow-md hover:shadow-sky-500"
+      }`}
+    >
+      {alreadyFollowed ? 'Unfollow' : 'Follow'}
+    </button>
+  );
+}
+
 type LikeButtonProps = {
   liked: boolean;
   likes: number;
@@ -105,7 +125,13 @@ function CommentButton({ comments, onClick }: CommentButtonProps) {
   );
 }
 
-function MenuButton({ onClick, isToggled }: { onClick: () => void, isToggled: boolean }) {
+function MenuButton({
+  onClick,
+  isToggled,
+}: {
+  onClick: () => void;
+  isToggled: boolean;
+}) {
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
     onClick();
@@ -113,7 +139,9 @@ function MenuButton({ onClick, isToggled }: { onClick: () => void, isToggled: bo
   return (
     <button
       onClick={handleClick}
-      className={`absolute top-4 right-4 hover:bg-slate-200 p-2 w-10 h-10 -mr-2 rounded-full ${isToggled && 'bg-slate-200'}`}
+      className={`absolute top-4 right-4 hover:bg-slate-200 p-2 w-10 h-10 -mr-2 rounded-full ${
+        isToggled && "bg-slate-200"
+      }`}
     >
       <FontAwesomeIcon icon={faEllipsisV} />
     </button>
@@ -127,4 +155,5 @@ export {
   CommentButton,
   JoinButton,
   MenuButton,
+  FollowButton
 };
