@@ -10,7 +10,7 @@ export default function Modal({
 }) {
   return (
     <div className="w-screen h-screen fixed bg-slate-400/40 z-20 left-0 top-0 flex justify-center items-center">
-      <section className="bg-white rounded-xl p-4 w-4/5 sm:w-1/2 relative">
+      <section className="bg-white rounded-xl p-4 w-11/12 sm:w-1/2 relative">
         {children}
         <button
           onClick={close}

@@ -7,7 +7,7 @@ export default function ProfileLinks({userId}: {userId: number}) {
   const path = usePathname()
 
   return (
-    <nav className="flex gap-4 font-medium bg-white p-2 rounded-md shadow">
+    <nav className="flex gap-4 font-medium bg-white p-2 rounded-md shadow overflow-x-scroll">
       <TabLink activePath={path} href={`/profile/${userId}`}>
         Posts
       </TabLink>
