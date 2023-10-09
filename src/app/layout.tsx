@@ -87,7 +87,7 @@ function CreatePodButton() {
 
 function TopNav() {
   return (
-    <nav className="bg-sky-500 text-white text-xl p-2 flex justify-between items-center fixed h-16 w-screen top-0 left-0 z-20 font-medium">
+    <nav className="bg-sky-500 text-white text-xl p-2 pr-8 flex justify-between items-center fixed h-16 w-screen top-0 left-0 z-20 font-medium">
       <div className="flex gap-2">
         <button className="p-2 rounded-full hover:bg-sky-600 w-10 h-10 flex justify-center items-center">
           <FontAwesomeIcon icon={faBars}/>
@@ -97,7 +97,7 @@ function TopNav() {
           Dolphin
         </Link>
       </div>
-      <Link href={"/profile"}>
+      <Link href={`/profile/${getCurrentUser()}`} className="p-2 rounded-full hover:bg-sky-600 w-10 h-10 justify-center items-center flex">
         <FontAwesomeIcon icon={faUserCircle} />
       </Link>
     </nav>
