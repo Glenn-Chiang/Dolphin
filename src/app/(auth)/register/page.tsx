@@ -2,10 +2,12 @@
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from 'next/navigation';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faUser } from "@fortawesome/free-solid-svg-icons";
 
 type RegisterFormValues = {
   name: string;
-  password: string;
+  email: string;
 };
 
 export default function Register() {
@@ -18,10 +20,10 @@ export default function Register() {
   const router = useRouter()
 
   const onSubmit: SubmitHandler<RegisterFormValues> = async (formValues) => {
-    const { name, password } = formValues;
+    const { name, email } = formValues;
     const res = await fetch("/api/auth/register", {
       method: "POST",
-      body: JSON.stringify({name, password }),
+      body: JSON.stringify({name, email }),
     });
     const user = await res.json();
     console.log(user);
@@ -30,13 +32,15 @@ export default function Register() {
 
   return (
     <main className="bg-white p-4 rounded-xl shadow sm:w-1/2 m-auto">
-      <h1>Register</h1>
+      <h1>Join us!</h1>
       <form
         className="py-4 flex flex-col gap-4"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex flex-col gap-2">
-          <label htmlFor="username">Username</label>
+          <label htmlFor="username" className="flex gap-2 items-center">
+            <FontAwesomeIcon icon={faUser}/>
+            Username</label>
           <input
             id="username"
             {...register("name", {
@@ -49,15 +53,18 @@ export default function Register() {
             className="shadow bg-slate-100 rounded-md p-2"
           />
         </div>
-        {errors && errors.name?.message}
+        {errors.name?.message}
         <div className="flex flex-col gap-2">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="email" className="flex gap-2 items-center">
+            <FontAwesomeIcon icon={faEnvelope}/>
+            Email</label>
           <input
-            id="password"
-            type="password"
-            {...register("password", { required: "Password is required" })}
+            id="email"
+            type="email"
+            {...register("email", { required: "Email is required" })}
           />
         </div>
+        {errors.email?.message}
         <div className="flex justify-center">
           <button className="bg-sky-500 hover:bg-sky-400 rounded-md shadow text-white p-2">
             Register
