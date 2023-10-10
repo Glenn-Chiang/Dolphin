@@ -1,4 +1,4 @@
-import { getCurrentUser, useCurrentUser } from "@/auth";
+import { getCurrentUser } from "@/auth";
 import AuthProvider from "@/components/AuthProvider";
 import DolphinIcon from "@/components/DolphinIcon";
 import PodLink from "@/components/PodLink";
@@ -12,7 +12,6 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import Link from "next/link";
 import "../globals.css";
-import { getServerSession } from 'next-auth/next';
 config.autoAddCss = false;
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -43,9 +42,6 @@ export default function RootLayout({
 }
 
 async function Sidebar() {
-  const session = await getServerSession()
-  const user = session?.user
-  console.log('Hello from sidebar. User:', user)
   const userId = await getCurrentUser();
   const pods = await getUserPods(userId);
   return (
@@ -86,7 +82,7 @@ function CreatePodButton() {
 async function TopNav() {
   const userId = await getCurrentUser();
   return (
-    <nav className="bg-sky-500 text-white text-xl p-2 pr-4 flex justify-between items-center fixed h-16 w-screen top-0 left-0 z-20 font-medium">
+    <nav className="bg-sky-500 text-white text-xl p-2  flex justify-between items-center fixed h-16 w-screen top-0 left-0 z-20 font-medium">
       <div className="flex gap-2">
         <button className="p-2 rounded-full hover:bg-sky-600 w-10 h-10 flex justify-center items-center">
           <FontAwesomeIcon icon={faBars} />

@@ -12,14 +12,15 @@ import ContextMenu from "./ContextMenu";
 import DolphinIcon from "./DolphinIcon";
 import { CommentButton, LikeButton, MenuButton } from "./buttons";
 import { useRouter } from "next/navigation";
+import { useSession } from 'next-auth/react';
 
 export default function PostCard({ post }: { post: PostDetail }) {
-  const userId = useCurrentUser();
+  const currentUserId = useCurrentUser();
 
-  const isOwnPost = userId === post.authorId;
+  const isOwnPost = currentUserId === post.authorId;
 
   const [liked, setLiked] = useState(
-    !!post.likedBy.find((user) => user.id === userId)
+    !!post.likedBy.find((user) => user.id === currentUserId)
   );
   const [likes, setLikes] = useState(post._count.likedBy);
 
