@@ -1,8 +1,8 @@
 "use client";
 
-import { getCurrentUser } from "@/auth";
+import { useCurrentUser } from "@/auth";
 import { deleteComment, likeComment } from "@/db/comments";
-import { CommentDetail } from "@/types";
+import { CommentDetail } from "@/db/types";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -14,7 +14,7 @@ import ReplyModal from "../ReplyModal";
 
 // 1 top-level parent comment with its replies
 export default function Comment({ comment }: { comment: CommentDetail }) {
-  const userId = getCurrentUser();
+  const userId = useCurrentUser();
   const isOwnComment = userId === comment.authorId;
 
   const [liked, setLiked] = useState(

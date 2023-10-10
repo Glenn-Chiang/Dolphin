@@ -1,8 +1,8 @@
 "use client";
 
-import { getCurrentUser } from "@/auth";
+import { useCurrentUser } from "@/auth";
 import { deletePost, likePost } from "@/db/posts";
-import { PostDetail } from "@/types";
+import { PostDetail } from "@/db/types";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons/faUserCircle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -14,7 +14,7 @@ import { CommentButton, LikeButton, MenuButton } from "./buttons";
 import { useRouter } from "next/navigation";
 
 export default function PostCard({ post }: { post: PostDetail }) {
-  const userId = getCurrentUser();
+  const userId = useCurrentUser();
 
   const isOwnPost = userId === post.authorId;
 

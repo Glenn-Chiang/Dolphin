@@ -1,11 +1,11 @@
 "use client";
 
-import { getCurrentUser } from "@/auth";
+import { useCurrentUser } from "@/auth";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { faComment } from "@fortawesome/free-solid-svg-icons/faComment";
 import { faHeart } from "@fortawesome/free-solid-svg-icons/faHeart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from 'next/link';
+import Link from "next/link";
 
 type SubmitButtonProps = {
   text: string;
@@ -75,7 +75,7 @@ function FollowButton({ onClick, alreadyFollowed }: FollowButtonProps) {
           : "text-white bg-sky-500 shadow-sky-500 hover:shadow-md hover:shadow-sky-500"
       }`}
     >
-      {alreadyFollowed ? 'Unfollow' : 'Follow'}
+      {alreadyFollowed ? "Unfollow" : "Follow"}
     </button>
   );
 }
@@ -149,9 +149,8 @@ function MenuButton({
   );
 }
 
-
-function CreatePostButton({podId}: {podId?: number}) {
-  const href = podId ? `/create-post?pod=${podId}` : '/create-post'
+function CreatePostButton({ podId }: { podId?: number }) {
+  const href = podId ? `/create-post?pod=${podId}` : "/create-post";
   return (
     <Link
       href={href}
@@ -170,5 +169,5 @@ export {
   JoinButton,
   MenuButton,
   FollowButton,
-  CreatePostButton
+  CreatePostButton,
 };

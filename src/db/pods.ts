@@ -3,17 +3,17 @@
 import { getCurrentUser } from "@/auth";
 import prisma from "./db";
 import { redirect } from "next/navigation";
-import { revalidatePath } from 'next/cache';
+import { revalidatePath } from "next/cache";
 
 const getPods = async () => {
   const pods = await prisma.pod.findMany({
     include: {
       members: {
         select: {
-          memberId: true
-        }
-      }
-    }
+          memberId: true,
+        },
+      },
+    },
   });
   return pods;
 };
@@ -26,10 +26,10 @@ const getPod = async (podId: number) => {
     include: {
       members: {
         select: {
-          memberId: true
-        }
-      }
-    }
+          memberId: true,
+        },
+      },
+    },
   });
   return pod;
 };
@@ -67,7 +67,7 @@ const createPod = async (formData: FormData) => {
     throw new Error("Invalid about");
   }
 
-  const creatorId = getCurrentUser()
+  const creatorId = await getCurrentUser();
 
   await prisma.pod.create({
     data: {
@@ -79,14 +79,13 @@ const createPod = async (formData: FormData) => {
           {
             member: {
               connect: {
-                id: creatorId
-              }
-            }
-          }
-        ]
-      }
+                id: creatorId,
+              },
+            },
+          },
+        ],
+      },
     },
-
   });
 
   console.log("Pod created!");
@@ -94,31 +93,31 @@ const createPod = async (formData: FormData) => {
 };
 
 const joinPod = async (podId: number) => {
-  const userId = getCurrentUser()
+  const userId = await getCurrentUser();
   await prisma.podMember.create({
     data: {
       podId,
       memberId: userId,
     },
   });
-  console.log('Joined pod!')
-  revalidatePath('/pods')
-  revalidatePath(`/profile/${userId}/pods`)
+  console.log("Joined pod!");
+  revalidatePath("/pods");
+  revalidatePath(`/profile/${userId}/pods`);
 };
 
 const leavePod = async (podId: number) => {
-  const userId = getCurrentUser()
+  const userId = await getCurrentUser();
   await prisma.podMember.delete({
     where: {
       memberId_podId: {
         memberId: userId,
-        podId
-      }
-    }
-  })
-  console.log('Left pod!')
-  revalidatePath('/pods')
-  revalidatePath(`/profile/${userId}/pods`)
-}
+        podId,
+      },
+    },
+  });
+  console.log("Left pod!");
+  revalidatePath("/pods");
+  revalidatePath(`/profile/${userId}/pods`);
+};
 
 export { getPods, getPod, getUserPods, createPod, joinPod, leavePod };

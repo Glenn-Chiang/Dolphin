@@ -1,5 +1,5 @@
 "use server";
-import { getCurrentUser } from "@/auth";
+import { getCurrentUser, useCurrentUser } from "@/auth";
 import prisma from "./db";
 import { revalidatePath } from "next/cache";
 
@@ -30,7 +30,7 @@ const getPodMembers = async (podId: number) => {
         },
       },
     },
-    include: includedData
+    include: includedData,
   });
   return members;
 };
@@ -44,7 +44,7 @@ const getFollowedUsers = async (userId: number) => {
         },
       },
     },
-    include: includedData
+    include: includedData,
   });
   return users;
 };
@@ -58,7 +58,7 @@ const getFollowers = async (userId: number) => {
         },
       },
     },
-    include: includedData
+    include: includedData,
   });
   return followers;
 };
@@ -75,7 +75,7 @@ const getUser = async (userId: number) => {
 };
 
 const updateProfile = async (about: string) => {
-  const userId = getCurrentUser();
+  const userId = await getCurrentUser();
   console.log(about);
   await prisma.user.update({
     where: {

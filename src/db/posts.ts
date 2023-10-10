@@ -4,7 +4,7 @@ import { getCurrentUser } from "@/auth";
 import prisma from "./db";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { PostDetail } from "@/types";
+import { PostDetail } from "@/db/types";
 
 const includedData = {
   author: true,
@@ -31,12 +31,13 @@ const getPosts = async (): Promise<PostDetail[]> => {
 
 // Get all posts in pods joined by current user, ordered by date
 const getHomeFeed = async (): Promise<PostDetail[]> => {
+  const userId: number = await getCurrentUser();
   const posts = await prisma.post.findMany({
     where: {
       pod: {
         members: {
           some: {
-            memberId: getCurrentUser(),
+            memberId: userId,
           },
         },
       },
@@ -178,7 +179,7 @@ const createPost = async (formData: FormData) => {
     throw new Error("Invalid podId");
   }
 
-  const authorId = getCurrentUser();
+  const authorId: number = await getCurrentUser();
 
   await prisma.post.create({
     data: {
@@ -195,7 +196,7 @@ const createPost = async (formData: FormData) => {
 
 const likePost = async (postId: number) => {
   // Get current user's liked posts
-  const userId = getCurrentUser();
+  const userId: number = await getCurrentUser();
   const user = await prisma.user.findUnique({
     where: {
       id: userId,
@@ -271,7 +272,7 @@ const editPost = async (postId: number, content: string) => {
 
 export {
   getPosts,
-  getHomeFeed ,
+  getHomeFeed,
   getNewPodPosts,
   getTopPodPosts,
   getHotPodPosts,

@@ -9,18 +9,18 @@ import {
 import { User } from "@prisma/client";
 import { useState } from "react";
 import ProfileModal from "@/app/profile/[id]/ProfileModal";
-import { getCurrentUser } from "@/auth";
+import { useCurrentUser } from "@/auth";
 import { FollowButton, SubmitButton } from "@/components/buttons";
-import { UserDetail } from "@/types";
+import { UserDetail } from "@/db/types";
 import { follow, unfollow } from "@/db/follows";
 
 export default function Banner({ user }: { user: UserDetail }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const isOwnProfile = getCurrentUser() === user.id;
+  const isOwnProfile = useCurrentUser() === user.id;
 
   const alreadyFollowed = !!user.followers.find(
-    (follower) => follower.followerId === getCurrentUser()
+    (follower) => follower.followerId === useCurrentUser()
   );
 
   const handleFollowClick = async () => {

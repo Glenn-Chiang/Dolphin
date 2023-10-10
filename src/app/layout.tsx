@@ -1,4 +1,4 @@
-import { getCurrentUser } from "@/auth";
+import { getCurrentUser, useCurrentUser } from "@/auth";
 import AuthProvider from "@/components/AuthProvider";
 import DolphinIcon from "@/components/DolphinIcon";
 import PodLink from "@/components/PodLink";
@@ -12,6 +12,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import Link from "next/link";
 import "../globals.css";
+import { getServerSession } from 'next-auth/next';
 config.autoAddCss = false;
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -25,6 +26,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
   return (
     <html lang="en" spellCheck="false">
       <body>
@@ -41,7 +43,10 @@ export default function RootLayout({
 }
 
 async function Sidebar() {
-  const userId = getCurrentUser();
+  const session = await getServerSession()
+  const user = session?.user
+  console.log('Hello from sidebar. User:', user)
+  const userId = await getCurrentUser();
   const pods = await getUserPods(userId);
   return (
     <section className="hidden sm:flex flex-col justify-between fixed w-1/4 pt-20 left-0 top-0 h-screen z-10 p-4 bg-slate-50 shadow">
@@ -78,7 +83,8 @@ function CreatePodButton() {
   );
 }
 
-function TopNav() {
+async function TopNav() {
+  const userId = await getCurrentUser();
   return (
     <nav className="bg-sky-500 text-white text-xl p-2 pr-4 flex justify-between items-center fixed h-16 w-screen top-0 left-0 z-20 font-medium">
       <div className="flex gap-2">
@@ -91,7 +97,7 @@ function TopNav() {
         </Link>
       </div>
       <Link
-        href={`/profile/${getCurrentUser()}`}
+        href={`/profile/${userId}`}
         className="p-2 rounded-full hover:bg-sky-600 w-10 h-10 justify-center items-center flex"
       >
         <FontAwesomeIcon icon={faUserCircle} />

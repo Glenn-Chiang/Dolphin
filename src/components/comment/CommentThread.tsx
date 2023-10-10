@@ -1,4 +1,4 @@
-import { CommentDetail } from "@/types";
+import { CommentDetail } from "@/db/types";
 import Comment from "./Comment";
 import { getReplies } from "@/db/comments";
 

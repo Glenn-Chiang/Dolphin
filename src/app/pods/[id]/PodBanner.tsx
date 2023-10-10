@@ -1,13 +1,17 @@
 "use client";
 
-import { getCurrentUser } from "@/auth";
+import { useCurrentUser } from "@/auth";
 import DolphinIcon from "@/components/DolphinIcon";
-import { CreatePostButton, JoinButton, SubmitButton } from "@/components/buttons";
+import {
+  CreatePostButton,
+  JoinButton,
+  SubmitButton,
+} from "@/components/buttons";
 import { joinPod, leavePod } from "@/db/pods";
-import { PodDetail } from "@/types";
+import { PodDetail } from "@/db/types";
 
 export default function PodBanner({ pod }: { pod: PodDetail }) {
-  const userId = getCurrentUser();
+  const userId = useCurrentUser();
   const alreadyJoined = !!pod.members.find(
     (member) => member.memberId === userId
   );
@@ -35,9 +39,8 @@ export default function PodBanner({ pod }: { pod: PodDetail }) {
           <JoinButton onClick={handleClick} alreadyJoined={alreadyJoined} />
           <span className="text-slate-500">{pod.members.length} members</span>
         </div>
-        <CreatePostButton podId={pod.id}/>
+        <CreatePostButton podId={pod.id} />
       </div>
     </section>
   );
 }
-

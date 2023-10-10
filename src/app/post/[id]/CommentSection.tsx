@@ -1,4 +1,4 @@
-import { CommentDetail } from "@/types";
+import { CommentDetail } from "@/db/types";
 import CommentForm from "./CommentForm";
 import CommentThread from "@/components/comment/CommentThread";
 

@@ -1,8 +1,8 @@
 "use server";
-import { getCurrentUser } from "@/auth";
 import prisma from "./db";
 import { revalidatePath } from "next/cache";
-import { CommentDetail } from "@/types";
+import { CommentDetail } from "@/db/types";
+import { getCurrentUser } from "@/auth";
 
 const includedData = {
   author: {
@@ -26,7 +26,7 @@ const getPostComments = async (postId: number): Promise<CommentDetail[]> => {
   const comments = await prisma.comment.findMany({
     where: {
       postId,
-      parentCommentId: null
+      parentCommentId: null,
     },
     include: includedData,
     orderBy: {
@@ -35,7 +35,6 @@ const getPostComments = async (postId: number): Promise<CommentDetail[]> => {
   });
   return comments;
 };
-
 
 const getUserComments = async (userId: number) => {
   const comments = await prisma.comment.findMany({
@@ -53,22 +52,23 @@ const getUserComments = async (userId: number) => {
 const getReplies = async (commentId: number) => {
   const replies = await prisma.comment.findMany({
     where: {
-      parentCommentId: commentId
+      parentCommentId: commentId,
     },
     include: includedData,
     orderBy: {
-      createdAt: 'desc'
-    }
-  })
-  return replies
-}
+      createdAt: "desc",
+    },
+  });
+  return replies;
+};
 
 const createComment = async (postId: number, content: string) => {
+  const userId = await getCurrentUser();
   await prisma.comment.create({
     data: {
       postId,
       content,
-      authorId: getCurrentUser(),
+      authorId: userId,
     },
   });
   console.log("Comment posted");
@@ -76,18 +76,23 @@ const createComment = async (postId: number, content: string) => {
   // revalidatePath(`/post/${postId}`);
 };
 
-const createReply = async (postId: number, commentId: number, content: string) => {
+const createReply = async (
+  postId: number,
+  commentId: number,
+  content: string
+) => {
+  const userId = await getCurrentUser();
   await prisma.comment.create({
     data: {
       postId,
       parentCommentId: commentId,
       content,
-      authorId: getCurrentUser()
-    }
-  })
-  console.log('Reply posted')
-  revalidatePath('/')
-}
+      authorId: userId,
+    },
+  });
+  console.log("Reply posted");
+  revalidatePath("/");
+};
 
 const deleteComment = async (commentId: number) => {
   await prisma.comment.delete({
@@ -114,8 +119,9 @@ const editComment = async (commentId: number, content: string) => {
 };
 
 const likeComment = async (commentId: number) => {
+  const userId = await getCurrentUser();
+
   // Get current user's liked posts
-  const userId = getCurrentUser();
   const user = await prisma.user.findUnique({
     where: {
       id: userId,
@@ -178,5 +184,5 @@ export {
   editComment,
   likeComment,
   createReply,
-  getReplies
+  getReplies,
 };
