@@ -5,6 +5,7 @@ import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { faComment } from "@fortawesome/free-solid-svg-icons/faComment";
 import { faHeart } from "@fortawesome/free-solid-svg-icons/faHeart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from 'next/link';
 
 type SubmitButtonProps = {
   text: string;
@@ -148,6 +149,19 @@ function MenuButton({
   );
 }
 
+
+function CreatePostButton({podId}: {podId?: number}) {
+  const href = podId ? `/create-post?pod=${podId}` : '/create-post'
+  return (
+    <Link
+      href={href}
+      className="p-2 rounded-md shadow font-medium bg-sky-500 hover:bg-sky-400 text-white"
+    >
+      Create Post
+    </Link>
+  );
+}
+
 export {
   SubmitButton,
   CancelButton,
@@ -155,5 +169,6 @@ export {
   CommentButton,
   JoinButton,
   MenuButton,
-  FollowButton
+  FollowButton,
+  CreatePostButton
 };

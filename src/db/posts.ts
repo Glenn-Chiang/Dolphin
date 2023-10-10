@@ -18,12 +18,33 @@ const includedData = {
   },
 };
 
+// Get all posts ordered by date
 const getPosts = async (): Promise<PostDetail[]> => {
   const posts = await prisma.post.findMany({
     orderBy: {
       createdAt: "desc",
     },
     include: includedData,
+  });
+  return posts;
+};
+
+// Get all posts in pods joined by current user, ordered by date
+const getHomeFeed = async (): Promise<PostDetail[]> => {
+  const posts = await prisma.post.findMany({
+    where: {
+      pod: {
+        members: {
+          some: {
+            memberId: getCurrentUser(),
+          },
+        },
+      },
+    },
+    include: includedData,
+    orderBy: {
+      createdAt: "desc",
+    },
   });
   return posts;
 };
@@ -183,12 +204,12 @@ const likePost = async (postId: number) => {
       likedPosts: true,
     },
   });
-  
+
   if (!user) {
     console.log("User not found");
     return;
   }
-  
+
   const alreadyLiked = user.likedPosts.some((post) => post.id === postId);
 
   if (alreadyLiked) {
@@ -250,6 +271,7 @@ const editPost = async (postId: number, content: string) => {
 
 export {
   getPosts,
+  getHomeFeed ,
   getNewPodPosts,
   getTopPodPosts,
   getHotPodPosts,

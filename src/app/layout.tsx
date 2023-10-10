@@ -10,6 +10,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import Link from "next/link";
 import "../globals.css";
+import { CreatePostButton } from "@/components/buttons";
 config.autoAddCss = false;
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -60,17 +61,6 @@ async function Sidebar() {
         <CreatePodButton />
       </div>
     </section>
-  );
-}
-
-function CreatePostButton() {
-  return (
-    <Link
-      href={"/create-post"}
-      className="p-2 rounded-md shadow font-medium bg-sky-500 hover:bg-sky-400 text-white"
-    >
-      Create Post
-    </Link>
   );
 }
 
