@@ -1,9 +1,11 @@
 "use client";
 
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useRouter } from 'next/navigation';
 
 type RegisterFormValues = {
   name: string;
+  password: string;
 };
 
 export default function Register() {
@@ -13,14 +15,17 @@ export default function Register() {
     formState: { errors },
   } = useForm<RegisterFormValues>();
 
+  const router = useRouter()
+
   const onSubmit: SubmitHandler<RegisterFormValues> = async (formValues) => {
-    const { name } = formValues;
-    const res = await fetch("/api/users", {
+    const { name, password } = formValues;
+    const res = await fetch("/api/auth/register", {
       method: "POST",
-      body: JSON.stringify({ name }),
+      body: JSON.stringify({name, password }),
     });
-    const user = await res.json()
+    const user = await res.json();
     console.log(user);
+    router.push('/login') // Redirect to login after successful registration
   };
 
   return (
@@ -45,6 +50,14 @@ export default function Register() {
           />
         </div>
         {errors && errors.name?.message}
+        <div className="flex flex-col gap-2">
+          <label htmlFor="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            {...register("password", { required: "Password is required" })}
+          />
+        </div>
         <div className="flex justify-center">
           <button className="bg-sky-500 hover:bg-sky-400 rounded-md shadow text-white p-2">
             Register
