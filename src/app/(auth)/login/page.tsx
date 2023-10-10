@@ -7,11 +7,10 @@ import { useRouter } from 'next/navigation';
 export default function Login() {
   const router = useRouter()
 
-  const handleLogin = () => {
-    signIn("google");
+  const handleLogin = async () => {
+    await signIn("google");
     router.push('/') // Redirect to homepage after successful login
   };
-  console.log(useSession())
 
   return (
     <main className="bg-white p-4 rounded-xl shadow">

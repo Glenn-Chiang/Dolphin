@@ -1,23 +1,17 @@
 import { getCurrentUser } from "@/auth";
+import AuthProvider from "@/components/AuthProvider";
 import DolphinIcon from "@/components/DolphinIcon";
 import PodLink from "@/components/PodLink";
+import { CreatePostButton } from "@/components/buttons";
 import { getUserPods } from "@/db/pods";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import {
-  faBars,
-  faBurger,
-  faHamburger,
-  faPlus,
-  faUserCircle,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBars, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import Link from "next/link";
 import "../globals.css";
-import { CreatePostButton } from "@/components/buttons";
-import AuthProvider from "@/components/AuthProvider";
 config.autoAddCss = false;
 
 const montserrat = Montserrat({ subsets: ["latin"] });
