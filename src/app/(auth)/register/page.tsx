@@ -4,6 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faUser } from "@fortawesome/free-solid-svg-icons";
+import FormError from "@/components/FormError";
 
 type RegisterFormValues = {
   name: string;
@@ -39,8 +40,9 @@ export default function Register() {
       >
         <div className="flex flex-col gap-2">
           <label htmlFor="username" className="flex gap-2 items-center">
-            <FontAwesomeIcon icon={faUser}/>
-            Username</label>
+            <FontAwesomeIcon icon={faUser} />
+            Username
+          </label>
           <input
             id="username"
             {...register("name", {
@@ -53,18 +55,19 @@ export default function Register() {
             className="shadow bg-slate-100 rounded-md p-2"
           />
         </div>
-        {errors.name?.message}
+        {errors.name && <FormError>{errors.name.message}</FormError>}
         <div className="flex flex-col gap-2">
           <label htmlFor="email" className="flex gap-2 items-center">
-            <FontAwesomeIcon icon={faEnvelope}/>
-            Email</label>
+            <FontAwesomeIcon icon={faEnvelope} />
+            Email
+          </label>
           <input
             id="email"
             type="email"
             {...register("email", { required: "Email is required" })}
           />
         </div>
-        {errors.email?.message}
+        {errors.email && <FormError>{errors.email.message}</FormError>}
         <div className="flex justify-center">
           <button className="bg-sky-500 hover:bg-sky-400 rounded-md shadow text-white p-2">
             Register
