@@ -1,5 +1,6 @@
 "use client";
 
+import FormError from "@/components/FormError";
 import { CancelButton, SubmitButton } from "@/components/buttons";
 import { createComment } from "@/db/comments";
 import { useParams } from "next/navigation";
@@ -13,7 +14,7 @@ export default function CommentForm() {
   const params = useParams();
   const postId = Number(params.id);
 
-  const { register, handleSubmit, reset } = useForm<CommentFormValues>();
+  const { register, handleSubmit, reset, formState: {errors} } = useForm<CommentFormValues>();
 
   const onSubmit: SubmitHandler<CommentFormValues> = (formValues) => {
     const { content } = formValues;
@@ -33,11 +34,12 @@ export default function CommentForm() {
       <h2>Share your thoughts</h2>
       <textarea
         {...register("content", {
-          required: "You cannot post a blank comment",
+          required: "Your comment can't be empty",
         })}
         defaultValue={""}
         className="bg-slate-100 rounded-md p-2"
       />
+      {errors.content && <FormError>{errors.content.message}</FormError>}
       <div className="flex gap-2">
         <SubmitButton text="Comment" />
         <CancelButton onClick={handleCancel} />

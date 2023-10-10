@@ -7,13 +7,14 @@ import { editPost } from "@/db/posts";
 import Link from "next/link";
 import DolphinIcon from "@/components/DolphinIcon";
 import { useRouter } from "next/navigation";
+import FormError from "@/components/FormError";
 
 type EditFormValues = {
   content: string;
 };
 
 export default function EditPostForm({ post }: { post: PostDetail }) {
-  const { register, handleSubmit } = useForm<EditFormValues>();
+  const { register, handleSubmit, formState: {errors} } = useForm<EditFormValues>();
 
   const router = useRouter();
 
@@ -45,11 +46,12 @@ export default function EditPostForm({ post }: { post: PostDetail }) {
         </label>
         <textarea
           id="content"
-          {...register("content", { required: "Content is required" })}
+          {...register("content", { required: "Your post can't be empty" })}
           defaultValue={post.content}
           className="shadow rounded-md bg-slate-100 p-2 h-40"
         />
       </div>
+      {errors.content && <FormError>{errors.content.message}</FormError>}
       <div>
         <SubmitButton text="Save" />
       </div>

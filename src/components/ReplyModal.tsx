@@ -5,6 +5,7 @@ import Modal from "./Modal";
 import { SubmitButton } from "./buttons";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { createReply } from "@/db/comments";
+import FormError from "./FormError";
 
 type ReplyModalProps = {
   close: () => void;
@@ -16,7 +17,7 @@ type ReplyFormValues = {
 };
 
 export default function ReplyModal({ close, comment }: ReplyModalProps) {
-  const { register, handleSubmit } = useForm<ReplyFormValues>();
+  const { register, handleSubmit, formState: {errors} } = useForm<ReplyFormValues>();
 
   const onSubmit: SubmitHandler<ReplyFormValues> = async (formValues) => {
     const { content } = formValues;
@@ -33,6 +34,7 @@ export default function ReplyModal({ close, comment }: ReplyModalProps) {
           {...register("content", { required: "Your reply cannot be blank" })}
           className="w-full"
         />
+        {errors.content && <FormError>{errors.content.message}</FormError>}
         <div>
           <SubmitButton text="Reply" />
         </div>

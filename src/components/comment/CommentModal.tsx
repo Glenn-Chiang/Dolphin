@@ -4,6 +4,7 @@ import Modal from "../Modal";
 import { createComment } from "@/db/comments";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Post } from "@prisma/client";
+import FormError from "../FormError";
 
 type CommentModalProps = {
   close: () => void;
@@ -15,7 +16,7 @@ type CommentFormValues = {
 };
 
 export default function CommentModal({ close, post }: CommentModalProps) {
-  const { register, handleSubmit } = useForm<CommentFormValues>();
+  const { register, handleSubmit, formState: {errors} } = useForm<CommentFormValues>();
 
   const onSubmit: SubmitHandler<CommentFormValues> = (formValues) => {
     const { content } = formValues;
@@ -31,10 +32,11 @@ export default function CommentModal({ close, post }: CommentModalProps) {
           autoFocus
           className="bg-slate-100 shadow rounded-md p-2"
           {...register("content", {
-            required: "You cannot post a blank comment",
+            required: "Your comment can't be empty",
           })}
           defaultValue={""}
         />
+        {errors.content && <FormError>{errors.content.message}</FormError>}
         <div className="flex gap-2">
           <SubmitButton text="Post" />
           <CancelButton onClick={close} />

@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import Modal from "../../../components/Modal";
 import { SubmitButton } from "../../../components/buttons";
 import { updateProfile } from "@/db/users";
+import FormError from "@/components/FormError";
 
 type ProfileModalProps = {
   close: () => void;
@@ -15,7 +16,7 @@ type EditProfileFormValues = {
 };
 
 export default function ProfileModal({ close, about }: ProfileModalProps) {
-  const { handleSubmit, register } = useForm<EditProfileFormValues>();
+  const { handleSubmit, register, formState: {errors} } = useForm<EditProfileFormValues>();
 
   const onSubmit: SubmitHandler<EditProfileFormValues> = async (formValues) => {
     const { about } = formValues;
@@ -44,6 +45,7 @@ export default function ProfileModal({ close, about }: ProfileModalProps) {
             className="p-2 shadow bg-slate-100"
           />
         </div>
+        {errors.about && <FormError>{errors.about.message}</FormError>}
         <div>
           <SubmitButton text="Save" />
         </div>

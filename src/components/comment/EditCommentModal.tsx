@@ -5,6 +5,7 @@ import Modal from "../Modal";
 import { SubmitButton } from "../buttons";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { editComment } from "@/db/comments";
+import FormError from "../FormError";
 
 type EditCommentModalProps = {
   close: () => void;
@@ -19,7 +20,7 @@ export default function EditCommentModal({
   close,
   comment,
 }: EditCommentModalProps) {
-  const { register, handleSubmit } = useForm<EditFormValues>();
+  const { register, handleSubmit, formState: {errors} } = useForm<EditFormValues>();
 
   const onSubmit: SubmitHandler<EditFormValues> = async (formValues) => {
     const { content } = formValues;
@@ -32,10 +33,11 @@ export default function EditCommentModal({
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <h1>Edit your comment</h1>
         <textarea
-          {...register("content", { required: "Your comment cannot be blank" })}
+          {...register("content", { required: "Your comment can't be empty" })}
           className="shadow rounded-md p-2 bg-slate-100 w-full"
           defaultValue={comment.content}
         />
+        {errors.content && <FormError>{errors.content.message}</FormError>}
         <div>
           <SubmitButton text="Save" />
         </div>
