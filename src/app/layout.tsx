@@ -4,13 +4,20 @@ import PodLink from "@/components/PodLink";
 import { getUserPods } from "@/db/pods";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import { faBars, faBurger, faHamburger, faPlus, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faBurger,
+  faHamburger,
+  faPlus,
+  faUserCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import Link from "next/link";
 import "../globals.css";
 import { CreatePostButton } from "@/components/buttons";
+import AuthProvider from "@/components/AuthProvider";
 config.autoAddCss = false;
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -27,11 +34,13 @@ export default function RootLayout({
   return (
     <html lang="en" spellCheck="false">
       <body>
-        <TopNav />
-        <Sidebar />
-        <div className="absolute w-full sm:left-1/4 sm:w-3/4 mt-16 mb-10 p-4 ">
-          {children}
-        </div>
+        <AuthProvider>
+          <TopNav />
+          <Sidebar />
+          <div className="absolute w-full sm:left-1/4 sm:w-3/4 mt-16 mb-10 p-4 ">
+            {children}
+          </div>
+        </AuthProvider>
       </body>
     </html>
   );
@@ -77,17 +86,20 @@ function CreatePodButton() {
 
 function TopNav() {
   return (
-    <nav className="bg-sky-500 text-white text-xl p-2 pr-8 flex justify-between items-center fixed h-16 w-screen top-0 left-0 z-20 font-medium">
+    <nav className="bg-sky-500 text-white text-xl p-2 pr-4 flex justify-between items-center fixed h-16 w-screen top-0 left-0 z-20 font-medium">
       <div className="flex gap-2">
         <button className="p-2 rounded-full hover:bg-sky-600 w-10 h-10 flex justify-center items-center">
-          <FontAwesomeIcon icon={faBars}/>
+          <FontAwesomeIcon icon={faBars} />
         </button>
         <Link href={"/"} className="flex gap-2 items-center">
           <DolphinIcon />
           Dolphin
         </Link>
       </div>
-      <Link href={`/profile/${getCurrentUser()}`} className="p-2 rounded-full hover:bg-sky-600 w-10 h-10 justify-center items-center flex">
+      <Link
+        href={`/profile/${getCurrentUser()}`}
+        className="p-2 rounded-full hover:bg-sky-600 w-10 h-10 justify-center items-center flex"
+      >
         <FontAwesomeIcon icon={faUserCircle} />
       </Link>
     </nav>
