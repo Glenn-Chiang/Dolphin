@@ -3,10 +3,14 @@ import { getServerSession } from "next-auth/next";
 
 // Get current user in client components
 const useCurrentUser = () => {
-  // const session = useSession();
-  // const userId = session.data?.user;
+  const session = useSession();
+  const user = session.data?.user;
+  
+  if (!user) return null
+
+  const userId:number = (user as any).id
   // console.log("UserId:", userId);
-  return 1;
+  return userId;
 };
 
 // Get current user in server components / server actions
