@@ -1,17 +1,16 @@
 import { getCurrentUser } from "@/auth";
 import AuthProvider from "@/components/AuthProvider";
-import DolphinIcon from "@/components/DolphinIcon";
 import PodLink from "@/components/PodLink";
 import { CreatePostButton } from "@/components/buttons";
 import { getUserPods } from "@/db/pods";
-import { faBars, faUserCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import Link from "next/link";
 import { Montserrat } from "next/font/google";
 import type { Metadata } from "next";
-import '../../globals.css'
+import "../../globals.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
+import TopNav from "@/components/TopNav";
 config.autoAddCss = false;
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -25,7 +24,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-
   return (
     <html lang="en" spellCheck="false">
       <body className="whitespace-pre-wrap">
@@ -79,25 +77,3 @@ function CreatePodButton() {
   );
 }
 
-async function TopNav() {
-  const userId = await getCurrentUser();
-  return (
-    <nav className="bg-sky-500 text-white text-xl p-2  flex justify-between items-center fixed h-16 w-screen top-0 left-0 z-20 font-medium">
-      <div className="flex gap-2">
-        <button className="p-2 rounded-full hover:bg-sky-600 w-10 h-10 flex justify-center items-center">
-          <FontAwesomeIcon icon={faBars} />
-        </button>
-        <Link href={"/"} className="flex gap-2 items-center">
-          <DolphinIcon />
-          Dolphin
-        </Link>
-      </div>
-      <Link
-        href={`/profile/${userId}`}
-        className="p-2 rounded-full hover:bg-sky-600 w-10 h-10 justify-center items-center flex"
-      >
-        <FontAwesomeIcon icon={faUserCircle} />
-      </Link>
-    </nav>
-  );
-}

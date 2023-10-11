@@ -8,6 +8,7 @@ import {
   faCalendar,
   faEdit,
   faUserCircle,
+  faUserEdit,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
@@ -79,7 +80,7 @@ function EditButton({ onClick }: { onClick: () => void }) {
       onClick={onClick}
       className="absolute right-4 top-4 flex gap-2 items-center p-2 rounded-full border border-slate-500 text-slate-500 hover:bg-slate-200"
     >
-      <FontAwesomeIcon icon={faEdit} />
+      <FontAwesomeIcon icon={faUserEdit} />
       Edit profile
     </button>
   );
