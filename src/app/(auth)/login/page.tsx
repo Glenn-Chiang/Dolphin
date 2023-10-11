@@ -7,11 +7,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 export default function Login() {
-  const router = useRouter()
-
   const handleLogin = async () => {
-    await signIn("google");
-    router.push('/') // Redirect to homepage after successful login
+    await signIn("google", {callbackUrl: '/'}); // Redirect to homepage on successful sign in 
   };
 
   return (
