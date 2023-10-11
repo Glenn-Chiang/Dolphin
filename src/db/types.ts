@@ -44,6 +44,12 @@ const podDetail = Prisma.validator<Prisma.PodDefaultArgs>()({
         memberId: true,
       },
     },
+    _count: {
+      select: {
+        members: true,
+        posts: true
+      }
+    }
   },
 });
 

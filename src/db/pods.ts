@@ -11,6 +11,12 @@ const includedData = {
       memberId: true,
     },
   },
+  _count: {
+    select: {
+      members: true,
+      posts: true,
+    },
+  },
 };
 
 // Get all pods

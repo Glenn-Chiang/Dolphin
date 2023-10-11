@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 import PodBanner from "./PodBanner";
 import TabLink from "@/components/TabLink";
-import PodLinks from "./PodLinks";
+import PodPageLinks from "./PodPageLinks";
 
 export default async function PodPage({
   params,
@@ -22,7 +22,7 @@ export default async function PodPage({
   return (
     <main className="flex flex-col gap-4 pb-4">
       <PodBanner pod={pod} />
-      <PodLinks podId={podId} />
+      <PodPageLinks pod={pod} />
       {children}
     </main>
   );
