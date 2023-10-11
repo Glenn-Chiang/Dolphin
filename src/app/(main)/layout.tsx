@@ -1,7 +1,7 @@
 import { getCurrentUser } from "@/auth";
 import AuthProvider from "@/components/AuthProvider";
 import PodLink from "@/components/PodLink";
-import { CreatePostButton } from "@/components/buttons";
+import { CreatePodButton, CreatePostButton } from "@/components/buttons";
 import { getUserPods } from "@/db/pods";
 
 import Link from "next/link";
@@ -58,22 +58,10 @@ async function Sidebar() {
           Explore all pods
         </Link>
       </div>
-      <div className="flex gap-2 justify-center flex-col md:flex-row ">
+      <div className="flex gap-2 justify-center flex-col md:flex-row text-center">
         <CreatePostButton />
         <CreatePodButton />
       </div>
     </section>
   );
 }
-
-function CreatePodButton() {
-  return (
-    <Link
-      href={"/create-pod"}
-      className="p-2 rounded-md shadow font-medium bg-sky-500 hover:bg-sky-400 text-white"
-    >
-      Create Pod
-    </Link>
-  );
-}
-
