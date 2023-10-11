@@ -19,7 +19,7 @@ export default async function Profile({
   return (
     <main className="flex flex-col gap-4">
       <Banner user={user}/>      
-      <ProfileLinks userId={userId}/>
+      <ProfileLinks user={user}/>
       {children}
     </main>
   );

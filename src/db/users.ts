@@ -11,6 +11,9 @@ const includedData = {
   },
   _count: {
     select: {
+      posts: true,
+      comments: true,
+      pods: true,
       following: true,
     },
   },

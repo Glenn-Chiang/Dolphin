@@ -57,6 +57,9 @@ const userDetail = Prisma.validator<Prisma.UserDefaultArgs>()({
     },
     _count: {
       select: {
+        posts: true,
+        comments: true,
+        pods: true,
         following: true,
       },
     },
