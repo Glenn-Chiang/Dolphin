@@ -49,7 +49,7 @@ export default function Comment({ comment }: { comment: CommentDetail }) {
           className="flex gap-2 items-center text-slate-500 hover:text-sky-500 w-max p-2 -ml-2"
         >
           <FontAwesomeIcon icon={faUserCircle} />
-          {comment.author.name}
+          {comment.author ? comment.author.name : '[deleted]'}
         </Link>
         <span className="text-slate-500">
           {comment.createdAt.toDateString()}
