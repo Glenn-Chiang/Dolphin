@@ -34,7 +34,7 @@ export default function TopNav() {
         onClick={toggleDropdown}
         className="relative"
       >
-        <div className={`flex gap-2 items-center hover:bg-sky-600 p-2 rounded-xl ${dropdownIsOpen && "bg-sky-600"}`}>
+        <div className={`flex gap-2 items-center hover:bg-sky-600 p-4 rounded-full ${dropdownIsOpen && "bg-sky-600"}`}>
           <FontAwesomeIcon icon={faUserCircle} />
           <FontAwesomeIcon icon={faChevronDown} className="text-sm"/>
         </div>
