@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faUser } from "@fortawesome/free-solid-svg-icons";
 import FormError from "@/components/FormError";
 import DolphinIcon from "@/components/DolphinIcon";
+import Link from "next/link";
 
 type RegisterFormValues = {
   name: string;
@@ -33,9 +34,9 @@ export default function Register() {
   };
 
   return (
-    <main className="bg-white p-4 rounded-xl shadow sm:w-1/2 m-auto opacity-90 w-full h-full flex justify-center items-center flex-col">
+    <main className="bg-white p-4 rounded-xl shadow sm:w-1/2 m-auto w-full h-full flex justify-center items-center flex-col">
       <div className="p-4">
-        <DolphinIcon large={true}/>
+        <DolphinIcon large={true} />
       </div>
       <h1>Join us !</h1>
       <form
@@ -77,6 +78,12 @@ export default function Register() {
           Register
         </button>
       </form>
+      <p>
+        Already have an account?{" "}
+        <Link href={"/login"} className="text-sky-500 hover:text-sky-400">
+          Login
+        </Link>
+      </p>
     </main>
   );
 }
