@@ -2,7 +2,6 @@ import PodCard from "@/components/PodCard";
 import { getPods } from "@/db/pods";
 import Link from "next/link";
 
-// Page displaying all 'pods' (communities) on the platform
 export default async function Pods() {
   const pods = await getPods();
   return (
@@ -35,7 +34,7 @@ function CreatePodButton() {
 function Searchbar({ placeholder }: { placeholder: string }) {
   return (
     <input
-      className="bg-transparent border-b-2 focus:outline-none p-2 w-full"
+      className="bg-transparent border-b-2 focus:outline-none shadow-none w-full"
       placeholder={placeholder}
     />
   );

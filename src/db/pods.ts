@@ -5,31 +5,41 @@ import prisma from "./db";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
+const includedData = {
+  members: {
+    select: {
+      memberId: true,
+    },
+  },
+};
+
+// Get all pods
 const getPods = async () => {
   const pods = await prisma.pod.findMany({
-    include: {
-      members: {
-        select: {
-          memberId: true,
-        },
-      },
-    },
+    include: includedData,
   });
   return pods;
 };
+
+// Get all pods with name matching query string
+const getMatchedPods = async (query: string) => {
+  const pods = await prisma.pod.findMany({
+    where: {
+      name: {
+        contains: query
+      }
+    },
+    include: includedData
+  })
+  return pods
+}
 
 const getPod = async (podId: number) => {
   const pod = await prisma.pod.findUnique({
     where: {
       id: podId,
     },
-    include: {
-      members: {
-        select: {
-          memberId: true,
-        },
-      },
-    },
+    include: includedData,
   });
   return pod;
 };
@@ -45,13 +55,7 @@ const getUserPods = async (userId: number) => {
         },
       },
     },
-    include: {
-      members: {
-        select: {
-          memberId: true,
-        },
-      },
-    },
+    include: includedData
   });
   return pods;
 };
@@ -120,4 +124,4 @@ const leavePod = async (podId: number) => {
   revalidatePath(`/profile/${userId}/pods`);
 };
 
-export { getPods, getPod, getUserPods, createPod, joinPod, leavePod };
+export { getPods, getMatchedPods, getPod, getUserPods, createPod, joinPod, leavePod };
