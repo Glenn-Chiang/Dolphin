@@ -1,5 +1,5 @@
 import { getHomeFeed } from "@/db/posts";
-import PostCard from "../../components/PostCard";
+import PostCard from '../../../components/PostCard';
 
 export default async function HomeFeed() {
   const posts = await getHomeFeed();

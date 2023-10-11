@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import Link from "next/link";
-import "../globals.css";
+import '../../globals.css'
 config.autoAddCss = false;
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -28,7 +28,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" spellCheck="false">
-      <body>
+      <body className="whitespace-pre-wrap">
         <AuthProvider>
           <TopNav />
           <Sidebar />

@@ -1,9 +1,9 @@
 import prisma from "@/db/db";
 import NextAuth from "next-auth/next";
-import type {NextAuthOptions} from "next-auth"
-import GoogleProvider from 'next-auth/providers/google'
+import type { NextAuthOptions } from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
 
-export const authOptions : NextAuthOptions= {
+export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -15,16 +15,15 @@ export const authOptions : NextAuthOptions= {
     // If a match is found, user is authorized, else user is unauthorized
     async signIn({ user }) {
       // Unauthorized if no email provided
-      // if (!user.email) return false
+      if (!user.email) return false;
 
-      // const matchedUser = await prisma.user.findUnique({
-      //   where: {
-      //     email: user.email
-      //   }
-      // })
+      const matchedUser = await prisma.user.findUnique({
+        where: {
+          email: user.email,
+        },
+      });
 
-      // return !!matchedUser
-      return true;
+      return !!matchedUser
     },
     async jwt({ token, profile }) {
       // Attach userId to jwt on login
@@ -52,4 +51,4 @@ export const authOptions : NextAuthOptions= {
 
 const handler = NextAuth(authOptions);
 
-export {handler as GET, handler as POST}
+export { handler as GET, handler as POST };

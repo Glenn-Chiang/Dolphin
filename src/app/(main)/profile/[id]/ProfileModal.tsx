@@ -1,8 +1,8 @@
 "use client";
 
 import { SubmitHandler, useForm } from "react-hook-form";
-import Modal from "../../../components/Modal";
-import { SubmitButton } from "../../../components/buttons";
+import Modal from "@/components/Modal";
+import { SubmitButton } from "@/components/buttons";
 import { updateProfile } from "@/db/users";
 import FormError from "@/components/FormError";
 

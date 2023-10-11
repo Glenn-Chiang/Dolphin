@@ -1,18 +1,17 @@
 "use client";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useCurrentUser } from "@/auth";
+import { FollowButton } from "@/components/buttons";
+import { follow, unfollow } from "@/db/follows";
+import { UserDetail } from "@/db/types";
 import {
   faCalendar,
   faEdit,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import { User } from "@prisma/client";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import ProfileModal from "@/app/profile/[id]/ProfileModal";
-import { getCurrentUser, useCurrentUser } from "@/auth";
-import { FollowButton, SubmitButton } from "@/components/buttons";
-import { UserDetail } from "@/db/types";
-import { follow, unfollow } from "@/db/follows";
+import ProfileModal from "./ProfileModal";
 
 export default function Banner({ user }: { user: UserDetail }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
