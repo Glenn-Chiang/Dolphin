@@ -4,14 +4,14 @@ import DolphinIcon from "@/components/DolphinIcon";
 import PodLink from "@/components/PodLink";
 import { CreatePostButton } from "@/components/buttons";
 import { getUserPods } from "@/db/pods";
-import { config } from "@fortawesome/fontawesome-svg-core";
-import "@fortawesome/fontawesome-svg-core/styles.css";
 import { faBars, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
 import Link from "next/link";
+import { Montserrat } from "next/font/google";
+import type { Metadata } from "next";
 import '../../globals.css'
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
 
 const montserrat = Montserrat({ subsets: ["latin"] });
