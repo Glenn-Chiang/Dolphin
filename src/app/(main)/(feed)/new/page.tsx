@@ -1,7 +1,7 @@
 import PostCard from "@/components/PostCard";
 import { getPosts } from "@/db/posts";
 
-export default async function Popular() {
+export default async function NewFeedPage() {
   const posts = await getPosts();
 
   return (

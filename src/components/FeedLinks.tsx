@@ -16,7 +16,7 @@ export default function FeedLinks() {
           For You
         </div>
       </TabLink>
-      <TabLink href="/popular" activePath={pathname}>
+      <TabLink href="/new" activePath={pathname}>
         <div className="flex gap-2 items-center">
           <FontAwesomeIcon icon={faFire} />
           New
