@@ -32,7 +32,7 @@ export default function RootLayout({
         <AuthProvider>
           <TopNav />
           <Sidebar />
-          <div className="absolute w-full sm:left-1/4 sm:w-3/4 mt-16 mb-10 p-4 ">
+          <div className="absolute left-1/4 w-3/4 mt-16 mb-10 p-4 ">
             {children}
           </div>
         </AuthProvider>

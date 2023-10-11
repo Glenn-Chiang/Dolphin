@@ -1,6 +1,4 @@
 import { getPost } from "@/db/posts";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Backbar from "../Backbar";
 import EditPostForm from "./EditForm";
 
