@@ -20,7 +20,7 @@ export default function TopNav() {
   const userId = useCurrentUser();
 
   return (
-    <nav className="bg-sky-500 text-white text-xl p-2 pr-8 flex justify-between items-center fixed h-16 w-screen top-0 left-0 z-20 font-medium shadow-lg">
+    <nav className="bg-sky-500 text-white text-xl p-2 pr-4 flex justify-between items-center fixed h-16 w-screen top-0 left-0 z-20 font-medium shadow-lg">
       <div className="flex gap-2">
         <button className="p-2 rounded-full hover:bg-sky-600 w-10 h-10 flex justify-center items-center">
           <FontAwesomeIcon icon={faBars} />

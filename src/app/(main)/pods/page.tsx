@@ -8,7 +8,6 @@ export default async function Pods() {
     <main>
       <div className="flex justify-between items-center">
         <h1 className="pb-4">Explore Pods</h1>
-        <CreatePodButton />
       </div>
       <Searchbar placeholder="Search for a pod..." />
       <ul className="py-4 flex flex-col gap-4">
@@ -17,17 +16,6 @@ export default async function Pods() {
         ))}
       </ul>
     </main>
-  );
-}
-
-function CreatePodButton() {
-  return (
-    <Link
-      href={"/create-pod"}
-      className="bg-white p-2 rounded-md shadow text-sky-500 font-medium hover:bg-sky-500 hover:text-white"
-    >
-      Start a Pod!
-    </Link>
   );
 }
 

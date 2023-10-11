@@ -5,7 +5,7 @@ import React from "react";
 type TabLinkProps = {
   activePath: string;
   href: string;
-  count: number;
+  count?: number;
   children: React.ReactNode;
 };
 
@@ -14,12 +14,12 @@ export default function TabLink({ activePath, href, children, count }: TabLinkPr
   return (
     <Link
       href={href}
-      className={`p-2 flex gap-2 items-center ${
-        isActive ? "text-sky-500 underline underline-offset-8" : "hover:text-sky-500 "
+      className={`p-2 text-xl flex gap-2 items-center ${
+        isActive ? "text-sky-500 " : "hover:text-sky-400 "
       }`}
     >
       {children}
-      <CountCircle count={count} isActive={isActive}/>
+      {count !== undefined && <CountCircle count={count} isActive={isActive}/>}
     </Link>
   );
 }

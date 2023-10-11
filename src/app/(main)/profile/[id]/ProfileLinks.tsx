@@ -2,7 +2,7 @@
 
 import TabLink from "@/components/TabLink";
 import { UserDetail } from "@/db/types";
-import { faBookOpen, faComment } from "@fortawesome/free-solid-svg-icons";
+import { faBookOpen, faComment, faPeopleGroup, faUserFriends, faUserGroup } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { usePathname } from "next/navigation";
 import { follow } from '@/db/follows';
@@ -25,12 +25,15 @@ export default function ProfileLinks({ user }: { user: UserDetail }) {
         Comments
       </TabLink>
       <TabLink activePath={path} href={`/profile/${user.id}/pods`} count={user._count.pods}>
+        <FontAwesomeIcon icon={faPeopleGroup}/>
         Pods
       </TabLink>
       <TabLink activePath={path} href={`/profile/${user.id}/followers`} count={user.followers.length}>
+        <FontAwesomeIcon icon={faUserFriends}/>
         Followers
       </TabLink>
       <TabLink activePath={path} href={`/profile/${user.id}/following`} count={user._count.following}>
+        <FontAwesomeIcon icon={faUserGroup}/>
         Following
       </TabLink>
     </nav>

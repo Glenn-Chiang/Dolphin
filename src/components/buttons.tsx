@@ -53,7 +53,7 @@ function JoinButton({ alreadyJoined, onClick }: JoinButtonProps) {
       className={` p-2 rounded-md shadow ${
         alreadyJoined
           ? "text-slate-500 bg-slate-200 hover:bg-slate-300"
-          : "text-white bg-sky-500 shadow-sky-500 hover:shadow-md hover:shadow-sky-500 hover:animate-bounce"
+          : "text-white bg-sky-500 shadow-sky-500 hover:shadow-md hover:shadow-sky-500 "
       }`}
     >
       {alreadyJoined ? "Leave" : "Join"} Pod
@@ -155,7 +155,7 @@ function CreatePostButton({ podId }: { podId?: number }) {
   return (
     <Link
       href={href}
-      className="p-2 rounded-md shadow font-medium bg-sky-500 hover:bg-sky-400 text-white hover:animate-bounce"
+      className="p-2 rounded-md shadow font-medium bg-sky-500 hover:bg-sky-400 text-white "
     >
       Create Post
     </Link>
@@ -167,7 +167,7 @@ function CreatePodButton() {
   return (
     <Link
       href={"/create-pod"}
-      className="p-2 rounded-md shadow font-medium bg-sky-500 hover:bg-sky-400 text-white hover:animate-bounce"
+      className="p-2 rounded-md shadow font-medium bg-sky-500 hover:bg-sky-400 text-white "
     >
       Create Pod
     </Link>

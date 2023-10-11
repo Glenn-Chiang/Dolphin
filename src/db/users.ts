@@ -29,9 +29,9 @@ const getPodMembers = async (podId: number) => {
     where: {
       pods: {
         some: {
-          podId,
-        },
-      },
+          podId: podId
+        }
+      }
     },
     include: includedData,
   });

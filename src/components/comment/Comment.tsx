@@ -6,7 +6,7 @@ import { CommentDetail } from "@/db/types";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CommentButton, LikeButton, MenuButton } from "../buttons";
 import ContextMenu from "../ContextMenu";
 import EditCommentModal from "./EditCommentModal";
@@ -34,6 +34,17 @@ export default function Comment({ comment }: { comment: CommentDetail }) {
   const toggleMenu = () => {
     setMenuIsShown((prev) => !prev);
   };
+  // useEffect(() => {
+  //   const hideMenu = (event: MouseEvent) => {
+  //     if (menuIsShown) {
+  //       // setMenuIsShown(false)
+  //     };
+  //   };
+  //   window.addEventListener("click", hideMenu);
+
+  //   return () => window.removeEventListener("click", hideMenu);
+  // }, [menuIsShown]);
+
 
   const [editModalIsShown, setEditModalIsShown] = useState(false);
   const handleEdit = () => {
@@ -49,7 +60,7 @@ export default function Comment({ comment }: { comment: CommentDetail }) {
           className="flex gap-2 items-center text-slate-500 hover:text-sky-500 w-max p-2 -ml-2"
         >
           <FontAwesomeIcon icon={faUserCircle} />
-          {comment.author ? comment.author.name : '[deleted]'}
+          {comment.author ? comment.author.name : "[deleted]"}
         </Link>
         <span className="text-slate-500">
           {comment.createdAt.toDateString()}
