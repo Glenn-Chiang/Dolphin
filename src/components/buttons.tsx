@@ -6,19 +6,20 @@ import { faComment } from "@fortawesome/free-solid-svg-icons/faComment";
 import { faHeart } from "@fortawesome/free-solid-svg-icons/faHeart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import React from "react";
 
 type SubmitButtonProps = {
-  text: string;
+  children: React.ReactNode
   onClick?: () => void;
 };
 
-function SubmitButton({ text, onClick }: SubmitButtonProps) {
+function SubmitButton({ onClick, children }: SubmitButtonProps) {
   return (
     <button
       onClick={onClick}
-      className="bg-sky-500 text-white p-2 rounded-md shadow shadow-sky-500 hover:shadow-md hover:shadow-sky-500"
+      className="bg-sky-500 text-white p-2 rounded-md shadow shadow-sky-500 hover:shadow-md hover:shadow-sky-500 w-max flex gap-2 items-center"
     >
-      {text}
+      {children}
     </button>
   );
 }
