@@ -53,7 +53,7 @@ export default function EditPostForm({ post }: { post: PostDetail }) {
       </div>
       {errors.content && <FormError>{errors.content.message}</FormError>}
       <div>
-        <SubmitButton text="Save" />
+        <SubmitButton>Save</SubmitButton>
       </div>
     </form>
   );

@@ -41,7 +41,7 @@ export default function CommentForm() {
       />
       {errors.content && <FormError>{errors.content.message}</FormError>}
       <div className="flex gap-2">
-        <SubmitButton text="Comment" />
+        <SubmitButton>Comment</SubmitButton>
         <CancelButton onClick={handleCancel} />
       </div>
     </form>

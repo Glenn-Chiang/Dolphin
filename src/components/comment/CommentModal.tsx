@@ -38,7 +38,7 @@ export default function CommentModal({ close, post }: CommentModalProps) {
         />
         {errors.content && <FormError>{errors.content.message}</FormError>}
         <div className="flex gap-2">
-          <SubmitButton text="Post" />
+          <SubmitButton>Comment</SubmitButton>
           <CancelButton onClick={close} />
         </div>
       </form>

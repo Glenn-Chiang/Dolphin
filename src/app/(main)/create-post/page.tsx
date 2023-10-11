@@ -52,7 +52,7 @@ export default async function CreatePost({
           />
         </div>
         <div className="flex gap-4">
-          <SubmitButton text="Post" />
+          <SubmitButton>Post</SubmitButton>
         </div>
       </form>
     </main>

@@ -23,7 +23,7 @@ export default function CreatePod() {
           />
         </div>
         <div className="flex gap-2">
-          <SubmitButton text="Create" />
+          <SubmitButton>Create</SubmitButton>
         </div>
       </form>
     </main>

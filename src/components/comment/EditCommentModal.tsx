@@ -39,7 +39,7 @@ export default function EditCommentModal({
         />
         {errors.content && <FormError>{errors.content.message}</FormError>}
         <div>
-          <SubmitButton text="Save" />
+          <SubmitButton>Save</SubmitButton>
         </div>
       </form>
     </Modal>

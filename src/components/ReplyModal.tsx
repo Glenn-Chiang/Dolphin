@@ -36,7 +36,7 @@ export default function ReplyModal({ close, comment }: ReplyModalProps) {
         />
         {errors.content && <FormError>{errors.content.message}</FormError>}
         <div>
-          <SubmitButton text="Reply" />
+          <SubmitButton>Reply</SubmitButton>
         </div>
       </form>
     </Modal>

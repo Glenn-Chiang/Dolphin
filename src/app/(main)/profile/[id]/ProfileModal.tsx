@@ -47,7 +47,7 @@ export default function ProfileModal({ close, about }: ProfileModalProps) {
         </div>
         {errors.about && <FormError>{errors.about.message}</FormError>}
         <div>
-          <SubmitButton text="Save" />
+          <SubmitButton>Save</SubmitButton>
         </div>
       </form>
     </Modal>
