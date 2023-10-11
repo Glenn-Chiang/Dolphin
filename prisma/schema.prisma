@@ -39,8 +39,8 @@ model Post {
   updatedAt DateTime @updatedAt
   title     String   @db.VarChar(255)
   content String 
-  author User @relation("authored", fields: [authorId], references: [id])
-  authorId Int
+  author User? @relation("authored", fields: [authorId], references: [id]) // Author field is optional to allow posts to be preserved even after user is deleted
+  authorId Int?
   comments Comment[]
   likedBy User[] @relation("likedPost")
   pod Pod @relation(fields: [podId], references: [id])
@@ -52,10 +52,10 @@ model Comment {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   content String
-  author User @relation(fields: [authorId], references: [id])
-  authorId Int
-  post Post @relation(fields: [postId], references: [id])
-  postId Int
+  author User? @relation(fields: [authorId], references: [id]) // Author field is optional to allow comments to be preserved even after user is deleted
+  authorId Int?
+  post Post? @relation(fields: [postId], references: [id]) // Post field is optional to allow comments to be preserved even after post is deleted
+  postId Int? 
   likedBy User[] @relation("likedComment")
   parentCommentId Int?
   parentComment Comment? @relation("CommentReplies", fields: [parentCommentId], references: [id])

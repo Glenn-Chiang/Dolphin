@@ -6,13 +6,12 @@ import { PostDetail } from "@/db/types";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons/faUserCircle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import CommentModal from "./comment/CommentModal";
 import ContextMenu from "./ContextMenu";
 import DolphinIcon from "./DolphinIcon";
 import { CommentButton, LikeButton, MenuButton } from "./buttons";
-import { useRouter } from "next/navigation";
-import { useSession } from 'next-auth/react';
+import CommentModal from "./comment/CommentModal";
 
 export default function PostCard({ post }: { post: PostDetail }) {
   const currentUserId = useCurrentUser();
@@ -65,7 +64,7 @@ export default function PostCard({ post }: { post: PostDetail }) {
             className="flex gap-2 items-center hover:text-sky-500"
           >
             <FontAwesomeIcon icon={faUserCircle} />
-            {post.author.name}
+            {post.author ? post.author.name : '[deleted]'}
           </Link>
           <span>{post.createdAt.toDateString()}</span>
         </div>
