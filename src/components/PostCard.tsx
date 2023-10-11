@@ -12,6 +12,7 @@ import ContextMenu from "./ContextMenu";
 import DolphinIcon from "./DolphinIcon";
 import { CommentButton, LikeButton, MenuButton } from "./buttons";
 import CommentModal from "./comment/CommentModal";
+import PodIcon from "./PodIcon";
 
 export default function PostCard({ post }: { post: PostDetail }) {
   const currentUserId = useCurrentUser();
@@ -54,7 +55,7 @@ export default function PostCard({ post }: { post: PostDetail }) {
           href={`/pods/${post.podId}`}
           className="text-sky-500 font-medium -m-2 p-2 flex gap-2 items-center w-max rounded-xl hover:bg-sky-200"
         >
-          <DolphinIcon />
+          <PodIcon src={post.pod.iconSource}/>
           {post.pod.name}
         </Link>
         <h2 className="py-4">{post.title}</h2>

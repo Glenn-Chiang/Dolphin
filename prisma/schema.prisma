@@ -67,6 +67,7 @@ model Pod {
   createdAt DateTime @default(now())
   name String @db.VarChar(25)
   about String @db.VarChar(500)
+  iconSource String? // Url to pod icon 
   members PodMember[]
   createdBy User @relation(fields: [creatorId], references: [id])
   creatorId Int

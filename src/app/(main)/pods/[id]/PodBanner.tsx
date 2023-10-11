@@ -2,6 +2,7 @@
 
 import { useCurrentUser } from "@/auth";
 import DolphinIcon from "@/components/DolphinIcon";
+import PodIcon from "@/components/PodIcon";
 import {
   CreatePostButton,
   JoinButton,
@@ -27,7 +28,7 @@ export default function PodBanner({ pod }: { pod: PodDetail }) {
   return (
     <section className="bg-white p-4 rounded-md shadow flex flex-col gap-4">
       <div className="flex gap-4">
-        <DolphinIcon />
+        <PodIcon src={pod.iconSource}/>
         <h1>{pod.name}</h1>
       </div>
       <p className="">{pod.about}</p>

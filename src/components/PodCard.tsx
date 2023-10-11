@@ -6,6 +6,7 @@ import Link from "next/link";
 import React from "react";
 import { joinPod, leavePod } from "@/db/pods";
 import { JoinButton } from "./buttons";
+import PodIcon from "./PodIcon";
 
 export default function PodCard({ pod }: { pod: PodDetail }) {
   const userId = useCurrentUser();
@@ -24,7 +25,10 @@ export default function PodCard({ pod }: { pod: PodDetail }) {
   return (
     <article className="bg-white p-4 pb-2 rounded-md relative shadow hover:shadow-lg transition">
       <Link href={`/pods/${pod.id}`}>
-        <h2>{pod.name}</h2>
+        <div className="flex gap-2 items-center">
+          <PodIcon src={pod.iconSource || undefined}/>
+          <h2>{pod.name}</h2>
+        </div>
         <p className="py-4">{pod.about}</p>
         <div className="flex gap-4 items-center">
           <JoinButton onClick={handleClick} alreadyJoined={alreadyJoined} />
