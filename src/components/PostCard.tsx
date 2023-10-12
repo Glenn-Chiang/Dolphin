@@ -1,19 +1,16 @@
 "use client";
 
-import { useCurrentUser } from "@/auth";
-import { deletePost, likePost } from "@/db/posts";
-import { PostDetail } from "@/db/types";
-import { faUserCircle } from "@fortawesome/free-solid-svg-icons/faUserCircle";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { likePost, deletePost } from "@/actions/posts";
+import { useCurrentUser } from "@/lib/auth";
+import { PostDetail } from "@/lib/types";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Avatar from "./Avatar";
 import ContextMenu from "./ContextMenu";
-import DolphinIcon from "./DolphinIcon";
+import PodIcon from "./PodIcon";
 import { CommentButton, LikeButton, MenuButton } from "./buttons";
 import CommentModal from "./comment/CommentModal";
-import PodIcon from "./PodIcon";
-import Avatar from "./Avatar";
 
 export default function PostCard({ post }: { post: PostDetail }) {
   const currentUserId = useCurrentUser();
@@ -56,7 +53,7 @@ export default function PostCard({ post }: { post: PostDetail }) {
           href={`/pods/${post.podId}`}
           className="text-sky-500 font-medium -m-2 p-2 flex gap-2 items-center w-max rounded-xl hover:bg-sky-200"
         >
-          <PodIcon src={post.pod.iconSource}/>
+          <PodIcon src={post.pod.iconSource} />
           {post.pod.name}
         </Link>
         <h2 className="py-4">{post.title}</h2>
@@ -65,8 +62,8 @@ export default function PostCard({ post }: { post: PostDetail }) {
             href={`/profile/${post.authorId}`}
             className="flex gap-2 items-center hover:text-sky-500"
           >
-            <Avatar user={post.author}/>
-            {post.author ? post.author.name : '[deleted]'}
+            <Avatar user={post.author} />
+            {post.author ? post.author.name : "[deleted]"}
           </Link>
           <span>{post.createdAt.toDateString()}</span>
         </div>

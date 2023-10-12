@@ -1,8 +1,8 @@
 "use client";
 
-import { useCurrentUser } from "@/auth";
-import { deleteComment, likeComment } from "@/db/comments";
-import { CommentDetail } from "@/db/types";
+import { useCurrentUser } from "@/lib/auth";
+import { deleteComment, likeComment } from "@/actions/comments";
+import { CommentDetail } from "@/lib/types";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -46,7 +46,6 @@ export default function Comment({ comment }: { comment: CommentDetail }) {
   //   return () => window.removeEventListener("click", hideMenu);
   // }, [menuIsShown]);
 
-
   const [editModalIsShown, setEditModalIsShown] = useState(false);
   const handleEdit = () => {
     setMenuIsShown(false);
@@ -60,7 +59,7 @@ export default function Comment({ comment }: { comment: CommentDetail }) {
           href={`/profile/${comment.authorId}`}
           className="flex gap-2 items-center text-slate-500 hover:text-sky-500 w-max p-2 -ml-2"
         >
-          <Avatar user={comment.author}/>
+          <Avatar user={comment.author} />
           {comment.author ? comment.author.name : "[deleted]"}
         </Link>
         <span className="text-slate-500">

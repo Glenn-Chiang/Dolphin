@@ -1,7 +1,7 @@
 import PostCard from "@/components/PostCard";
 import CommentSection from "./CommentSection";
-import { getPost } from "@/db/posts";
-import { getPostComments } from "@/db/comments";
+import { getPost } from "@/actions/posts";
+import { getPostComments } from "@/actions/comments";
 import Backbar from "./Backbar";
 
 export default async function Post({ params }: { params: { id: string } }) {

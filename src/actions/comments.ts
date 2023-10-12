@@ -1,8 +1,8 @@
 "use server";
-import prisma from "./db";
+import prisma from "../lib/db";
 import { revalidatePath } from "next/cache";
-import { CommentDetail } from "@/db/types";
-import { getCurrentUser } from "@/auth";
+import { CommentDetail } from "@/lib/types";
+import { getCurrentUser } from "@/lib/auth";
 
 const includedData = {
   author: true,

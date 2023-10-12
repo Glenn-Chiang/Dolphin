@@ -1,9 +1,9 @@
 "use client";
 
-import { useCurrentUser } from "@/auth";
+import { useCurrentUser } from "@/lib/auth";
 import { FollowButton } from "@/components/buttons";
-import { follow, unfollow } from "@/db/follows";
-import { UserDetail } from "@/db/types";
+import { follow, unfollow } from "@/actions/follows";
+import { UserDetail } from "@/lib/types";
 import {
   faCalendar,
   faEdit,
@@ -18,7 +18,7 @@ import Avatar from "@/components/Avatar";
 export default function Banner({ user }: { user: UserDetail }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const currentUserId = useCurrentUser()
+  const currentUserId = useCurrentUser();
   const isOwnProfile = currentUserId === user.id;
 
   const alreadyFollowed = !!user.followers.find(
@@ -36,7 +36,7 @@ export default function Banner({ user }: { user: UserDetail }) {
   return (
     <section className="bg-white rounded-md shadow p-4 flex flex-col gap-4 relative">
       <div className="flex gap-2 items-center">
-        <Avatar user={user}/>
+        <Avatar user={user} />
         <h1>{user.name} </h1>
         {isOwnProfile && <h2 className="text-slate-500">(You)</h2>}
       </div>

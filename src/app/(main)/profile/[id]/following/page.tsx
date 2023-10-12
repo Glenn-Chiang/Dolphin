@@ -1,9 +1,13 @@
 import UserCard from "@/components/UserCard";
-import { getFollowedUsers } from "@/db/users";
+import { getFollowedUsers } from "@/actions/users";
 
-export default async function Following({params}: {params: {id: string}}) {
-  const userId = Number(params.id)
-  const followedUsers = await getFollowedUsers(userId)
+export default async function Following({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const userId = Number(params.id);
+  const followedUsers = await getFollowedUsers(userId);
 
   if (!followedUsers.length) {
     return (

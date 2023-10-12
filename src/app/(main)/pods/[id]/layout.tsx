@@ -1,4 +1,4 @@
-import { getPod } from "@/db/pods";
+import { getPod } from "@/actions/pods";
 import Link from "next/link";
 import React from "react";
 import PodBanner from "./PodBanner";

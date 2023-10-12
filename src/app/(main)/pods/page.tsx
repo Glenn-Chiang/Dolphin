@@ -1,5 +1,5 @@
 import PodCard from "@/components/PodCard";
-import { getPods } from "@/db/pods";
+import { getPods } from "@/actions/pods";
 import Link from "next/link";
 
 export default async function Pods() {

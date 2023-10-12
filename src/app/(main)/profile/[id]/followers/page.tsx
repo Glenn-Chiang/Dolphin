@@ -1,5 +1,5 @@
 import UserCard from "@/components/UserCard";
-import { getFollowers } from "@/db/users";
+import { getFollowers } from "@/actions/users";
 
 export default async function Followers({
   params,

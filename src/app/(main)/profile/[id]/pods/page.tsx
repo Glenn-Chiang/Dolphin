@@ -1,5 +1,5 @@
 import PodCard from "@/components/PodCard";
-import { getUserPods } from "@/db/pods";
+import { getUserPods } from "@/actions/pods";
 
 export default async function ProfilePods({
   params,

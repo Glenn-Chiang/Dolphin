@@ -1,4 +1,4 @@
-import prisma from "@/db/db";
+import prisma from "@/lib/db";
 import NextAuth from "next-auth/next";
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
@@ -17,26 +17,26 @@ export const authOptions: NextAuthOptions = {
     async signIn({ user }) {
       // Unauthorized if no email provided
       if (!user.email) return false;
-      
+
       const matchedUser = await prisma.user.findUnique({
         where: {
           email: user.email,
         },
       });
-      
+
       if (!matchedUser) {
         // Create new user
-        const newUser = await prisma.user.create({ 
+        const newUser = await prisma.user.create({
           data: {
-            name: user.name || 'Anonymous', // Set default username to name provided by provider account
+            name: user.name || "Anonymous", // Set default username to name provided by provider account
             email: user.email,
-            avatarSource: user.image
-          }
-        })
-        console.log('User created:', newUser)
+            avatarSource: user.image,
+          },
+        });
+        console.log("User created:", newUser);
       }
 
-      return true
+      return true;
     },
     async jwt({ token, profile }) {
       // Attach userId to jwt on login
@@ -61,10 +61,9 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: '/login',
-    signOut: '/logout',
-    
-  }
+    signIn: "/login",
+    signOut: "/logout",
+  },
 };
 
 const handler = NextAuth(authOptions);

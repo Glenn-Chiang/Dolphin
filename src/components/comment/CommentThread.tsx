@@ -1,6 +1,6 @@
-import { CommentDetail } from "@/db/types";
+import { CommentDetail } from "@/lib/types";
 import Comment from "./Comment";
-import { getReplies } from "@/db/comments";
+import { getReplies } from "@/actions/comments";
 
 // 1 top-level parent comment with its replies
 export default async function CommentThread({

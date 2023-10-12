@@ -1,7 +1,7 @@
 "use server";
 
-import { getCurrentUser } from "@/auth";
-import prisma from "./db";
+import { getCurrentUser } from "@/lib/auth";
+import prisma from "../lib/db";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
@@ -32,13 +32,13 @@ const getMatchedPods = async (query: string) => {
   const pods = await prisma.pod.findMany({
     where: {
       name: {
-        contains: query
-      }
+        contains: query,
+      },
     },
-    include: includedData
-  })
-  return pods
-}
+    include: includedData,
+  });
+  return pods;
+};
 
 const getPod = async (podId: number) => {
   const pod = await prisma.pod.findUnique({
@@ -61,7 +61,7 @@ const getUserPods = async (userId: number) => {
         },
       },
     },
-    include: includedData
+    include: includedData,
   });
   return pods;
 };
@@ -130,4 +130,12 @@ const leavePod = async (podId: number) => {
   revalidatePath(`/profile/${userId}/pods`);
 };
 
-export { getPods, getMatchedPods, getPod, getUserPods, createPod, joinPod, leavePod };
+export {
+  getPods,
+  getMatchedPods,
+  getPod,
+  getUserPods,
+  createPod,
+  joinPod,
+  leavePod,
+};

@@ -1,7 +1,7 @@
 "use client";
 
 import TabLink from "@/components/TabLink";
-import { PodDetail } from "@/db/types";
+import { PodDetail } from "@/lib/types";
 import { faBookOpen, faUsers } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { usePathname } from "next/navigation";

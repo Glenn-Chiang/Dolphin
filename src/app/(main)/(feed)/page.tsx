@@ -1,4 +1,4 @@
-import { getHomeFeed } from "@/db/posts";
+import { getHomeFeed } from "@/actions/posts";
 import PostCard from "../../../components/PostCard";
 import Link from "next/link";
 

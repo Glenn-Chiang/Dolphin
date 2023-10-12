@@ -1,5 +1,5 @@
 import { SubmitButton } from "@/components/buttons";
-import { createPod } from "@/db/pods";
+import { createPod } from "@/actions/pods";
 
 export default function CreatePod() {
   return (

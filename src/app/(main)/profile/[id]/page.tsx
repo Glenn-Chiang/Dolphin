@@ -1,7 +1,7 @@
 import PostCard from "@/components/PostCard";
 import SortMenu from "@/components/SortMenu";
-import { getHotUserPosts, getNewUserPosts, getTopUserPosts } from "@/db/posts";
-import { PostDetail } from "@/db/types";
+import { getHotUserPosts, getNewUserPosts, getTopUserPosts } from "@/actions/posts";
+import { PostDetail } from "@/lib/types";
 
 const getUserPosts = async (
   userId: number,

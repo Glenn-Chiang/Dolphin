@@ -4,7 +4,7 @@ import { Comment } from "@prisma/client";
 import Modal from "./Modal";
 import { SubmitButton } from "./buttons";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { createReply } from "@/db/comments";
+import { createReply } from "@/actions/comments";
 import FormError from "./FormError";
 
 type ReplyModalProps = {
@@ -17,7 +17,11 @@ type ReplyFormValues = {
 };
 
 export default function ReplyModal({ close, comment }: ReplyModalProps) {
-  const { register, handleSubmit, formState: {errors} } = useForm<ReplyFormValues>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ReplyFormValues>();
 
   const onSubmit: SubmitHandler<ReplyFormValues> = async (formValues) => {
     const { content } = formValues;

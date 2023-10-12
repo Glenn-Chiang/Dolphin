@@ -1,5 +1,5 @@
 import CommentThread from "@/components/comment/CommentThread";
-import { getUserComments } from "@/db/comments";
+import { getUserComments } from "@/actions/comments";
 
 export default async function ProfileComments({
   params,

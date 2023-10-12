@@ -1,6 +1,6 @@
 "use client";
 
-import { PostDetail } from "@/db/types";
+import { PostDetail } from "@/lib/types";
 import { SubmitButton } from "@/components/buttons";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { editPost } from "@/db/posts";
@@ -14,7 +14,11 @@ type EditFormValues = {
 };
 
 export default function EditPostForm({ post }: { post: PostDetail }) {
-  const { register, handleSubmit, formState: {errors} } = useForm<EditFormValues>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<EditFormValues>();
 
   const router = useRouter();
 

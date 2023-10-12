@@ -1,6 +1,6 @@
 "use client";
 
-import { useCurrentUser } from "@/auth";
+import { useCurrentUser } from "@/lib/auth";
 import DolphinIcon from "@/components/DolphinIcon";
 import PodIcon from "@/components/PodIcon";
 import {
@@ -8,8 +8,8 @@ import {
   JoinButton,
   SubmitButton,
 } from "@/components/buttons";
-import { joinPod, leavePod } from "@/db/pods";
-import { PodDetail } from "@/db/types";
+import { joinPod, leavePod } from "@/actions/pods";
+import { PodDetail } from "@/lib/types";
 
 export default function PodBanner({ pod }: { pod: PodDetail }) {
   const userId = useCurrentUser();
@@ -28,7 +28,7 @@ export default function PodBanner({ pod }: { pod: PodDetail }) {
   return (
     <section className="bg-white p-4 rounded-md shadow flex flex-col gap-4">
       <div className="flex gap-4">
-        <PodIcon src={pod.iconSource}/>
+        <PodIcon src={pod.iconSource} />
         <h1>{pod.name}</h1>
       </div>
       <p className="">{pod.about}</p>

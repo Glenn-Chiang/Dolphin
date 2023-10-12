@@ -1,5 +1,5 @@
 import { SubmitButton } from "@/components/buttons";
-import { getPods } from "@/db/pods";
+import { getPods } from "@/actions/pods";
 import { createPost } from "@/db/posts";
 
 export default async function CreatePost({
@@ -10,7 +10,7 @@ export default async function CreatePost({
   };
 }) {
   const pods = await getPods();
-  const podId = Number(searchParams.pod)
+  const podId = Number(searchParams.pod);
 
   return (
     <main className="bg-white p-4 rounded-xl shadow">
@@ -37,19 +37,13 @@ export default async function CreatePost({
           <label className="font-medium" htmlFor="title">
             Title
           </label>
-          <input
-            id="title"
-            name="title"
-          />
+          <input id="title" name="title" />
         </div>
         <div className="flex flex-col gap-2">
           <label className="font-medium" htmlFor="content">
             Content
           </label>
-          <textarea
-            id="content"
-            name="content"
-          />
+          <textarea id="content" name="content" />
         </div>
         <div className="flex gap-4">
           <SubmitButton>Post</SubmitButton>

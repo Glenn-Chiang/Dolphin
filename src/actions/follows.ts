@@ -1,7 +1,7 @@
 "use server";
 
-import { getCurrentUser } from "@/auth";
-import prisma from "./db";
+import { getCurrentUser } from "@/lib/auth";
+import prisma from "../lib/db";
 import { revalidatePath } from "next/cache";
 
 const follow = async (followingId: number) => {

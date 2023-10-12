@@ -3,7 +3,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import Modal from "@/components/Modal";
 import { SubmitButton } from "@/components/buttons";
-import { updateProfile } from "@/db/users";
+import { updateProfile } from "@/actions/users";
 import FormError from "@/components/FormError";
 import { User } from "@prisma/client";
 

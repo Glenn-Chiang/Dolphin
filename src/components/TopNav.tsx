@@ -1,6 +1,6 @@
 "use client";
 
-import { useCurrentUser } from "@/auth";
+import { useCurrentUser } from "@/lib/auth";
 import DolphinIcon from "@/components/DolphinIcon";
 import {
   faBars,
@@ -30,13 +30,14 @@ export default function TopNav() {
           Dolphin
         </Link>
       </div>
-      <div
-        onClick={toggleDropdown}
-        className="relative"
-      >
-        <div className={`flex gap-2 items-center hover:bg-slate-200 p-3 rounded-full ${dropdownIsOpen && "bg-slate-200"}`}>
+      <div onClick={toggleDropdown} className="relative">
+        <div
+          className={`flex gap-2 items-center hover:bg-slate-200 p-3 rounded-full ${
+            dropdownIsOpen && "bg-slate-200"
+          }`}
+        >
           <FontAwesomeIcon icon={faUserCircle} />
-          <FontAwesomeIcon icon={faChevronDown} className="text-sm"/>
+          <FontAwesomeIcon icon={faChevronDown} className="text-sm" />
         </div>
         {dropdownIsOpen && (
           <nav className="absolute flex-col text-base bg-slate-100 shadow text-slate-600 top-12 right-2 w-max rounded-md">
@@ -47,7 +48,10 @@ export default function TopNav() {
               <FontAwesomeIcon icon={faUser} />
               My Profile
             </Link>
-            <Link href={"/logout"} className="flex gap-2 items-center p-2 hover:bg-slate-200 rounded-b-md">
+            <Link
+              href={"/logout"}
+              className="flex gap-2 items-center p-2 hover:bg-slate-200 rounded-b-md"
+            >
               <FontAwesomeIcon icon={faSignOut} />
               Logout
             </Link>

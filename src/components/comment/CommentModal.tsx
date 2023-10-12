@@ -1,7 +1,7 @@
 import React from "react";
 import { CancelButton, SubmitButton } from "../buttons";
 import Modal from "../Modal";
-import { createComment } from "@/db/comments";
+import { createComment } from "@/actions/comments";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Post } from "@prisma/client";
 import FormError from "../FormError";
@@ -16,7 +16,11 @@ type CommentFormValues = {
 };
 
 export default function CommentModal({ close, post }: CommentModalProps) {
-  const { register, handleSubmit, formState: {errors} } = useForm<CommentFormValues>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CommentFormValues>();
 
   const onSubmit: SubmitHandler<CommentFormValues> = (formValues) => {
     const { content } = formValues;
@@ -36,6 +40,7 @@ export default function CommentModal({ close, post }: CommentModalProps) {
           })}
           defaultValue={""}
         />
+        
         {errors.content && <FormError>{errors.content.message}</FormError>}
         <div className="flex gap-2">
           <SubmitButton>Comment</SubmitButton>

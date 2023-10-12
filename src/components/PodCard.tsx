@@ -1,10 +1,10 @@
 "use client";
 
-import { useCurrentUser } from "@/auth";
-import { PodDetail } from "@/db/types";
+import { useCurrentUser } from "@/lib/auth";
+import { PodDetail } from "@/lib/types";
 import Link from "next/link";
 import React from "react";
-import { joinPod, leavePod } from "@/db/pods";
+import { joinPod, leavePod } from "@/actions/pods";
 import { JoinButton } from "./buttons";
 import PodIcon from "./PodIcon";
 
@@ -26,7 +26,7 @@ export default function PodCard({ pod }: { pod: PodDetail }) {
     <article className="bg-white p-4 pb-2 rounded-md relative shadow hover:shadow-lg transition">
       <Link href={`/pods/${pod.id}`}>
         <div className="flex gap-2 items-center">
-          <PodIcon src={pod.iconSource || undefined}/>
+          <PodIcon src={pod.iconSource || undefined} />
           <h2>{pod.name}</h2>
         </div>
         <p className="py-4">{pod.about}</p>

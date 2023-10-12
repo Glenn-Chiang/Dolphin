@@ -1,5 +1,5 @@
 import PostCard from "@/components/PostCard";
-import { getPosts } from "@/db/posts";
+import { getPosts } from "@/actions/posts";
 
 export default async function NewFeedPage() {
   const posts = await getPosts();

@@ -1,6 +1,5 @@
 import UserCard from "@/components/UserCard";
-import { getPodMembers } from "@/db/users";
-
+import { getPodMembers } from "@/actions/users";
 
 export default async function PodMembers({ podId }: { podId: number }) {
   const users = await getPodMembers(podId);

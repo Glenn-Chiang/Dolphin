@@ -1,6 +1,6 @@
 "use server";
-import { getCurrentUser, useCurrentUser } from "@/auth";
-import prisma from "./db";
+import { getCurrentUser, useCurrentUser } from "@/lib/auth";
+import prisma from "../lib/db";
 import { revalidatePath } from "next/cache";
 
 const includedData = {
@@ -77,7 +77,11 @@ const getUser = async (userId: number) => {
   return user;
 };
 
-const updateProfile = async (name: string, about: string, avatarSource: string) => {
+const updateProfile = async (
+  name: string,
+  about: string,
+  avatarSource: string
+) => {
   const userId = await getCurrentUser();
   await prisma.user.update({
     where: {
@@ -86,7 +90,7 @@ const updateProfile = async (name: string, about: string, avatarSource: string) 
     data: {
       name,
       about,
-      avatarSource
+      avatarSource,
     },
   });
   console.log("Profile updated:", about);

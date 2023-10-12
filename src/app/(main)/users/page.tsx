@@ -1,8 +1,7 @@
 import UserCard from "@/components/UserCard";
-import { getUsers } from "@/db/users";
+import { getUsers } from "@/actions/users";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 
 export default async function Users() {
   const users = await getUsers();

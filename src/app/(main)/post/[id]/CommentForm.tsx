@@ -2,7 +2,7 @@
 
 import FormError from "@/components/FormError";
 import { CancelButton, SubmitButton } from "@/components/buttons";
-import { createComment } from "@/db/comments";
+import { createComment } from "@/actions/comments";
 import { useParams } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -14,7 +14,12 @@ export default function CommentForm() {
   const params = useParams();
   const postId = Number(params.id);
 
-  const { register, handleSubmit, reset, formState: {errors} } = useForm<CommentFormValues>();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<CommentFormValues>();
 
   const onSubmit: SubmitHandler<CommentFormValues> = (formValues) => {
     const { content } = formValues;

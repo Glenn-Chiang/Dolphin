@@ -1,7 +1,7 @@
 import PostCard from "@/components/PostCard";
 import SortMenu from "@/components/SortMenu";
-import { getHotPodPosts, getNewPodPosts, getTopPodPosts } from "@/db/posts";
-import { PostDetail } from "@/db/types";
+import { getHotPodPosts, getNewPodPosts, getTopPodPosts } from "@/actions/posts";
+import { PostDetail } from "@/lib/types";
 
 const getPodPosts = async (
   podId: number,

@@ -1,10 +1,10 @@
 "use server";
 
-import { getCurrentUser } from "@/auth";
-import prisma from "./db";
+import { getCurrentUser } from "@/lib/auth";
+import prisma from "@/lib/db";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { PostDetail } from "@/db/types";
+import { PostDetail } from "@/lib/types";
 
 const includedData = {
   author: true,

@@ -1,4 +1,4 @@
-import { getUser } from "@/db/users";
+import { getUser } from "@/actions/users";
 import React from "react";
 import Banner from "./Banner";
 import ProfileLinks from "./ProfileLinks";
@@ -18,8 +18,8 @@ export default async function Profile({
   }
   return (
     <main className="flex flex-col gap-4">
-      <Banner user={user}/>      
-      <ProfileLinks user={user}/>
+      <Banner user={user} />
+      <ProfileLinks user={user} />
       {children}
     </main>
   );

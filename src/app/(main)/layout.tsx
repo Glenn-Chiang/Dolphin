@@ -1,8 +1,8 @@
-import { getCurrentUser } from "@/auth";
+import { getCurrentUser } from "@/lib/auth";
 import AuthProvider from "@/components/AuthProvider";
 import PodLink from "@/components/PodLink";
 import { CreatePodButton, CreatePostButton } from "@/components/buttons";
-import { getUserPods } from "@/db/pods";
+import { getUserPods } from "@/actions/pods";
 
 import Link from "next/link";
 import { Montserrat } from "next/font/google";
@@ -34,7 +34,7 @@ export default function RootLayout({
           <div className="absolute w-full sm:left-1/4 sm:w-3/4 mt-16 mb-10 p-4 ">
             {children}
           </div>
-          <TopButton/>
+          <TopButton />
         </AuthProvider>
       </body>
     </html>
