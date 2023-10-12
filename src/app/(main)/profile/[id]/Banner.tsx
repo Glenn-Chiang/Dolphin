@@ -68,7 +68,7 @@ export default function Banner({ user }: { user: UserDetail }) {
       )}
       {isOwnProfile && <EditButton onClick={() => setModalIsOpen(true)} />}
       {modalIsOpen && (
-        <ProfileModal about={user.about} close={() => setModalIsOpen(false)} />
+        <ProfileModal user={user} close={() => setModalIsOpen(false)} />
       )}
     </section>
   );

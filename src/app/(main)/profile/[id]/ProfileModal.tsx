@@ -5,22 +5,28 @@ import Modal from "@/components/Modal";
 import { SubmitButton } from "@/components/buttons";
 import { updateProfile } from "@/db/users";
 import FormError from "@/components/FormError";
+import { User } from "@prisma/client";
 
 type ProfileModalProps = {
   close: () => void;
-  about: string;
+  user: User;
 };
 
 type EditProfileFormValues = {
+  name: string;
   about: string;
 };
 
-export default function ProfileModal({ close, about }: ProfileModalProps) {
-  const { handleSubmit, register, formState: {errors} } = useForm<EditProfileFormValues>();
+export default function ProfileModal({ close, user }: ProfileModalProps) {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<EditProfileFormValues>();
 
   const onSubmit: SubmitHandler<EditProfileFormValues> = async (formValues) => {
-    const { about } = formValues;
-    await updateProfile(about);
+    const { name, about } = formValues;
+    await updateProfile(name, about);
     close();
   };
 
@@ -32,15 +38,28 @@ export default function ProfileModal({ close, about }: ProfileModalProps) {
         className="py-4 flex flex-col gap-4"
       >
         <div className="flex flex-col gap-2">
+          <label htmlFor="name">Name</label>
+          <input
+            id="name"
+            defaultValue={user.name}
+            {...register("name", {
+              required: "Your name can't be empty",
+              maxLength: {
+                value: 25,
+                message: "Your name can't be longer than 25 characters",
+              },
+            })}
+          />
+          {errors.name && <FormError>{errors.name.message}</FormError>}
           <label htmlFor="about">About</label>
           <textarea
             {...register("about", {
               maxLength: {
                 value: 500,
-                message: "Your About cannot be more than 500 characters",
+                message: "Your About can't be longer than 500 characters",
               },
             })}
-            defaultValue={about}
+            defaultValue={user.about}
             id="about"
             className="p-2 shadow bg-slate-100"
           />

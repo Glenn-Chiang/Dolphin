@@ -29,9 +29,9 @@ const getPodMembers = async (podId: number) => {
     where: {
       pods: {
         some: {
-          podId: podId
-        }
-      }
+          podId: podId,
+        },
+      },
     },
     include: includedData,
   });
@@ -77,18 +77,18 @@ const getUser = async (userId: number) => {
   return user;
 };
 
-const updateProfile = async (about: string) => {
+const updateProfile = async (name: string, about: string) => {
   const userId = await getCurrentUser();
-  console.log(about);
   await prisma.user.update({
     where: {
       id: userId,
     },
     data: {
-      about: about,
+      name,
+      about,
     },
   });
-  console.log("About updated:", about);
+  console.log("Profile updated:", about);
   revalidatePath(`/profile/${userId}`);
 };
 
