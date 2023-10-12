@@ -1,5 +1,5 @@
 import Image from "next/image";
-import dolphinIcon from "../../public/images/dolphin.png";
+import dolphinIcon from "../../public/images/icon.png";
 
 export default function DolphinIcon({large}: {large?: boolean}) {
   const width = large ? 140 : 40
