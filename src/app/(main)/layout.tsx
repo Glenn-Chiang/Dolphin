@@ -43,9 +43,9 @@ async function Sidebar() {
   const userId = await getCurrentUser();
   const pods = await getUserPods(userId);
   return (
-    <section className="hidden sm:flex flex-col justify-between fixed w-1/4 pt-20 left-0 top-0 h-screen z-10 p-4 bg-slate-50 shadow">
+    <section className="hidden sm:flex flex-col justify-between fixed w-1/4 pt-20 left-0 top-0 h-screen z-10 p-4 bg-white shadow">
       <div className="flex flex-col gap-2">
-        <h1 className="">Your Pods</h1>
+        <h2 className="">Your Pods</h2>
         <nav className="flex flex-col -mx-2 max-h-80 overflow-auto">
           {pods.map((pod) => (
             <PodLink key={pod.id} pod={pod} />

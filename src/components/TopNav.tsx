@@ -20,9 +20,9 @@ export default function TopNav() {
   const userId = useCurrentUser();
 
   return (
-    <nav className="bg-sky-500 text-white text-xl p-2 pr-4 flex justify-between items-center fixed h-16 w-screen top-0 left-0 z-20 font-medium shadow-lg">
+    <nav className="bg-white text-xl p-2 pr-4 flex justify-between items-center fixed h-16 w-screen top-0 left-0 z-20 font-medium shadow-md">
       <div className="flex gap-2">
-        <button className="p-2 rounded-full hover:bg-sky-600 w-10 h-10 flex justify-center items-center">
+        <button className="p-2 rounded-full hover:bg-slate-200 w-10 h-10 flex justify-center items-center">
           <FontAwesomeIcon icon={faBars} />
         </button>
         <Link href={"/"} className="flex gap-2 items-center">
@@ -34,7 +34,7 @@ export default function TopNav() {
         onClick={toggleDropdown}
         className="relative"
       >
-        <div className={`flex gap-2 items-center hover:bg-sky-600 p-4 rounded-full ${dropdownIsOpen && "bg-sky-600"}`}>
+        <div className={`flex gap-2 items-center hover:bg-slate-200 p-3 rounded-full ${dropdownIsOpen && "bg-slate-200"}`}>
           <FontAwesomeIcon icon={faUserCircle} />
           <FontAwesomeIcon icon={faChevronDown} className="text-sm"/>
         </div>
