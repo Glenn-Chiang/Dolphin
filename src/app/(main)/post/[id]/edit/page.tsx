@@ -1,4 +1,4 @@
-import { getPost } from "@/db/posts";
+import { getPost } from "@/actions/posts";
 import Backbar from "../Backbar";
 import EditPostForm from "./EditForm";
 
