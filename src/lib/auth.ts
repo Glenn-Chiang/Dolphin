@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "../app/api/auth/[...nextauth]/route";
 
 // Get current user in client components
-const useCurrentUser = () => {
+const useCurrentUser = (): number | null => {
   const session = useSession();
   const user = session.data?.user;
   if (!user) return null;
@@ -13,11 +13,11 @@ const useCurrentUser = () => {
 };
 
 // Get current user in server components / server actions
-const getCurrentUser = async () => {
+const getCurrentUser = async (): Promise<number | undefined> => {
   const session = await getServerSession(authOptions);
   const user = session?.user;
-  if (!user) return null;
-  const userId = (user as any).id; // ewww
+  if (!user) return undefined;
+  const userId: number = (user as any).id; // ewww
   return userId;
 };
 

@@ -78,6 +78,9 @@ const createPod = async (formData: FormData) => {
   }
 
   const creatorId = await getCurrentUser();
+  if (!creatorId) {
+    throw new Error("unauthenticated");
+  }
 
   await prisma.pod.create({
     data: {
@@ -104,6 +107,11 @@ const createPod = async (formData: FormData) => {
 
 const joinPod = async (podId: number) => {
   const userId = await getCurrentUser();
+
+  if (!userId) {
+    throw new Error("unauthenticated");
+  }
+
   await prisma.podMember.create({
     data: {
       podId,
@@ -117,6 +125,11 @@ const joinPod = async (podId: number) => {
 
 const leavePod = async (podId: number) => {
   const userId = await getCurrentUser();
+
+  if (!userId) {
+    throw new Error("unauthenticated");
+  }
+
   await prisma.podMember.delete({
     where: {
       memberId_podId: {

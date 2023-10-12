@@ -5,6 +5,7 @@ import prisma from "@/lib/db";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { PostDetail } from "@/lib/types";
+import { error } from "console";
 
 const includedData = {
   author: true,
@@ -31,7 +32,7 @@ const getPosts = async (): Promise<PostDetail[]> => {
 
 // Get all posts in pods joined by current user, ordered by date
 const getHomeFeed = async (): Promise<PostDetail[]> => {
-  const userId: number = await getCurrentUser();
+  const userId = await getCurrentUser();
   const posts = await prisma.post.findMany({
     where: {
       pod: {
@@ -179,7 +180,10 @@ const createPost = async (formData: FormData) => {
     throw new Error("Invalid podId");
   }
 
-  const authorId: number = await getCurrentUser();
+  const authorId = await getCurrentUser();
+  if (!authorId) {
+    throw new Error("unauthenticated");
+  }
 
   await prisma.post.create({
     data: {
@@ -196,7 +200,12 @@ const createPost = async (formData: FormData) => {
 
 const likePost = async (postId: number) => {
   // Get current user's liked posts
-  const userId: number = await getCurrentUser();
+  const userId = await getCurrentUser();
+
+  if (!userId) {
+    throw new Error("unauthenticated");
+  }
+
   const user = await prisma.user.findUnique({
     where: {
       id: userId,
@@ -246,17 +255,22 @@ const likePost = async (postId: number) => {
 };
 
 const deletePost = async (postId: number) => {
+  await checkAuthorization(postId);
+
   await prisma.post.delete({
     where: {
       id: postId,
     },
   });
+
   console.log("Post deleted!");
   revalidatePath("/");
 };
 
 // Only content is patched
 const editPost = async (postId: number, content: string) => {
+  await checkAuthorization(postId);
+
   await prisma.post.update({
     where: {
       id: postId,
@@ -265,9 +279,28 @@ const editPost = async (postId: number, content: string) => {
       content,
     },
   });
+
   console.log("Post edited!");
   revalidatePath("/");
-  // redirect(`/post/${postId}`);
+};
+
+const checkAuthorization = async (postId: number) => {
+  const post = await prisma.post.findUnique({
+    where: {
+      id: postId,
+    },
+  });
+  // Post not found
+  if (!post) {
+    throw new Error("post not found");
+  }
+  const currentUserId = await getCurrentUser();
+  if (!currentUserId) {
+    throw new Error("unauthenticated"); // not signed in
+  }
+  if (post.authorId !== currentUserId) {
+    throw new Error("unauthorized"); // not author
+  }
 };
 
 export {

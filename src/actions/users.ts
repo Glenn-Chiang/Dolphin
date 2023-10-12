@@ -82,10 +82,26 @@ const updateProfile = async (
   about: string,
   avatarSource: string
 ) => {
-  const userId = await getCurrentUser();
+  const currentUserId = await getCurrentUser();
+  if (!currentUserId) {
+    throw new Error("unauthenticated"); // not signed in
+  }
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id: currentUserId,
+    },
+  });
+  if (!user) {
+    throw new Error("user not found");
+  }
+  if (user.id !== currentUserId) {
+    throw new Error("unauthorized"); // not own profile
+  }
+
   await prisma.user.update({
     where: {
-      id: userId,
+      id: currentUserId,
     },
     data: {
       name,
@@ -94,7 +110,7 @@ const updateProfile = async (
     },
   });
   console.log("Profile updated:", about);
-  revalidatePath(`/profile/${userId}`);
+  revalidatePath(`/profile/${currentUserId}`);
 };
 
 export {

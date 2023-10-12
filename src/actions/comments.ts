@@ -60,6 +60,10 @@ const getReplies = async (commentId: number) => {
 
 const createComment = async (postId: number, content: string) => {
   const userId = await getCurrentUser();
+  if (!userId) {
+    throw new Error("unauthenticated");
+  }
+
   await prisma.comment.create({
     data: {
       postId,
@@ -78,6 +82,10 @@ const createReply = async (
   content: string
 ) => {
   const userId = await getCurrentUser();
+  if (!userId) {
+    throw new Error("unauthenticated");
+  }
+
   await prisma.comment.create({
     data: {
       postId,
@@ -90,32 +98,11 @@ const createReply = async (
   revalidatePath("/");
 };
 
-const deleteComment = async (commentId: number) => {
-  await prisma.comment.delete({
-    where: {
-      id: commentId,
-    },
-  });
-  console.log("Comment deleted");
-  revalidatePath("/");
-};
-
-const editComment = async (commentId: number, content: string) => {
-  const comment = await prisma.comment.update({
-    where: {
-      id: commentId,
-    },
-    data: {
-      content,
-    },
-  });
-  console.log("Comment edited!");
-  revalidatePath(`/posts/${comment.postId}`);
-  revalidatePath(`/profile/${comment.authorId}/comments`);
-};
-
 const likeComment = async (commentId: number) => {
   const userId = await getCurrentUser();
+  if (!userId) {
+    throw new Error("unauthenticated");
+  }
 
   // Get current user's liked posts
   const user = await prisma.user.findUnique({
@@ -170,6 +157,53 @@ const likeComment = async (commentId: number) => {
 
   revalidatePath(`/post/${comment.postId}`);
   revalidatePath(`/profile/${comment.authorId}/comments`);
+};
+
+const deleteComment = async (commentId: number) => {
+  await checkAuthorization(commentId);
+
+  await prisma.comment.delete({
+    where: {
+      id: commentId,
+    },
+  });
+  console.log("Comment deleted");
+  revalidatePath("/");
+};
+
+const editComment = async (commentId: number, content: string) => {
+  await checkAuthorization(commentId);
+
+  const comment = await prisma.comment.update({
+    where: {
+      id: commentId,
+    },
+    data: {
+      content,
+    },
+  });
+  console.log("Comment edited!");
+  revalidatePath(`/posts/${comment.postId}`);
+  revalidatePath(`/profile/${comment.authorId}/comments`);
+};
+
+const checkAuthorization = async (commentId: number) => {
+  const comment = await prisma.comment.findUnique({
+    where: {
+      id: commentId,
+    },
+  });
+  // Post not found
+  if (!comment) {
+    throw new Error("comment not found");
+  }
+  const currentUserId = await getCurrentUser();
+  if (!currentUserId) {
+    throw new Error("unauthenticated"); // not signed in
+  }
+  if (comment.authorId !== currentUserId) {
+    throw new Error("unauthorized"); // not author
+  }
 };
 
 export {
