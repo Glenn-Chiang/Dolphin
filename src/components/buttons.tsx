@@ -107,7 +107,7 @@ function LikeButton({ liked, likes, onClick }: LikeButtonProps) {
         icon={faHeart}
         className={`${liked ? "text-rose-500" : "text-slate-200"}`}
       />
-      {likes}
+      <span className={`${liked && "text-rose-500"}`}>{likes}</span>
     </button>
   );
 }

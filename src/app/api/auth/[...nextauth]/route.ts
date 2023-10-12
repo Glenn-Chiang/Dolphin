@@ -29,7 +29,8 @@ export const authOptions: NextAuthOptions = {
         const newUser = await prisma.user.create({ 
           data: {
             name: user.name || 'Anonymous', // Set default username to name provided by provider account
-            email: user.email
+            email: user.email,
+            avatarSource: user.image
           }
         })
         console.log('User created:', newUser)

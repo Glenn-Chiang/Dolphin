@@ -5,11 +5,7 @@ import { CommentDetail } from "@/db/types";
 import { getCurrentUser } from "@/auth";
 
 const includedData = {
-  author: {
-    select: {
-      name: true,
-    },
-  },
+  author: true,
   likedBy: {
     select: {
       id: true,

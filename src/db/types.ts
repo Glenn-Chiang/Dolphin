@@ -18,11 +18,7 @@ const postDetail = Prisma.validator<Prisma.PostDefaultArgs>()({
 // Comment with author name, likedBy userIds and reply count
 const commentDetail = Prisma.validator<Prisma.CommentDefaultArgs>()({
   include: {
-    author: {
-      select: {
-        name: true,
-      },
-    },
+    author: true,
     likedBy: {
       select: {
         id: true,

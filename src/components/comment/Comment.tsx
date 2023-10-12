@@ -11,6 +11,7 @@ import { CommentButton, LikeButton, MenuButton } from "../buttons";
 import ContextMenu from "../ContextMenu";
 import EditCommentModal from "./EditCommentModal";
 import ReplyModal from "../ReplyModal";
+import Avatar from "../Avatar";
 
 // 1 top-level parent comment with its replies
 export default function Comment({ comment }: { comment: CommentDetail }) {
@@ -59,7 +60,7 @@ export default function Comment({ comment }: { comment: CommentDetail }) {
           href={`/profile/${comment.authorId}`}
           className="flex gap-2 items-center text-slate-500 hover:text-sky-500 w-max p-2 -ml-2"
         >
-          <FontAwesomeIcon icon={faUserCircle} />
+          <Avatar user={comment.author}/>
           {comment.author ? comment.author.name : "[deleted]"}
         </Link>
         <span className="text-slate-500">

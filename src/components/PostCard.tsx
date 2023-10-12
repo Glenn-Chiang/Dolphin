@@ -13,6 +13,7 @@ import DolphinIcon from "./DolphinIcon";
 import { CommentButton, LikeButton, MenuButton } from "./buttons";
 import CommentModal from "./comment/CommentModal";
 import PodIcon from "./PodIcon";
+import Avatar from "./Avatar";
 
 export default function PostCard({ post }: { post: PostDetail }) {
   const currentUserId = useCurrentUser();
@@ -64,7 +65,7 @@ export default function PostCard({ post }: { post: PostDetail }) {
             href={`/profile/${post.authorId}`}
             className="flex gap-2 items-center hover:text-sky-500"
           >
-            <FontAwesomeIcon icon={faUserCircle} />
+            <Avatar user={post.author}/>
             {post.author ? post.author.name : '[deleted]'}
           </Link>
           <span>{post.createdAt.toDateString()}</span>
