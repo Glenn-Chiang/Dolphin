@@ -7,10 +7,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Avatar from "./Avatar";
-import ContextMenu from "./MenuButton";
 import PodIcon from "./PodIcon";
-import { CommentButton, LikeButton, MenuButton } from "./buttons";
+import { CommentButton, LikeButton } from "./buttons";
 import CommentModal from "./comment/CommentModal";
+import MenuButton from "./MenuButton";
 
 export default function PostCard({ post }: { post: PostDetail }) {
   const currentUserId = useCurrentUser();
@@ -46,6 +46,10 @@ export default function PostCard({ post }: { post: PostDetail }) {
     router.push(`/post/${post.id}/edit`);
   };
 
+  const handleDelete = () => {
+    deletePost(post.id);
+  };
+
   return (
     <article className="bg-white p-4 pb-2 rounded-md relative shadow hover:shadow-lg transition">
       <Link href={`/post/${post.id}`}>
@@ -69,7 +73,10 @@ export default function PostCard({ post }: { post: PostDetail }) {
         </div>
         <div className="py-2 whitespace-pre-wrap">{post.content}</div>
         {isOwnPost && (
-          <MenuButton onClick={toggleMenu} isToggled={menuIsShown} />
+          <MenuButton
+            handleEditClick={handleEditClick}
+            handleDeleteClick={handleDelete}
+          />
         )}
         <div className="flex gap-4 py-2">
           <LikeButton liked={liked} likes={likes} onClick={handleLikeClick} />
@@ -79,12 +86,7 @@ export default function PostCard({ post }: { post: PostDetail }) {
           />
         </div>
       </Link>
-      {menuIsShown && (
-        <ContextMenu
-          handleEditClick={handleEditClick}
-          handleDeleteClick={() => deletePost(post.id)}
-        />
-      )}
+
       {commentModalIsOpen && (
         <CommentModal close={handleCommentClick} post={post} />
       )}
