@@ -25,6 +25,7 @@ export default function ReplyModal({ close, comment }: ReplyModalProps) {
 
   const onSubmit: SubmitHandler<ReplyFormValues> = async (formValues) => {
     const { content } = formValues;
+    if (!comment.postId) return
     await createReply(comment.postId, comment.id, content);
     close();
   };

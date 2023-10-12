@@ -3,7 +3,7 @@
 import { PostDetail } from "@/lib/types";
 import { SubmitButton } from "@/components/buttons";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { editPost } from "@/db/posts";
+import { editPost } from "@/actions/posts";
 import Link from "next/link";
 import DolphinIcon from "@/components/DolphinIcon";
 import { useRouter } from "next/navigation";

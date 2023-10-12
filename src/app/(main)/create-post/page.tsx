@@ -1,6 +1,6 @@
 import { SubmitButton } from "@/components/buttons";
 import { getPods } from "@/actions/pods";
-import { createPost } from "@/db/posts";
+import { createPost } from "@/actions/posts";
 
 export default async function CreatePost({
   searchParams,
