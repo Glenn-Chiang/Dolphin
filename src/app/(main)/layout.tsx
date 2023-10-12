@@ -11,6 +11,7 @@ import "../../globals.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import TopNav from "@/components/TopNav";
+import TopButton from "@/components/TopButton";
 config.autoAddCss = false;
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -33,6 +34,7 @@ export default function RootLayout({
           <div className="absolute w-full sm:left-1/4 sm:w-3/4 mt-16 mb-10 p-4 ">
             {children}
           </div>
+          <TopButton/>
         </AuthProvider>
       </body>
     </html>

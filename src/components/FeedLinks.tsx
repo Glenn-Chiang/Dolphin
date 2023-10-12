@@ -9,7 +9,7 @@ export default function FeedLinks() {
   const pathname = usePathname()
 
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 w-full border-b">
       <TabLink href="/" activePath={pathname}>
         <div className="flex gap-2 items-center">
           <FontAwesomeIcon icon={faHome} />
