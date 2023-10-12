@@ -4,10 +4,9 @@ import PodLink from "@/components/PodLink";
 import { CreatePodButton, CreatePostButton } from "@/components/buttons";
 import Link from "next/link";
 import { Pod } from "@prisma/client";
+import { useEffect } from 'react';
 
 export default function Sidebar({ pods }: { pods: Pod[] }) {
-  
-
   return (
     <section
       className={`w-4/5 bg-slate-100 sm:w-1/4 sm:bg-white fixed flex flex-col justify-between pt-20 left-0 top-0 h-screen z-10 p-4 shadow`}
