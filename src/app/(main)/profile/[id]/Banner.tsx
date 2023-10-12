@@ -46,13 +46,13 @@ export default function Banner({ user }: { user: UserDetail }) {
         <span>{user.createdAt.toLocaleDateString()}</span>
       </p>
       <p className="">{user.about}</p>
-      <div className="flex gap-4">
+      <div className="flex gap-4 ">
         <div className="">
-          {user.followers.length}{" "}
+          <span className="font-medium">{user.followers.length}</span>{" "}
           <span className="text-slate-500">Followers</span>
         </div>
         <div className="">
-          {user._count.following}{" "}
+          <span className="font-medium">{user._count.following}</span>{" "}
           <span className="text-slate-500">Following</span>
         </div>
       </div>
