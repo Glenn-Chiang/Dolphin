@@ -15,6 +15,7 @@ type ProfileModalProps = {
 type EditProfileFormValues = {
   name: string;
   about: string;
+  avatarSrc: string;
 };
 
 export default function ProfileModal({ close, user }: ProfileModalProps) {
@@ -25,8 +26,8 @@ export default function ProfileModal({ close, user }: ProfileModalProps) {
   } = useForm<EditProfileFormValues>();
 
   const onSubmit: SubmitHandler<EditProfileFormValues> = async (formValues) => {
-    const { name, about } = formValues;
-    await updateProfile(name, about);
+    const { name, about, avatarSrc } = formValues;
+    await updateProfile(name, about, avatarSrc);
     close();
   };
 
@@ -65,6 +66,12 @@ export default function ProfileModal({ close, user }: ProfileModalProps) {
           />
         </div>
         {errors.about && <FormError>{errors.about.message}</FormError>}
+        <label htmlFor="avatar">Avatar image link</label>
+        <input
+          id="avatar"
+          {...register("avatarSrc")}
+          defaultValue={user.avatarSource || ""}
+        />
         <div>
           <SubmitButton>Save</SubmitButton>
         </div>

@@ -7,5 +7,5 @@ export default function PodIcon({ src }: { src?: string | null }) {
     return <DolphinIcon />;
   }
 
-  return <Image src={src} alt="" width={40} height={40}/>;
+  return <Image src={src} alt="" width={40} height={40} className="rounded-full"/>;
 }

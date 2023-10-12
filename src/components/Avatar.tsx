@@ -15,6 +15,6 @@ export default function Avatar({ user }: { user: User | null }) {
       />
     );
   } else {
-    return <FontAwesomeIcon icon={faUserCircle} />;
+    return <FontAwesomeIcon icon={faUserCircle} className="text-2xl"/>;
   }
 }

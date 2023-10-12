@@ -25,4 +25,7 @@
   input, textarea {
     @apply bg-slate-100 rounded-md shadow p-2
   }
+  label {
+    @apply font-medium
+  }
 }

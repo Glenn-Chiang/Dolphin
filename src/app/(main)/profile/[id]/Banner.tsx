@@ -13,6 +13,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import ProfileModal from "./ProfileModal";
+import Avatar from "@/components/Avatar";
 
 export default function Banner({ user }: { user: UserDetail }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -35,10 +36,7 @@ export default function Banner({ user }: { user: UserDetail }) {
   return (
     <section className="bg-white rounded-md shadow p-4 flex flex-col gap-4 relative">
       <div className="flex gap-2 items-center">
-        <FontAwesomeIcon
-          icon={faUserCircle}
-          className="text-4xl text-sky-500"
-        />
+        <Avatar user={user}/>
         <h1>{user.name} </h1>
         {isOwnProfile && <h2 className="text-slate-500">(You)</h2>}
       </div>
@@ -51,11 +49,11 @@ export default function Banner({ user }: { user: UserDetail }) {
       <div className="flex gap-4">
         <div className="">
           {user.followers.length}{" "}
-          <span className="text-slate-500">followers</span>
+          <span className="text-slate-500">Followers</span>
         </div>
         <div className="">
           {user._count.following}{" "}
-          <span className="text-slate-500">following</span>
+          <span className="text-slate-500">Following</span>
         </div>
       </div>
       {isOwnProfile || (

@@ -77,7 +77,7 @@ const getUser = async (userId: number) => {
   return user;
 };
 
-const updateProfile = async (name: string, about: string) => {
+const updateProfile = async (name: string, about: string, avatarSource: string) => {
   const userId = await getCurrentUser();
   await prisma.user.update({
     where: {
@@ -86,6 +86,7 @@ const updateProfile = async (name: string, about: string) => {
     data: {
       name,
       about,
+      avatarSource
     },
   });
   console.log("Profile updated:", about);
