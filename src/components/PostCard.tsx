@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Avatar from "./Avatar";
-import ContextMenu from "./ContextMenu";
+import ContextMenu from "./MenuButton";
 import PodIcon from "./PodIcon";
 import { CommentButton, LikeButton, MenuButton } from "./buttons";
 import CommentModal from "./comment/CommentModal";

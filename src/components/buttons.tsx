@@ -133,29 +133,6 @@ function CommentButton({ comments, onClick }: CommentButtonProps) {
   );
 }
 
-function MenuButton({
-  onClick,
-  isToggled,
-}: {
-  onClick: () => void;
-  isToggled: boolean;
-}) {
-  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
-    event.preventDefault();
-    onClick();
-  };
-  return (
-    <button
-      onClick={handleClick}
-      className={`absolute top-4 right-4 hover:bg-slate-200 p-2 w-10 h-10 -mr-2 rounded-full ${
-        isToggled && "bg-slate-200"
-      }`}
-    >
-      <FontAwesomeIcon icon={faEllipsisV} />
-    </button>
-  );
-}
-
 function CreatePostButton({ podId }: { podId?: number }) {
   const href = podId ? `/create-post?pod=${podId}` : "/create-post";
   return (
@@ -187,6 +164,5 @@ export {
   FollowButton,
   JoinButton,
   LikeButton,
-  MenuButton,
   SubmitButton,
 };

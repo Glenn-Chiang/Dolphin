@@ -1,17 +1,15 @@
 "use client";
 
-import { useCurrentUser } from "@/lib/auth";
 import { deleteComment, likeComment } from "@/actions/comments";
+import { useCurrentUser } from "@/lib/auth";
 import { CommentDetail } from "@/lib/types";
-import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { CommentButton, LikeButton, MenuButton } from "../buttons";
-import ContextMenu from "../ContextMenu";
-import EditCommentModal from "./EditCommentModal";
-import ReplyModal from "../ReplyModal";
+import { useEffect, useRef, useState } from "react";
 import Avatar from "../Avatar";
+import MenuButton from "../MenuButton";
+import ReplyModal from "../ReplyModal";
+import { CommentButton, LikeButton } from "../buttons";
+import EditCommentModal from "./EditCommentModal";
 
 // 1 top-level parent comment with its replies
 export default function Comment({ comment }: { comment: CommentDetail }) {
@@ -31,25 +29,15 @@ export default function Comment({ comment }: { comment: CommentDetail }) {
     setReplyModalIsShown(true);
   };
 
-  const [menuIsShown, setMenuIsShown] = useState(false);
-  const toggleMenu = () => {
-    setMenuIsShown((prev) => !prev);
-  };
-  // useEffect(() => {
-  //   const hideMenu = (event: MouseEvent) => {
-  //     if (menuIsShown) {
-  //       // setMenuIsShown(false)
-  //     };
-  //   };
-  //   window.addEventListener("click", hideMenu);
-
-  //   return () => window.removeEventListener("click", hideMenu);
-  // }, [menuIsShown]);
-
+  // Show edit modal when edit button is clicked
   const [editModalIsShown, setEditModalIsShown] = useState(false);
   const handleEdit = () => {
-    setMenuIsShown(false);
     setEditModalIsShown(true);
+  };
+
+  // Delete immediately when delete button is clicked
+  const handleDelete = () => {
+    deleteComment(comment.id);
   };
 
   return (
@@ -81,12 +69,9 @@ export default function Comment({ comment }: { comment: CommentDetail }) {
         )}
       </div>
       {isOwnComment && (
-        <MenuButton onClick={toggleMenu} isToggled={menuIsShown} />
-      )}
-      {menuIsShown && (
-        <ContextMenu
-          handleDeleteClick={() => deleteComment(comment.id)}
+        <MenuButton
           handleEditClick={handleEdit}
+          handleDeleteClick={handleDelete}
         />
       )}
       {editModalIsShown && (
