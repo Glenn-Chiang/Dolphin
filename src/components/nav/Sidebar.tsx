@@ -6,7 +6,7 @@ import { Pod } from "@prisma/client";
 export default function Sidebar({ pods }: { pods: Pod[] }) {
   return (
     <section
-      className={`w-full sm:w-1/4 fixed flex flex-col justify-between pt-20 left-0 top-0 h-screen z-10 p-4 bg-white shadow`}
+      className={`w-4/5 bg-slate-100 sm:w-1/4 sm:bg-white fixed flex flex-col justify-between pt-20 left-0 top-0 h-screen z-10 p-4 shadow`}
     >
       <div className="flex flex-col gap-2">
         <h2 className="">Your Pods</h2>

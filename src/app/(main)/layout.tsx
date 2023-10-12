@@ -1,7 +1,7 @@
 import { getUserPods } from "@/actions/pods";
 import AuthProvider from "@/components/AuthProvider";
 import { getCurrentUser } from "@/lib/auth";
-import Navbars from "./Navbars";
+import LayoutWrapper from "./LayoutWrapper";
 import TopButton from "@/components/TopButton";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
@@ -29,10 +29,9 @@ export default async function RootLayout({
     <html lang="en" spellCheck="false">
       <body className="whitespace-pre-wrap">
         <AuthProvider>
-          <Navbars pods={pods}/>
-          <div className="absolute w-full sm:left-1/4 sm:w-3/4 mt-16 mb-10 p-4 ">
-            {children}
-          </div>
+          <LayoutWrapper pods={pods}>
+              {children}
+          </LayoutWrapper>
           <TopButton />
         </AuthProvider>
       </body>
