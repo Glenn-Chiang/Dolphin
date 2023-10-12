@@ -2,13 +2,10 @@
 
 import DolphinIcon from "@/components/DolphinIcon";
 import { SubmitButton } from "@/components/buttons";
-import { signOut, signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 
 export default function Logout() {
-  const router = useRouter();
-
   const handleLogout = async () => {
     await signOut({ callbackUrl: "/login" });
     console.log("Logged out");
@@ -20,7 +17,7 @@ export default function Logout() {
         <DolphinIcon large={true} />
       </div>
       <p>Are you sure you want to logout?</p>
-      <SubmitButton text="Logout" onClick={handleLogout} />
+      <SubmitButton onClick={handleLogout}>Logout</SubmitButton>
       <Link href={"/"} className="text-sky-500 hover:text-sky-400">
         Return to Home
       </Link>
