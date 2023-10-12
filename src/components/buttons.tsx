@@ -1,23 +1,29 @@
 "use client";
 
-import { useCurrentUser } from "@/auth";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { faComment } from "@fortawesome/free-solid-svg-icons/faComment";
 import { faHeart } from "@fortawesome/free-solid-svg-icons/faHeart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import React from "react";
+import { experimental_useFormStatus as useFormStatus } from "react-dom";
 
 type SubmitButtonProps = {
-  children: React.ReactNode
+  children: React.ReactNode;
   onClick?: () => void;
 };
 
 function SubmitButton({ onClick, children }: SubmitButtonProps) {
+  const { pending } = useFormStatus();
   return (
     <button
+      disabled={pending}
       onClick={onClick}
-      className="bg-sky-500 text-white p-2 rounded-md shadow shadow-sky-500 hover:shadow-md hover:shadow-sky-500 w-max flex gap-2 items-center"
+      className={`${
+        pending
+          ? "opacity-50 cursor-not-allowed"
+          : " shadow-sky-500 hover:shadow-md hover:shadow-sky-500"
+      }  rounded-md shadow w-20 flex gap-2 items-center justify-center bg-sky-500 text-white p-2`}
     >
       {children}
     </button>
@@ -162,7 +168,6 @@ function CreatePostButton({ podId }: { podId?: number }) {
   );
 }
 
-
 function CreatePodButton() {
   return (
     <Link
@@ -174,16 +179,14 @@ function CreatePodButton() {
   );
 }
 
-
-
 export {
-  SubmitButton,
   CancelButton,
-  LikeButton,
   CommentButton,
-  JoinButton,
-  MenuButton,
-  FollowButton,
+  CreatePodButton,
   CreatePostButton,
-  CreatePodButton
+  FollowButton,
+  JoinButton,
+  LikeButton,
+  MenuButton,
+  SubmitButton,
 };
