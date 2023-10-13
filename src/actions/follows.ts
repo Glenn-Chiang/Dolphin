@@ -7,6 +7,11 @@ import { revalidatePath } from "next/cache";
 const follow = async (followingId: number) => {
   // followingId: id of user whom you want to follow
   const followerId = await getCurrentUser();
+
+  if (!followerId) {
+    throw new Error('unauthenticated')
+  }
+
   await prisma.follows.create({
     data: {
       followerId,
@@ -20,6 +25,11 @@ const follow = async (followingId: number) => {
 
 const unfollow = async (followingId: number) => {
   const followerId = await getCurrentUser();
+
+  if (!followerId) {
+    throw new Error("unauthenticated");
+  }
+  
   await prisma.follows.delete({
     where: {
       followerId_followingId: {
