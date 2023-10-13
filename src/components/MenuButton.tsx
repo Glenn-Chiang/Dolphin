@@ -21,6 +21,11 @@ export default function MenuButton({
     setMenuIsOpen((prev) => !prev);
   };
 
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.preventDefault()
+    toggleMenu()
+  }
+
   const menuRef = useRef<HTMLDivElement>(null);
   const hideMenu = (event: MouseEvent) => {
     if (
@@ -45,7 +50,7 @@ export default function MenuButton({
   return (
     <>
       <button
-        onClick={toggleMenu}
+        onClick={handleClick}
         className={`absolute top-4 right-4 hover:bg-slate-200 p-2 w-10 h-10 -mr-2 rounded-full ${
           menuIsOpen && "bg-slate-200"
         }`}
