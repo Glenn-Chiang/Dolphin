@@ -17,14 +17,15 @@ export default function CreatePod() {
     formState: { errors },
   } = useForm<FormValues>();
 
-  const onSubmit: SubmitHandler<FormValues> = (formValues) => {};
+  const onSubmit: SubmitHandler<FormValues> = (formValues) => {
+    createPod(formValues)
+  };
 
   return (
     <main className="bg-white p-4 rounded-xl shadow">
       <h1>Create a Pod!</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        action={createPod}
         className="py-4 flex flex-col gap-4"
       >
         <div className="flex flex-col gap-2">

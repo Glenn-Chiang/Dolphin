@@ -166,19 +166,21 @@ const getPost = async (postId: number): Promise<PostDetail | null> => {
   return post;
 };
 
-const createPost = async (formData: FormData) => {
-  const title = formData.get("title");
-  if (!title || typeof title !== "string") {
+const createPost = async ({
+  podId,
+  title,
+  content,
+}: {
+  podId: string;
+  title: string;
+  content: string;
+}) => {
+  if (!title || title.length > 255) {
     throw new Error("Invalid title");
   }
-  const content = formData.get("content");
-  if (!content || typeof content !== "string") {
-    console.log('Invalid content')
+  if (!content) {
+    console.log("Invalid content");
     throw new Error("Invalid content");
-  }
-  const podId = formData.get("podId");
-  if (typeof podId !== "string") {
-    throw new Error("Invalid podId");
   }
 
   const authorId = await getCurrentUser();

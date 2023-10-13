@@ -66,14 +66,12 @@ const getUserPods = async (userId: number) => {
   return pods;
 };
 
-const createPod = async (formData: FormData) => {
-  const name = formData.get("name");
-  const about = formData.get("about");
+const createPod = async ({name, about}: {name: string, about: string}) => {
 
-  if (!name || typeof name !== "string") {
+  if (!name || name.length > 25) {
     throw new Error("Invalid name");
   }
-  if (typeof about !== "string") {
+  if (about.length > 500) {
     throw new Error("Invalid about");
   }
 
