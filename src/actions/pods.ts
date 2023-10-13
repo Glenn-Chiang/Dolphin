@@ -70,7 +70,7 @@ const createPod = async (formData: FormData) => {
   const name = formData.get("name");
   const about = formData.get("about");
 
-  if (typeof name !== "string") {
+  if (!name || typeof name !== "string") {
     throw new Error("Invalid name");
   }
   if (typeof about !== "string") {

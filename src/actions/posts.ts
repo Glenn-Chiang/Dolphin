@@ -168,11 +168,11 @@ const getPost = async (postId: number): Promise<PostDetail | null> => {
 
 const createPost = async (formData: FormData) => {
   const title = formData.get("title");
-  if (typeof title !== "string") {
+  if (!title || typeof title !== "string") {
     throw new Error("Invalid title");
   }
   const content = formData.get("content");
-  if (typeof content !== "string") {
+  if (!content || typeof content !== "string") {
     console.log('Invalid content')
     throw new Error("Invalid content");
   }
