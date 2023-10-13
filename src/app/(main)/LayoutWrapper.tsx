@@ -38,6 +38,8 @@ export default function LayoutWrapper({ pods, children }: props) {
   useEffect(() => {
     if (isMobile) {
       setSidebarIsOpen(false);
+    } else {
+      setSidebarIsOpen(true)
     }
   }, [pathname, isMobile]);
 

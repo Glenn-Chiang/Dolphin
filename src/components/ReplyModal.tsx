@@ -25,7 +25,7 @@ export default function ReplyModal({ close, comment }: ReplyModalProps) {
 
   const onSubmit: SubmitHandler<ReplyFormValues> = async (formValues) => {
     const { content } = formValues;
-    if (!comment.postId) return
+    if (!comment.postId) return;
     await createReply(comment.postId, comment.id, content);
     close();
   };
@@ -36,6 +36,7 @@ export default function ReplyModal({ close, comment }: ReplyModalProps) {
         <h2>Reply to </h2>
         <p>{comment.content}</p>
         <textarea
+          autoFocus
           {...register("content", { required: "Your reply cannot be blank" })}
           className="w-full"
         />

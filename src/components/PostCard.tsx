@@ -35,11 +35,6 @@ export default function PostCard({ post }: { post: PostDetail }) {
     setCommentModalIsOpen((prev) => !prev);
   };
 
-  const [menuIsShown, setMenuIsShown] = useState(false);
-  const toggleMenu = () => {
-    setMenuIsShown((prev) => !prev);
-  };
-
   const router = useRouter();
 
   const handleEditClick = () => {
@@ -72,12 +67,6 @@ export default function PostCard({ post }: { post: PostDetail }) {
           <span>{post.createdAt.toDateString()}</span>
         </div>
         <div className="py-2 whitespace-pre-wrap">{post.content}</div>
-        {isOwnPost && (
-          <MenuButton
-            handleEditClick={handleEditClick}
-            handleDeleteClick={handleDelete}
-          />
-        )}
         <div className="flex gap-4 py-2">
           <LikeButton liked={liked} likes={likes} onClick={handleLikeClick} />
           <CommentButton
@@ -86,7 +75,12 @@ export default function PostCard({ post }: { post: PostDetail }) {
           />
         </div>
       </Link>
-
+      {isOwnPost && (
+        <MenuButton
+          handleEditClick={handleEditClick}
+          handleDeleteClick={handleDelete}
+        />
+      )}
       {commentModalIsOpen && (
         <CommentModal close={handleCommentClick} post={post} />
       )}
