@@ -8,6 +8,7 @@ import Link from "next/link";
 import DolphinIcon from "@/components/DolphinIcon";
 import { useRouter } from "next/navigation";
 import FormError from "@/components/FormError";
+import { useState } from 'react';
 
 type EditFormValues = {
   content: string;
@@ -20,9 +21,12 @@ export default function EditPostForm({ post }: { post: PostDetail }) {
     formState: { errors },
   } = useForm<EditFormValues>();
 
+  const [isPending, setIsPending] = useState(false)
+
   const router = useRouter();
 
   const onSubmit: SubmitHandler<EditFormValues> = async (formValues) => {
+    setIsPending(true)
     const { content } = formValues;
     await editPost(post.id, content);
     router.push(`/post/${post.id}`);
@@ -57,7 +61,7 @@ export default function EditPostForm({ post }: { post: PostDetail }) {
       </div>
       {errors.content && <FormError>{errors.content.message}</FormError>}
       <div>
-        <SubmitButton>Save</SubmitButton>
+        <SubmitButton isPending={isPending}>Save</SubmitButton>
       </div>
     </form>
   );

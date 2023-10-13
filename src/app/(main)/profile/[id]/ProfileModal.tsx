@@ -13,6 +13,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { User } from "@prisma/client";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useState } from 'react';
 
 type ProfileModalProps = {
   close: () => void;
@@ -32,7 +33,10 @@ export default function ProfileModal({ close, user }: ProfileModalProps) {
     formState: { errors },
   } = useForm<EditProfileFormValues>();
 
+  const [isPending, setIsPending] = useState(false);
+
   const onSubmit: SubmitHandler<EditProfileFormValues> = async (formValues) => {
+    setIsPending(true)
     const { name, about, avatarSrc } = formValues;
     await updateProfile(name, about, avatarSrc);
     close();
@@ -90,7 +94,7 @@ export default function ProfileModal({ close, user }: ProfileModalProps) {
           defaultValue={user.avatarSource || ""}
         />
         <div>
-          <SubmitButton>Save</SubmitButton>
+          <SubmitButton isPending={isPending}>Save</SubmitButton>
         </div>
       </form>
     </Modal>

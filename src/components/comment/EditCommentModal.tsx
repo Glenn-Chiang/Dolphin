@@ -6,6 +6,7 @@ import { SubmitButton } from "../buttons";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { editComment } from "@/actions/comments";
 import FormError from "../FormError";
+import { useState } from 'react';
 
 type EditCommentModalProps = {
   close: () => void;
@@ -26,7 +27,10 @@ export default function EditCommentModal({
     formState: { errors },
   } = useForm<EditFormValues>();
 
+  const [isPending, setIsPending] = useState(false)
+
   const onSubmit: SubmitHandler<EditFormValues> = async (formValues) => {
+    setIsPending(true)
     const { content } = formValues;
     await editComment(comment.id, content);
     close();
@@ -43,7 +47,7 @@ export default function EditCommentModal({
         />
         {errors.content && <FormError>{errors.content.message}</FormError>}
         <div>
-          <SubmitButton>Save</SubmitButton>
+          <SubmitButton isPending={isPending}>Save</SubmitButton>
         </div>
       </form>
     </Modal>

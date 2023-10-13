@@ -5,6 +5,7 @@ import { createComment } from "@/actions/comments";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Post } from "@prisma/client";
 import FormError from "../FormError";
+import { useState } from 'react';
 
 type CommentModalProps = {
   close: () => void;
@@ -22,7 +23,10 @@ export default function CommentModal({ close, post }: CommentModalProps) {
     formState: { errors },
   } = useForm<CommentFormValues>();
 
+  const [isPending, setIsPending] = useState(false)
+
   const onSubmit: SubmitHandler<CommentFormValues> = (formValues) => {
+    setIsPending(true)
     const { content } = formValues;
     createComment(post.id, content);
     close();
@@ -43,7 +47,7 @@ export default function CommentModal({ close, post }: CommentModalProps) {
         
         {errors.content && <FormError>{errors.content.message}</FormError>}
         <div className="flex gap-2">
-          <SubmitButton>Comment</SubmitButton>
+          <SubmitButton isPending={isPending}>Comment</SubmitButton>
           <CancelButton onClick={close} />
         </div>
       </form>

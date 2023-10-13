@@ -6,6 +6,7 @@ import { SubmitButton } from "./buttons";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { createReply } from "@/actions/comments";
 import FormError from "./FormError";
+import { useState } from 'react';
 
 type ReplyModalProps = {
   close: () => void;
@@ -23,7 +24,10 @@ export default function ReplyModal({ close, comment }: ReplyModalProps) {
     formState: { errors },
   } = useForm<ReplyFormValues>();
 
+  const [isPending, setIsPending] = useState(false);
+
   const onSubmit: SubmitHandler<ReplyFormValues> = async (formValues) => {
+    setIsPending(true)
     const { content } = formValues;
     if (!comment.postId) return;
     await createReply(comment.postId, comment.id, content);
@@ -42,7 +46,7 @@ export default function ReplyModal({ close, comment }: ReplyModalProps) {
         />
         {errors.content && <FormError>{errors.content.message}</FormError>}
         <div>
-          <SubmitButton>Reply</SubmitButton>
+          <SubmitButton isPending={isPending}>Reply</SubmitButton>
         </div>
       </form>
     </Modal>

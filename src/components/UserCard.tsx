@@ -1,8 +1,5 @@
-import Link from "next/link";
-import { User } from "@prisma/client";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { UserDetail } from "@/lib/types";
+import Link from "next/link";
 import Avatar from "./Avatar";
 
 export default function UserCard({ user }: { user: UserDetail }) {

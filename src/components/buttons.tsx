@@ -1,6 +1,6 @@
 "use client";
 
-import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisV, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { faComment } from "@fortawesome/free-solid-svg-icons/faComment";
 import { faHeart } from "@fortawesome/free-solid-svg-icons/faHeart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,20 +11,24 @@ import { experimental_useFormStatus as useFormStatus } from "react-dom";
 type SubmitButtonProps = {
   children: React.ReactNode;
   onClick?: () => void;
+  isPending?: boolean;
 };
 
-function SubmitButton({ onClick, children }: SubmitButtonProps) {
+function SubmitButton({ onClick, children, isPending }: SubmitButtonProps) {
   const { pending } = useFormStatus();
   return (
     <button
-      disabled={pending}
+      disabled={pending || isPending}
       onClick={onClick}
       className={`${
-        pending
+        pending || isPending
           ? "opacity-50 cursor-not-allowed"
           : " shadow-sky-500 hover:shadow-md hover:shadow-sky-500"
       }  rounded-md shadow w-20 flex gap-2 items-center justify-center bg-sky-500 text-white p-2`}
     >
+      {(pending || isPending) && (
+        <FontAwesomeIcon icon={faSpinner} className="animate-spin text-white" />
+      )}
       {children}
     </button>
   );
