@@ -1,10 +1,10 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState, useEffect, useRef } from "react";
 import {
   faEdit,
   faEllipsisV,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useRef, useState } from "react";
 
 type MenuButtonProps = {
   handleEditClick: () => void;
@@ -22,9 +22,9 @@ export default function MenuButton({
   };
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
-    event.preventDefault()
-    toggleMenu()
-  }
+    event.preventDefault();
+    toggleMenu();
+  };
 
   const menuRef = useRef<HTMLDivElement>(null);
   const hideMenu = (event: MouseEvent) => {
@@ -83,10 +83,18 @@ function EditButton({ onClick }: { onClick: () => void }) {
 }
 
 function DeleteButton({ onClick }: { onClick: () => void }) {
+  const [isPending, setIsPending] = useState(false);
+  const handleClick = () => {
+    setIsPending(true);
+    onClick();
+  };
   return (
     <button
-      onClick={onClick}
-      className="p-3 flex gap-2 items-center hover:bg-slate-200 w-full rounded-b-md"
+      disabled={isPending}
+      onClick={handleClick}
+      className={`p-3 flex gap-2 items-center hover:bg-slate-200 w-full rounded-b-md ${
+        isPending && "cursor-not-allowed"
+      }`}
     >
       <FontAwesomeIcon icon={faTrash} />
       Delete

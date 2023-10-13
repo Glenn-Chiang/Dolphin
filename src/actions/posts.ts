@@ -173,6 +173,7 @@ const createPost = async (formData: FormData) => {
   }
   const content = formData.get("content");
   if (typeof content !== "string") {
+    console.log('Invalid content')
     throw new Error("Invalid content");
   }
   const podId = formData.get("podId");
