@@ -13,7 +13,6 @@ export default function PodPageLinks({ pod }: { pod: PodDetail }) {
       <TabLink
         activePath={path}
         href={`/pods/${pod.id}`}
-        count={pod._count.posts}
       >
         <FontAwesomeIcon icon={faBookOpen} />
         Posts
@@ -21,7 +20,6 @@ export default function PodPageLinks({ pod }: { pod: PodDetail }) {
       <TabLink
         activePath={path}
         href={`/pods/${pod.id}/members`}
-        count={pod._count.members}
       >
         <FontAwesomeIcon icon={faUsers} />
         Members
