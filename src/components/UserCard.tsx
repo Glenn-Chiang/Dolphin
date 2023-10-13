@@ -3,13 +3,14 @@ import { User } from "@prisma/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { UserDetail } from "@/lib/types";
+import Avatar from "./Avatar";
 
 export default function UserCard({ user }: { user: UserDetail }) {
   return (
     <article className="bg-white rounded-md shadow p-4 hover:shadow-md">
       <Link href={`/profile/${user.id}`} className="flex flex-col gap-2">
         <h2 className="flex gap-2 items-center">
-          <FontAwesomeIcon icon={faUserCircle} className="text-sky-500" />
+          <Avatar user={user}/>
           {user.name}
         </h2>
         <div className="flex gap-4">
