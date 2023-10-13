@@ -5,6 +5,7 @@ import FormError from "@/components/FormError";
 import { SubmitButton } from "@/components/buttons";
 import { Pod } from "@prisma/client";
 import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 type FormValues = {
@@ -16,6 +17,8 @@ type FormValues = {
 export default function CreatePostForm({ pods }: { pods: Pod[] }) {
   const podId = useSearchParams().get("pod");
 
+  const [isPending, setIsPending] = useState(false)
+
   const {
     register,
     handleSubmit,
@@ -23,6 +26,7 @@ export default function CreatePostForm({ pods }: { pods: Pod[] }) {
   } = useForm<FormValues>();
 
   const onSubmit: SubmitHandler<FormValues> = (formValues) => {
+    setIsPending(true)
     createPost(formValues)
   };
 
@@ -79,7 +83,7 @@ export default function CreatePostForm({ pods }: { pods: Pod[] }) {
       {errors.content && <FormError>{errors.content.message}</FormError>}
       
       <div className="flex gap-4">
-        <SubmitButton>Post</SubmitButton>
+        <SubmitButton isPending={isPending}>Post</SubmitButton>
       </div>
     </form>
   );

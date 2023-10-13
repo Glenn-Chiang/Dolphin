@@ -4,6 +4,7 @@ import { SubmitButton } from "@/components/buttons";
 import { createPod } from "@/actions/pods";
 import { SubmitHandler, useForm } from "react-hook-form";
 import FormError from "@/components/FormError";
+import { useState } from 'react';
 
 type FormValues = {
   name: string;
@@ -17,7 +18,10 @@ export default function CreatePod() {
     formState: { errors },
   } = useForm<FormValues>();
 
+  const [isPending, setIsPending] = useState(false)
+
   const onSubmit: SubmitHandler<FormValues> = (formValues) => {
+    setIsPending(true)
     createPod(formValues)
   };
 
@@ -57,7 +61,7 @@ export default function CreatePod() {
         </div>
         {errors.about && <FormError>{errors.about.message}</FormError>}
         <div className="flex gap-2">
-          <SubmitButton>Create</SubmitButton>
+          <SubmitButton isPending={isPending}>Create</SubmitButton>
         </div>
       </form>
     </main>
