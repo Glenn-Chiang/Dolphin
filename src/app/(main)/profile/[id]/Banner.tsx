@@ -21,12 +21,16 @@ export default function Banner({ user }: { user: UserDetail }) {
     (follower) => follower.followerId === currentUserId
   );
 
+  const [isPending, setIsPending] = useState(false);
+
   const handleFollowClick = async () => {
+    setIsPending(true);
     if (alreadyFollowed) {
       await unfollow(user.id);
     } else {
       await follow(user.id);
     }
+    setIsPending(false);
   };
 
   return (
@@ -66,6 +70,7 @@ export default function Banner({ user }: { user: UserDetail }) {
       {isOwnProfile || (
         <div>
           <FollowButton
+            isPending={isPending}
             alreadyFollowed={alreadyFollowed}
             onClick={handleFollowClick}
           />

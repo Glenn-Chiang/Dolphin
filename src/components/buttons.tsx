@@ -80,9 +80,14 @@ function JoinButton({ alreadyJoined, onClick, isPending }: JoinButtonProps) {
 type FollowButtonProps = {
   onClick: () => void;
   alreadyFollowed: boolean;
+  isPending: boolean;
 };
 
-function FollowButton({ onClick, alreadyFollowed }: FollowButtonProps) {
+function FollowButton({
+  onClick,
+  alreadyFollowed,
+  isPending,
+}: FollowButtonProps) {
   return (
     <button
       onClick={onClick}
@@ -90,8 +95,11 @@ function FollowButton({ onClick, alreadyFollowed }: FollowButtonProps) {
         alreadyFollowed
           ? "text-slate-500 bg-slate-200 hover:bg-slate-300"
           : "text-white bg-sky-500 shadow-sky-500 hover:shadow-md hover:shadow-sky-500"
-      }`}
+      } ${isPending && "opacity-50 cursor-not-allowed "}`}
     >
+      {isPending && (
+        <FontAwesomeIcon icon={faSpinner} className="animate-spin text-white" />
+      )}
       {alreadyFollowed ? "Followed" : "Follow"}
     </button>
   );
