@@ -19,8 +19,11 @@ export default function Comment({ comment }: { comment: CommentDetail }) {
   const [liked, setLiked] = useState(
     !!comment.likedBy.find((user) => user.id === userId)
   );
+  const [likes, setLikes] = useState(comment.likedBy.length)
+
   const handleLikeClick = async () => {
     setLiked((prev) => !prev);
+    setLikes((prev) => (liked ? prev - 1 : prev + 1));
     await likeComment(comment.id);
   };
 
@@ -59,7 +62,7 @@ export default function Comment({ comment }: { comment: CommentDetail }) {
         <LikeButton
           onClick={handleLikeClick}
           liked={liked}
-          likes={comment.likedBy.length}
+          likes={likes}
         />
         {!comment.parentCommentId && (
           <CommentButton
