@@ -113,6 +113,7 @@ const editPod = async (podId: number, about: string, iconSource: string) => {
       iconSource,
     },
   });
+  revalidatePath(`/pods/${podId}`)
 };
 
 const joinPod = async (podId: number) => {

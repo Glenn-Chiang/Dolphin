@@ -8,7 +8,7 @@ export default function Avatar({ user }: { user: User | null }) {
     return (
       <Image
         src={user.avatarSource}
-        alt=""
+        alt="https://cdn-icons-png.flaticon.com/512/3050/3050651.png"
         width={40}
         height={40}
         className="rounded-full"

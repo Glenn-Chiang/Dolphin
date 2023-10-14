@@ -7,5 +7,13 @@ export default function PodIcon({ src }: { src?: string | null }) {
     return <DolphinIcon />;
   }
 
-  return <Image src={src} alt="" width={40} height={40} className="rounded-full"/>;
+  return (
+    <Image
+      src={src}
+      alt="https://cdn-icons-png.flaticon.com/512/3050/3050651.png"
+      width={40}
+      height={40}
+      className="rounded-full"
+    />
+  );
 }
