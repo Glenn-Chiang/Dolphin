@@ -22,8 +22,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const userId = await getCurrentUser();
-  if (!userId) return <></>;
-  const pods = await getUserPods(userId);
+  const pods = userId ? await getUserPods(userId) : [];
 
   return (
     <html lang="en" spellCheck="false">

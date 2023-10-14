@@ -2,9 +2,8 @@
 
 import PodLink from "@/components/PodLink";
 import { CreatePodButton, CreatePostButton } from "@/components/buttons";
-import Link from "next/link";
 import { Pod } from "@prisma/client";
-import { useEffect } from 'react';
+import Link from "next/link";
 
 export default function Sidebar({ pods }: { pods: Pod[] }) {
   return (
