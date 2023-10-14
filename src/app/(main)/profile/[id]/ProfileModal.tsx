@@ -86,7 +86,7 @@ export default function ProfileModal({ close, user }: ProfileModalProps) {
         {errors.about && <FormError>{errors.about.message}</FormError>}
         <label className="flex gap-2 items-center" htmlFor="avatar">
           <FontAwesomeIcon icon={faImage} />
-          Avatar image link
+          Avatar URL
         </label>
         <input
           id="avatar"
