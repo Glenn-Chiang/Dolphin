@@ -6,6 +6,7 @@ import { follow, unfollow } from "@/actions/follows";
 import { UserDetail } from "@/lib/types";
 import {
   faCalendar,
+  faCircle,
   faEdit,
   faUserCircle,
   faUserEdit,
@@ -38,7 +39,11 @@ export default function Banner({ user }: { user: UserDetail }) {
       <div className="flex gap-2 items-center">
         <Avatar user={user} />
         <h1>{user.name} </h1>
-        {isOwnProfile && <h2 className="text-slate-500">(You)</h2>}
+        {isOwnProfile && (
+          <span className="bg-sky-200 text-sky-500 font-medium rounded-md p-1">
+            You
+          </span>
+        )}
       </div>
       <p className="flex gap-2 text-slate-500 items-center">
         <FontAwesomeIcon icon={faCalendar} />
@@ -76,7 +81,7 @@ function EditButton({ onClick }: { onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="absolute right-4 top-4 flex gap-2 items-center p-2 rounded-full border border-slate-500 text-slate-500 hover:bg-slate-200"
+      className="w-max sm:absolute right-4 top-4 flex gap-2 items-center p-2 rounded-md shadow bg-slate-200 hover:bg-slate-300 "
     >
       <FontAwesomeIcon icon={faUserEdit} />
       Edit profile
