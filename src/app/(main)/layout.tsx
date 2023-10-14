@@ -23,7 +23,7 @@ export default async function RootLayout({
 }) {
   const userId = await getCurrentUser();
   const pods = userId ? await getUserPods(userId) : [];
-
+  console.log('FUCK you vercel. FUCK YOU nextjs. FUCK YOU nextauth')
   return (
     <html lang="en" spellCheck="false">
       <body className="whitespace-pre-wrap">
