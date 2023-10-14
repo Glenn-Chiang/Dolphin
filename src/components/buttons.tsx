@@ -1,11 +1,10 @@
 "use client";
 
-import { faEllipsisV, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { faComment } from "@fortawesome/free-solid-svg-icons/faComment";
 import { faHeart } from "@fortawesome/free-solid-svg-icons/faHeart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { experimental_useFormStatus as useFormStatus } from "react-dom";
 
@@ -176,5 +175,6 @@ export {
   FollowButton,
   JoinButton,
   LikeButton,
-  SubmitButton,
+  SubmitButton
 };
+
