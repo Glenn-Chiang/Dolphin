@@ -66,7 +66,7 @@ const getUserPods = async (userId: number) => {
   return pods;
 };
 
-const createPod = async ({ name, about }: { name: string; about: string }) => {
+const createPod = async ({ name, about, iconSource }: { name: string; about: string, iconSource: string }) => {
   if (!name || name.length > 25) {
     throw new Error("Invalid name");
   }
@@ -83,6 +83,7 @@ const createPod = async ({ name, about }: { name: string; about: string }) => {
     data: {
       name,
       about,
+      iconSource,
       creatorId,
       members: {
         create: [

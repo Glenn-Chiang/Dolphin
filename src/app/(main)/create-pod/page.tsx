@@ -4,11 +4,12 @@ import { SubmitButton } from "@/components/buttons";
 import { createPod } from "@/actions/pods";
 import { SubmitHandler, useForm } from "react-hook-form";
 import FormError from "@/components/FormError";
-import { useState } from 'react';
+import { useState } from "react";
 
 type FormValues = {
   name: string;
   about: string;
+  iconSource: string;
 };
 
 export default function CreatePod() {
@@ -18,11 +19,11 @@ export default function CreatePod() {
     formState: { errors },
   } = useForm<FormValues>();
 
-  const [isPending, setIsPending] = useState(false)
+  const [isPending, setIsPending] = useState(false);
 
   const onSubmit: SubmitHandler<FormValues> = (formValues) => {
-    setIsPending(true)
-    createPod(formValues)
+    setIsPending(true);
+    createPod(formValues);
   };
 
   return (
@@ -60,7 +61,13 @@ export default function CreatePod() {
           />
         </div>
         {errors.about && <FormError>{errors.about.message}</FormError>}
-        <div className="flex gap-2">
+
+        <div className="flex  flex-col gap-2">
+          <label htmlFor="icon">Icon URL</label>
+          <input id="icon" {...register("iconSource")} />
+        </div>
+
+        <div>
           <SubmitButton isPending={isPending}>Create</SubmitButton>
         </div>
       </form>

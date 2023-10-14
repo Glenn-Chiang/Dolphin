@@ -12,7 +12,7 @@ export default function Sidebar({ pods }: { pods: Pod[] }) {
     >
       <div className="flex flex-col gap-2">
         <h2 className="">Your Pods</h2>
-        <nav className="flex flex-col -mx-2 max-h-80 overflow-auto">
+        <nav className="flex flex-col -mx-2 max-h-64 overflow-y-scroll">
           {pods.map((pod) => (
             <PodLink key={pod.id} pod={pod} />
           ))}
@@ -24,7 +24,7 @@ export default function Sidebar({ pods }: { pods: Pod[] }) {
           Explore all pods
         </Link>
       </div>
-      <div className="flex gap-2 justify-center flex-col md:flex-row text-center">
+      <div className="flex gap-2 py-4 justify-center flex-col md:flex-row text-center">
         <CreatePostButton />
         <CreatePodButton />
       </div>
