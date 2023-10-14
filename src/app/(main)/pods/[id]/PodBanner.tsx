@@ -18,12 +18,16 @@ export default function PodBanner({ pod }: { pod: PodDetail }) {
     (member) => member.memberId === userId
   );
 
-  const handleClick = () => {
+  const [isPending, setIsPending] = useState(false)
+
+  const handleClickJoin = async () => {
+    setIsPending(true)  
     if (alreadyJoined) {
-      leavePod(pod.id);
+      await leavePod(pod.id);
     } else {
-      joinPod(pod.id);
+      await joinPod(pod.id);
     }
+    setIsPending(false)
   };
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -51,7 +55,7 @@ export default function PodBanner({ pod }: { pod: PodDetail }) {
             </p>
         <p className="text-center sm:w-1/2">{pod.about}</p>
         <div className="flex gap-4">
-          <JoinButton onClick={handleClick} alreadyJoined={alreadyJoined} />
+          <JoinButton isPending={isPending} onClick={handleClickJoin} alreadyJoined={alreadyJoined} />
           <CreatePostButton podId={pod.id} />
         </div>
         <MenuButton

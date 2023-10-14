@@ -7,6 +7,7 @@ import React from "react";
 import { joinPod, leavePod } from "@/actions/pods";
 import { JoinButton } from "./buttons";
 import PodIcon from "./PodIcon";
+import { useState } from "react";
 
 export default function PodCard({ pod }: { pod: PodDetail }) {
   const userId = useCurrentUser();
@@ -14,12 +15,16 @@ export default function PodCard({ pod }: { pod: PodDetail }) {
     (member) => member.memberId === userId
   );
 
+  const [isPending, setIsPending] = useState(false);
+
   const handleClick = () => {
+    setIsPending(true);
     if (alreadyJoined) {
       leavePod(pod.id);
     } else {
       joinPod(pod.id);
     }
+    setIsPending(false);
   };
 
   return (
@@ -31,7 +36,11 @@ export default function PodCard({ pod }: { pod: PodDetail }) {
         </div>
         <p className="py-4">{pod.about}</p>
         <div className="flex gap-4 items-center">
-          <JoinButton onClick={handleClick} alreadyJoined={alreadyJoined} />
+          <JoinButton
+            isPending={isPending}
+            onClick={handleClick}
+            alreadyJoined={alreadyJoined}
+          />
           <span className="text-slate-500">
             {pod.members.length} member{pod.members.length !== 1 && "s"}
           </span>

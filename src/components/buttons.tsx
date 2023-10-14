@@ -49,9 +49,10 @@ function CancelButton({ onClick }: { onClick: () => void }) {
 type JoinButtonProps = {
   alreadyJoined: boolean;
   onClick: () => void;
+  isPending: boolean;
 };
 
-function JoinButton({ alreadyJoined, onClick }: JoinButtonProps) {
+function JoinButton({ alreadyJoined, onClick, isPending }: JoinButtonProps) {
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault(); // don't nevigate to link path when button is clicked
     onClick();
@@ -59,13 +60,18 @@ function JoinButton({ alreadyJoined, onClick }: JoinButtonProps) {
 
   return (
     <button
+      disabled={isPending}
       onClick={handleClick}
       className={` p-2 rounded-md shadow ${
         alreadyJoined
           ? "text-slate-500 bg-slate-200 hover:bg-slate-300"
           : "text-white bg-sky-500 shadow-sky-500 hover:shadow-md hover:shadow-sky-500 "
-      }`}
+      } ${isPending && "opacity-50 cursor-not-allowed "}
+      `}
     >
+      {isPending && (
+        <FontAwesomeIcon icon={faSpinner} className="animate-spin text-white" />
+      )}
       {alreadyJoined ? "Joined" : "Join Pod"}
     </button>
   );
@@ -138,10 +144,10 @@ function CommentButton({ comments, onClick }: CommentButtonProps) {
 }
 
 function CreatePostButton({ podId }: { podId?: number }) {
-  const router = useRouter()
+  const router = useRouter();
   const handleClick = () => {
     router.push(podId ? `/create-post?pod=${podId}` : "/create-post");
-  }
+  };
   return (
     <button
       onClick={handleClick}
@@ -153,10 +159,10 @@ function CreatePostButton({ podId }: { podId?: number }) {
 }
 
 function CreatePodButton() {
-  const router = useRouter()
+  const router = useRouter();
   const handleClick = () => {
-    router.push('/create-pod')
-  }
+    router.push("/create-pod");
+  };
   return (
     <button
       onClick={handleClick}
@@ -175,6 +181,5 @@ export {
   FollowButton,
   JoinButton,
   LikeButton,
-  SubmitButton
+  SubmitButton,
 };
-
