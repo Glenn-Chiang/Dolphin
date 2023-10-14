@@ -66,7 +66,7 @@ function JoinButton({ alreadyJoined, onClick }: JoinButtonProps) {
           : "text-white bg-sky-500 shadow-sky-500 hover:shadow-md hover:shadow-sky-500 "
       }`}
     >
-      {alreadyJoined ? "Leave" : "Join"} Pod
+      {alreadyJoined ? "Joined" : "Join Pod"}
     </button>
   );
 }
@@ -86,7 +86,7 @@ function FollowButton({ onClick, alreadyFollowed }: FollowButtonProps) {
           : "text-white bg-sky-500 shadow-sky-500 hover:shadow-md hover:shadow-sky-500"
       }`}
     >
-      {alreadyFollowed ? "Unfollow" : "Follow"}
+      {alreadyFollowed ? "Followed" : "Follow"}
     </button>
   );
 }

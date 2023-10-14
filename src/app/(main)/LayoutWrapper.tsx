@@ -50,7 +50,7 @@ export default function LayoutWrapper({ pods, children }: props) {
       <div
         className={`absolute w-full ${
           sidebarIsOpen ? "sm:left-1/4 sm:w-3/4 " : "w-full"
-        } mt-16 mb-10 p-4 `}
+        } mt-16 mb-10 p-2 sm:p-4 `}
       >
         {children}
       </div>
