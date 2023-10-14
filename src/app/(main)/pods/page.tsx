@@ -1,6 +1,5 @@
-import PodCard from "@/components/PodCard";
 import { getPods } from "@/actions/pods";
-import Link from "next/link";
+import PodCard from "@/components/PodCard";
 
 export default async function Pods() {
   const pods = await getPods();
@@ -9,7 +8,7 @@ export default async function Pods() {
       <div className="flex justify-between items-center">
         <h1 className="pb-4">Explore Pods</h1>
       </div>
-      <Searchbar placeholder="Search for a pod..." />
+      {/* <Searchbar placeholder="Search for a pod..." /> */}
       <ul className="py-4 flex flex-col gap-4">
         {pods.map((pod) => (
           <PodCard key={pod.id} pod={pod} />

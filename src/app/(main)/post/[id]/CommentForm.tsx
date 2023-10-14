@@ -5,6 +5,7 @@ import { CancelButton, SubmitButton } from "@/components/buttons";
 import { createComment } from "@/actions/comments";
 import { useParams } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useState } from "react";
 
 type CommentFormValues = {
   content: string;
@@ -21,9 +22,12 @@ export default function CommentForm() {
     formState: { errors },
   } = useForm<CommentFormValues>();
 
-  const onSubmit: SubmitHandler<CommentFormValues> = (formValues) => {
+  const [isPending, setIsPending] = useState(false);
+
+  const onSubmit: SubmitHandler<CommentFormValues> = async (formValues) => {
+    setIsPending(true);
     const { content } = formValues;
-    createComment(postId, content);
+    await createComment(postId, content);
     reset();
   };
 
@@ -46,7 +50,7 @@ export default function CommentForm() {
       />
       {errors.content && <FormError>{errors.content.message}</FormError>}
       <div className="flex gap-2">
-        <SubmitButton>Comment</SubmitButton>
+        <SubmitButton isPending={isPending}>Comment</SubmitButton>
         <CancelButton onClick={handleCancel} />
       </div>
     </form>
