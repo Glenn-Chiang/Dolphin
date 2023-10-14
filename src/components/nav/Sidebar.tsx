@@ -12,7 +12,7 @@ export default function Sidebar({ pods }: { pods: Pod[] }) {
     >
       <div className="flex flex-col gap-2">
         <h2 className="">Your Pods</h2>
-        <nav className="flex flex-col -mx-2 max-h-96 sm:max-h-72 overflow-y-scroll">
+        <nav className="flex flex-col -mx-2 max-h-96 sm:h-1/2 overflow-y-scroll">
           {pods.map((pod) => (
             <PodLink key={pod.id} pod={pod} />
           ))}

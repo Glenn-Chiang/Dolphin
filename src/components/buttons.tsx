@@ -24,7 +24,7 @@ function SubmitButton({ onClick, children, isPending }: SubmitButtonProps) {
         pending || isPending
           ? "opacity-50 cursor-not-allowed"
           : " shadow-sky-500 hover:shadow-md hover:shadow-sky-500"
-      }  rounded-md shadow w-20 flex gap-2 items-center justify-center bg-sky-500 text-white p-2`}
+      }  rounded-md shadow w-20 min-w-max flex gap-2 items-center justify-center bg-sky-500 text-white p-2`}
     >
       {(pending || isPending) && (
         <FontAwesomeIcon icon={faSpinner} className="animate-spin text-white" />

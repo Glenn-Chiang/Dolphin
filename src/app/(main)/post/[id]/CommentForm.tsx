@@ -28,6 +28,7 @@ export default function CommentForm() {
     setIsPending(true);
     const { content } = formValues;
     await createComment(postId, content);
+    setIsPending(false)
     reset();
   };
 
