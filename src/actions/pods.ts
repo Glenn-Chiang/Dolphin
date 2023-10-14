@@ -66,8 +66,7 @@ const getUserPods = async (userId: number) => {
   return pods;
 };
 
-const createPod = async ({name, about}: {name: string, about: string}) => {
-
+const createPod = async ({ name, about }: { name: string; about: string }) => {
   if (!name || name.length > 25) {
     throw new Error("Invalid name");
   }
@@ -101,6 +100,18 @@ const createPod = async ({name, about}: {name: string, about: string}) => {
 
   console.log("Pod created!");
   redirect(`/profile/${creatorId}/pods`);
+};
+
+const editPod = async (podId: number, about: string, iconSource: string) => {
+  await prisma.pod.update({
+    where: {
+      id: podId,
+    },
+    data: {
+      about,
+      iconSource,
+    },
+  });
 };
 
 const joinPod = async (podId: number) => {
@@ -149,4 +160,5 @@ export {
   createPod,
   joinPod,
   leavePod,
+  editPod
 };

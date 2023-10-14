@@ -1,5 +1,6 @@
 "use client";
 
+import { editPod } from "@/actions/pods";
 import Modal from "@/components/Modal";
 import { SubmitButton } from "@/components/buttons";
 import {
@@ -8,6 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Pod } from "@prisma/client";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 type EditModalProps = {
@@ -27,7 +29,14 @@ export default function EditModal({ pod, close }: EditModalProps) {
     formState: { errors },
   } = useForm<FormValues>();
 
-  const onSubmit: SubmitHandler<FormValues> = (formValues) => {};
+  const [isPending, setIsPending] = useState(false)
+
+  const onSubmit: SubmitHandler<FormValues> = async (formValues) => {
+    setIsPending(true)
+    const {about, iconSource} = formValues
+    await editPod(pod.id, about, iconSource)
+    close()
+  };
 
   return (
     <Modal close={close}>
@@ -60,7 +69,7 @@ export default function EditModal({ pod, close }: EditModalProps) {
           defaultValue={pod.iconSource || ""}
         />
         <div>
-          <SubmitButton>Save</SubmitButton>
+          <SubmitButton isPending={isPending}>Save</SubmitButton>
         </div>
       </form>
     </Modal>
