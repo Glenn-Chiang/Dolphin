@@ -34,7 +34,7 @@ export default function PodBanner({ pod }: { pod: PodDetail }) {
 
   return (
     <>
-      <section className="bg-white p-4 rounded-md shadow flex flex-col gap-4 relative">
+      <section className="bg-white p-4 rounded-md shadow flex flex-col gap-4 relative justify-center">
         <div className="flex gap-4 items-center">
           <PodIcon src={pod.iconSource} />
           <h1>{pod.name}</h1>

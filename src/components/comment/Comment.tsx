@@ -41,7 +41,7 @@ export default function Comment({ comment }: { comment: CommentDetail }) {
   };
 
   return (
-    <article className="relative">
+    <article className="relative -mr-4 ">
       <div className="flex items-center">
         <Link
           href={`/profile/${comment.authorId}`}

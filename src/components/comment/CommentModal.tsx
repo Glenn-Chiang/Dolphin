@@ -25,10 +25,10 @@ export default function CommentModal({ close, post }: CommentModalProps) {
 
   const [isPending, setIsPending] = useState(false)
 
-  const onSubmit: SubmitHandler<CommentFormValues> = (formValues) => {
+  const onSubmit: SubmitHandler<CommentFormValues> = async (formValues) => {
     setIsPending(true)
     const { content } = formValues;
-    createComment(post.id, content);
+    await createComment(post.id, content);
     close();
   };
 
