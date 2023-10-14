@@ -5,6 +5,7 @@ import { faComment } from "@fortawesome/free-solid-svg-icons/faComment";
 import { faHeart } from "@fortawesome/free-solid-svg-icons/faHeart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import { experimental_useFormStatus as useFormStatus } from "react-dom";
 
@@ -138,25 +139,32 @@ function CommentButton({ comments, onClick }: CommentButtonProps) {
 }
 
 function CreatePostButton({ podId }: { podId?: number }) {
-  const href = podId ? `/create-post?pod=${podId}` : "/create-post";
+  const router = useRouter()
+  const handleClick = () => {
+    router.push(podId ? `/create-post?pod=${podId}` : "/create-post");
+  }
   return (
-    <Link
-      href={href}
+    <button
+      onClick={handleClick}
       className="p-2 rounded-md shadow font-medium bg-sky-500 hover:bg-sky-400 text-white "
     >
       Create Post
-    </Link>
+    </button>
   );
 }
 
 function CreatePodButton() {
+  const router = useRouter()
+  const handleClick = () => {
+    router.push('/create-pod')
+  }
   return (
-    <Link
-      href={"/create-pod"}
+    <button
+      onClick={handleClick}
       className="p-2 rounded-md shadow font-medium bg-sky-500 hover:bg-sky-400 text-white "
     >
       Create Pod
-    </Link>
+    </button>
   );
 }
 
