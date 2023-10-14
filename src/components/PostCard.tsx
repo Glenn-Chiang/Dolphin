@@ -45,36 +45,41 @@ export default function PostCard({ post }: { post: PostDetail }) {
     deletePost(post.id);
   };
 
+  const handleClick = () => {
+    router.push(`/post/${post.id}`);
+  };
+
   return (
-    <article className="bg-white p-4 pb-2 rounded-md relative shadow hover:shadow-lg transition">
-      <Link href={`/post/${post.id}`}>
-        <Link
-          href={`/pods/${post.podId}`}
-          className="text-sky-500 font-medium -m-2 p-2 flex gap-2 items-center w-max rounded-xl hover:bg-sky-200"
-        >
-          <PodIcon src={post.pod.iconSource} />
-          {post.pod.name}
-        </Link>
-        <h2 className="py-4">{post.title}</h2>
-        <div className="flex gap-4 text-slate-500 items-center">
-          <Link
-            href={`/profile/${post.authorId}`}
-            className="flex gap-2 items-center hover:text-sky-500"
-          >
-            <Avatar user={post.author} />
-            {post.author ? post.author.name : "[deleted]"}
-          </Link>
-          <span>{post.createdAt.toDateString()}</span>
-        </div>
-        <div className="py-2 whitespace-pre-wrap">{post.content}</div>
-        <div className="flex gap-4 py-2">
-          <LikeButton liked={liked} likes={likes} onClick={handleLikeClick} />
-          <CommentButton
-            comments={post._count.comments}
-            onClick={handleCommentClick}
-          />
-        </div>
+    <article
+      onClick={handleClick}
+      className="bg-white p-4 pb-2 rounded-md relative shadow hover:shadow-lg transition"
+    >
+      <Link
+        href={`/pods/${post.podId}`}
+        className="text-sky-500 font-medium -m-2 p-2 flex gap-2 items-center w-max rounded-xl hover:bg-sky-200"
+      >
+        <PodIcon src={post.pod.iconSource} />
+        {post.pod.name}
       </Link>
+      <h2 className="py-4">{post.title}</h2>
+      <div className="flex gap-4 text-slate-500 items-center">
+        <Link
+          href={`/profile/${post.authorId}`}
+          className="flex gap-2 items-center hover:text-sky-500"
+        >
+          <Avatar user={post.author} />
+          {post.author ? post.author.name : "[deleted]"}
+        </Link>
+        <span>{post.createdAt.toDateString()}</span>
+      </div>
+      <div className="py-2 whitespace-pre-wrap">{post.content}</div>
+      <div className="flex gap-4 py-2">
+        <LikeButton liked={liked} likes={likes} onClick={handleLikeClick} />
+        <CommentButton
+          comments={post._count.comments}
+          onClick={handleCommentClick}
+        />
+      </div>
       {isOwnPost && (
         <MenuButton
           handleEditClick={handleEditClick}
