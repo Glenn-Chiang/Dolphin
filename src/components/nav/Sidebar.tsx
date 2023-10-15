@@ -1,14 +1,15 @@
+import { getMyPods, getUserPods } from '@/actions/pods';
+import { getCurrentUser } from "@/lib/auth";
 import PodLink from "@/components/PodLink";
 import { CreatePodButton, CreatePostButton } from "@/components/buttons";
-import { Pod } from "@prisma/client";
 import Link from "next/link";
-import { getCurrentUser } from "@/lib/auth";
-import { getMyPods, getUserPods } from "@/actions/pods";
 
 export default async function Sidebar() {
-  // const userId = await getCurrentUser();
-  // const pods = await getUserPods(userId)
-  const pods = await getMyPods()
+  const userId = await getCurrentUser();
+  const pods = userId ? await getUserPods(userId) : []
+  // const pods = await getMyPods()
+
+  // if (!userId) return (<div>Not authenticated</div>)
 
   return (
     <section
