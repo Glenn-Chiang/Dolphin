@@ -130,7 +130,7 @@ const editPod = async (podId: number, about: string, iconSource: string) => {
 const deletePod = async (podId: number) => {
   await checkAuthorization(podId)
 
-  await prisma.pod.delete({
+  const pod = await prisma.pod.delete({
     where: {
       id: podId
     }
@@ -138,6 +138,7 @@ const deletePod = async (podId: number) => {
 
   console.log('Pod deleted!')
   revalidatePath('/')
+  redirect(`/profile/${pod.creatorId}/pods`)
 };
 
 const checkAuthorization = async (podId: number) => {

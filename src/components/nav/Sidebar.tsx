@@ -1,5 +1,3 @@
-'use client'
-
 import PodLink from "@/components/PodLink";
 import { CreatePodButton, CreatePostButton } from "@/components/buttons";
 import { Pod } from "@prisma/client";
