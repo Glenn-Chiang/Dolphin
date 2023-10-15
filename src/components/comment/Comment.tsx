@@ -13,13 +13,17 @@ import EditCommentModal from "./EditCommentModal";
 
 // 1 top-level parent comment with its replies
 export default function Comment({ comment }: { comment: CommentDetail }) {
-  const userId = useCurrentUser();
-  const isOwnComment = userId === comment.authorId;
+  const currentUserId = useCurrentUser();
+  const isOwnComment = currentUserId === comment.authorId;
 
   const [liked, setLiked] = useState(
-    !!comment.likedBy.find((user) => user.id === userId)
+    !!comment.likedBy.find((user) => user.id === currentUserId)
   );
   const [likes, setLikes] = useState(comment.likedBy.length)
+
+  useEffect(() => {
+    setLiked(!!comment.likedBy.find((user) => user.id === currentUserId));
+  }, [currentUserId, comment.likedBy])
 
   const handleLikeClick = async () => {
     setLiked((prev) => !prev);
