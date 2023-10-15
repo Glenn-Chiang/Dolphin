@@ -1,17 +1,17 @@
 "use client";
 
 import { Pod } from "@prisma/client";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import TopNav from "@/components/nav/TopNav";
 import Sidebar from "@/components/nav/Sidebar";
 import { usePathname } from "next/navigation";
 
 type props = {
-  pods: Pod[];
   children: React.ReactNode;
+  sidebar: React.ReactNode
 };
 
-export default function LayoutWrapper({ pods, children }: props) {
+export default function LayoutWrapper({ sidebar, children }: props) {
   // Sidebar behaviour is determined by whether layout is mobile or not
   const mobileBreakpoint = 640;
   const [isMobile, setIsMobile] = useState(true);
@@ -46,7 +46,7 @@ export default function LayoutWrapper({ pods, children }: props) {
   return (
     <>
       <TopNav toggleSidebar={() => setSidebarIsOpen((prev) => !prev)} />
-      {sidebarIsOpen && <Sidebar pods={pods} />}
+      {sidebarIsOpen && sidebar}
       <div
         className={`absolute w-full ${
           sidebarIsOpen ? "sm:left-1/4 sm:w-3/4 " : "w-full"

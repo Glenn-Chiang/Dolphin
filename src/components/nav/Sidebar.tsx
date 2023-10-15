@@ -2,8 +2,14 @@ import PodLink from "@/components/PodLink";
 import { CreatePodButton, CreatePostButton } from "@/components/buttons";
 import { Pod } from "@prisma/client";
 import Link from "next/link";
+import { getCurrentUser } from "@/lib/auth";
+import { getMyPods, getUserPods } from "@/actions/pods";
 
-export default function Sidebar({ pods }: { pods: Pod[] }) {
+export default async function Sidebar() {
+  // const userId = await getCurrentUser();
+  // const pods = await getUserPods(userId)
+  const pods = await getMyPods()
+
   return (
     <section
       className={`w-4/5 bg-slate-100 sm:w-1/4 sm:bg-white fixed flex flex-col justify-between pt-20 left-0 top-0 h-screen z-10 p-4 shadow`}

@@ -22,7 +22,6 @@ export default function AuthLayout({
   return (
     <html lang="en" spellCheck="false" className={montserrat.className}>
       <body className="p-4 flex justify-center items-center h-screen ">
-        {/* <DolphinIcon large={true}/> */}
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

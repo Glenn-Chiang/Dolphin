@@ -67,6 +67,19 @@ const getUserPods = async (userId: number) => {
   return pods;
 };
 
+const getMyPods = async () => {
+  const pods = await prisma.pod.findMany({
+    where: {
+      members: {
+        some: {
+          memberId: 1
+        }
+      }
+    }
+  })
+  return pods
+}
+
 const createPod = async ({
   name,
   about,
@@ -202,6 +215,7 @@ export {
   getMatchedPods,
   getPod,
   getUserPods,
+  getMyPods,
   createPod,
   joinPod,
   leavePod,

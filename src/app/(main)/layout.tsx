@@ -8,6 +8,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "../../globals.css";
+import Sidebar from "@/components/nav/Sidebar";
 config.autoAddCss = false;
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -21,14 +22,12 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const userId = await getCurrentUser();
-  const pods = userId ? await getUserPods(userId) : [];
   return (
     <html lang="en" spellCheck="false">
       <body className="whitespace-pre-wrap break-words text-slate-800">
         <AuthProvider>
-          <LayoutWrapper pods={pods}>
-              {children}
+          <LayoutWrapper sidebar={<Sidebar/>}>
+            {children}
           </LayoutWrapper>
           <TopButton />
         </AuthProvider>
