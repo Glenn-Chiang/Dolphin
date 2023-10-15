@@ -4,6 +4,7 @@ import { getCurrentUser } from "@/lib/auth";
 import prisma from "../lib/db";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { error } from "console";
 
 const includedData = {
   members: {
@@ -66,7 +67,15 @@ const getUserPods = async (userId: number) => {
   return pods;
 };
 
-const createPod = async ({ name, about, iconSource }: { name: string; about: string, iconSource: string }) => {
+const createPod = async ({
+  name,
+  about,
+  iconSource,
+}: {
+  name: string;
+  about: string;
+  iconSource: string;
+}) => {
   if (!name || name.length > 25) {
     throw new Error("Invalid name");
   }
@@ -104,6 +113,8 @@ const createPod = async ({ name, about, iconSource }: { name: string; about: str
 };
 
 const editPod = async (podId: number, about: string, iconSource: string) => {
+  await checkAuthorization(podId)
+
   await prisma.pod.update({
     where: {
       id: podId,
@@ -113,8 +124,39 @@ const editPod = async (podId: number, about: string, iconSource: string) => {
       iconSource,
     },
   });
-  revalidatePath(`/pods/${podId}`)
+  revalidatePath(`/pods/${podId}`);
 };
+
+const deletePod = async (podId: number) => {
+  await checkAuthorization(podId)
+
+  await prisma.pod.delete({
+    where: {
+      id: podId
+    }
+  })
+
+  console.log('Pod deleted!')
+  revalidatePath('/')
+};
+
+const checkAuthorization = async (podId: number) => {
+  const pod = await prisma.pod.findUnique({
+    where: {
+      id: podId,
+    },
+    select: {
+      creatorId: true,
+    },
+  });
+  const currentUserId = await getCurrentUser()
+  if (!currentUserId) {
+    throw new Error('unauthenticated')
+  }
+  if (currentUserId !== pod?.creatorId) { // Only pod creator is authorized to edit/delete pod
+    throw new Error('unauthorized')
+  }
+}
 
 const joinPod = async (podId: number) => {
   const userId = await getCurrentUser();
@@ -162,5 +204,6 @@ export {
   createPod,
   joinPod,
   leavePod,
-  editPod
+  editPod,
+  deletePod
 };
