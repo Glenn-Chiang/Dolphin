@@ -12,7 +12,7 @@ export default async function CommentThread({
   return (
     <section className="p-4 bg-white rounded-md shadow ">
       <Comment comment={comment} />
-      <ul className="pl-8 border-l-2">
+      <ul className="pl-4 sm:pl-8 border-l-2">
         {replies.map((reply) => (
           <Comment key={reply.id} comment={reply} />
         ))}

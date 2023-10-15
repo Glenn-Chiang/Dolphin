@@ -5,7 +5,7 @@ import { useCurrentUser } from "@/lib/auth";
 import { PostDetail } from "@/lib/types";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import Avatar from "./Avatar";
 import PodIcon from "./PodIcon";
 import { CommentButton, LikeButton } from "./buttons";
@@ -24,7 +24,7 @@ export default function PostCard({ post }: { post: PostDetail }) {
 
   useEffect(() => {
     setLiked(!!post.likedBy.find((user) => user.id === currentUserId));
-  }, [currentUserId, post.likedBy])
+  }, [currentUserId, post.likedBy]);
 
   const handleLikeClick = async () => {
     // Optimistically update like button UI
@@ -60,7 +60,7 @@ export default function PostCard({ post }: { post: PostDetail }) {
           {post.pod.name}
         </Link>
         <h2 className="py-4">{post.title}</h2>
-        <div className="flex gap-4 text-slate-500 items-center">
+        <div className="flex gap-4 text-slate-500 items-center ">
           <Link
             href={`/profile/${post.authorId}`}
             className="flex gap-2 items-center hover:text-sky-500"
@@ -80,10 +80,12 @@ export default function PostCard({ post }: { post: PostDetail }) {
         </div>
       </Link>
       {isOwnPost && (
-        <MenuButton
-          handleEditClick={handleEditClick}
-          handleDeleteClick={handleDelete}
-        />
+        <div className="absolute right-4 top-4">
+          <MenuButton
+            handleEditClick={handleEditClick}
+            handleDeleteClick={handleDelete}
+          />
+        </div>
       )}
       {commentModalIsOpen && (
         <CommentModal close={handleCommentClick} post={post} />

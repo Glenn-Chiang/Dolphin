@@ -51,7 +51,7 @@ export default function MenuButton({
     <>
       <button
         onClick={handleClick}
-        className={`absolute top-4 right-4 hover:bg-slate-200 p-2 w-10 h-10 -mr-2 rounded-full ${
+        className={`hover:bg-slate-200 p-2 w-10 h-10 -mr-2 rounded-full ${
           menuIsOpen && "bg-slate-200"
         }`}
       >

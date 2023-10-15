@@ -76,10 +76,12 @@ export default function Comment({ comment }: { comment: CommentDetail }) {
         )}
       </div>
       {isOwnComment && (
-        <MenuButton
-          handleEditClick={handleEdit}
-          handleDeleteClick={handleDelete}
-        />
+        <div className="absolute top-0 right-0">
+          <MenuButton
+            handleEditClick={handleEdit}
+            handleDeleteClick={handleDelete}
+          />
+        </div>
       )}
       {editModalIsShown && (
         <EditCommentModal
