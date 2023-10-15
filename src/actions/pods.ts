@@ -68,11 +68,12 @@ const getUserPods = async (userId: number) => {
 };
 
 const getMyPods = async () => {
+  const userId = await getCurrentUser()
   const pods = await prisma.pod.findMany({
     where: {
       members: {
         some: {
-          memberId: 1
+          memberId: userId
         }
       }
     }
