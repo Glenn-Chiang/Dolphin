@@ -11,6 +11,7 @@ import { Pod } from "@prisma/client";
 import { useState } from "react";
 import EditModal from "./EditPodModal";
 import Image from "next/image";
+import DeleteModal from "./DeletePodModal";
 
 export default function PodBanner({ pod }: { pod: PodDetail }) {
   const userId = useCurrentUser();
@@ -18,21 +19,20 @@ export default function PodBanner({ pod }: { pod: PodDetail }) {
     (member) => member.memberId === userId
   );
 
-  const [isPending, setIsPending] = useState(false)
+  const [isPending, setIsPending] = useState(false);
 
   const handleClickJoin = async () => {
-    setIsPending(true)  
+    setIsPending(true);
     if (alreadyJoined) {
       await leavePod(pod.id);
     } else {
       await joinPod(pod.id);
     }
-    setIsPending(false)
+    setIsPending(false);
   };
 
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-
-  const handleDelete = () => {};
+  const [editModalIsOpen, setEditModalIsOpen] = useState(false);
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
 
   return (
     <>
@@ -50,21 +50,30 @@ export default function PodBanner({ pod }: { pod: PodDetail }) {
             <span className="text-slate-500">{pod.members.length} members</span>
           </div>
         </div>
-            <p className="text-slate-500">
-              Created on {pod.createdAt.toLocaleDateString()}
-            </p>
+        <p className="text-slate-500">
+          Created on {pod.createdAt.toLocaleDateString()}
+        </p>
         <p className="text-center sm:w-1/2">{pod.about}</p>
         <div className="flex gap-4">
-          <JoinButton isPending={isPending} onClick={handleClickJoin} alreadyJoined={alreadyJoined} />
+          <JoinButton
+            isPending={isPending}
+            onClick={handleClickJoin}
+            alreadyJoined={alreadyJoined}
+          />
           <CreatePostButton podId={pod.id} />
         </div>
-        <MenuButton
-          handleEditClick={() => setModalIsOpen(true)}
-          handleDeleteClick={handleDelete}
-        />
+        <div className="absolute top-4 right-4">
+          <MenuButton
+            handleEditClick={() => setEditModalIsOpen(true)}
+            handleDeleteClick={() => setDeleteModalIsOpen(true)}
+          />
+        </div>
       </section>
-      {modalIsOpen && (
-        <EditModal pod={pod} close={() => setModalIsOpen(false)} />
+      {editModalIsOpen && (
+        <EditModal pod={pod} close={() => setEditModalIsOpen(false)} />
+      )}
+      {deleteModalIsOpen && (
+        <DeleteModal pod={pod} close={() => setDeleteModalIsOpen(false)} />
       )}
     </>
   );

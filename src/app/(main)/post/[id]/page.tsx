@@ -10,7 +10,11 @@ export default async function Post({ params }: { params: { id: string } }) {
   const comments = await getPostComments(postId);
 
   if (!post) {
-    return <div>Post not found</div>;
+    return (
+      <div className="bg-white rounded-md text-slate-500 p-4 shadow text-center">
+        Post not found
+      </div>
+    );
   }
   return (
     <main className="flex flex-col gap-4 pb-4">

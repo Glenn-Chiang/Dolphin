@@ -16,7 +16,11 @@ export default async function PodPage({
   const pod = await getPod(podId);
 
   if (!pod) {
-    return <section>Pod not found</section>;
+    return (
+      <div className="bg-white rounded-md text-slate-500 p-4 shadow text-center">
+        Pod not found
+      </div>
+    );
   }
 
   return (
