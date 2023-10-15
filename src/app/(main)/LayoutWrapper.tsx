@@ -14,7 +14,7 @@ type props = {
 export default function LayoutWrapper({ pods, children }: props) {
   // Sidebar behaviour is determined by whether layout is mobile or not
   const mobileBreakpoint = 640;
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
   // Listen for window resize to update isMobile state
   useEffect(() => {
     setIsMobile(window.innerWidth <= mobileBreakpoint)

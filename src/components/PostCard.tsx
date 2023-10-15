@@ -5,7 +5,7 @@ import { useCurrentUser } from "@/lib/auth";
 import { PostDetail } from "@/lib/types";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from 'react';
 import Avatar from "./Avatar";
 import PodIcon from "./PodIcon";
 import { CommentButton, LikeButton } from "./buttons";
@@ -21,6 +21,10 @@ export default function PostCard({ post }: { post: PostDetail }) {
     !!post.likedBy.find((user) => user.id === currentUserId)
   );
   const [likes, setLikes] = useState(post._count.likedBy);
+
+  useEffect(() => {
+    setLiked(!!post.likedBy.find((user) => user.id === currentUserId));
+  }, [currentUserId, post.likedBy])
 
   const handleLikeClick = async () => {
     // Optimistically update like button UI
