@@ -6,10 +6,8 @@ import Link from "next/link";
 
 export default async function Sidebar() {
   const userId = await getCurrentUser();
+  console.log('current user:', userId)
   const pods = userId ? await getUserPods(userId) : []
-  // const pods = await getMyPods()
-
-  // if (!userId) return (<div>Not authenticated</div>)
 
   return (
     <section
