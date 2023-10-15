@@ -11,6 +11,7 @@ import PodIcon from "./PodIcon";
 import { CommentButton, LikeButton } from "./buttons";
 import CommentModal from "./comment/CommentModal";
 import MenuButton from "./MenuButton";
+import { DateTime } from "luxon";
 
 export default function PostCard({ post }: { post: PostDetail }) {
   const currentUserId = useCurrentUser();
@@ -68,7 +69,7 @@ export default function PostCard({ post }: { post: PostDetail }) {
             <Avatar user={post.author} />
             {post.author ? post.author.name : "[deleted]"}
           </Link>
-          <span>{post.createdAt.toDateString()}</span>
+          <span>{DateTime.fromJSDate(post.createdAt).toRelative() }</span>
         </div>
         <div className="py-2 whitespace-pre-wrap">{post.content}</div>
         <div className="flex gap-4 py-2">

@@ -25,7 +25,7 @@ export default async function RootLayout({
   const pods = userId ? await getUserPods(userId) : [];
   return (
     <html lang="en" spellCheck="false">
-      <body className="whitespace-pre-wrap break-words">
+      <body className="whitespace-pre-wrap break-words text-slate-800">
         <AuthProvider>
           <LayoutWrapper pods={pods}>
               {children}

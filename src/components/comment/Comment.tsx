@@ -4,12 +4,13 @@ import { deleteComment, likeComment } from "@/actions/comments";
 import { useCurrentUser } from "@/lib/auth";
 import { CommentDetail } from "@/lib/types";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Avatar from "../Avatar";
 import MenuButton from "../MenuButton";
 import ReplyModal from "../ReplyModal";
 import { CommentButton, LikeButton } from "../buttons";
 import EditCommentModal from "./EditCommentModal";
+import { DateTime } from "luxon";
 
 // 1 top-level parent comment with its replies
 export default function Comment({ comment }: { comment: CommentDetail }) {
@@ -58,7 +59,7 @@ export default function Comment({ comment }: { comment: CommentDetail }) {
           {comment.author ? comment.author.name : "[deleted]"}
         </Link>
         <span className="text-slate-500">
-          {comment.createdAt.toDateString()}
+          {DateTime.fromJSDate(comment.createdAt).toRelative()}
         </span>
       </div>
       <p className="py-2 break-words">{comment.content}</p>
