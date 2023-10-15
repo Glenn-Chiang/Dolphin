@@ -48,7 +48,7 @@ export default function Comment({ comment }: { comment: CommentDetail }) {
   };
 
   return (
-    <article className="relative -mr-4 ">
+    <article className="relative">
       <div className="flex items-center">
         <Link
           href={`/profile/${comment.authorId}`}
@@ -61,7 +61,7 @@ export default function Comment({ comment }: { comment: CommentDetail }) {
           {comment.createdAt.toDateString()}
         </span>
       </div>
-      <p className="py-2">{comment.content}</p>
+      <p className="py-2 break-words">{comment.content}</p>
       <div className="flex gap-2 -ml-2">
         <LikeButton
           onClick={handleLikeClick}
