@@ -15,6 +15,7 @@ const useCurrentUser = (): number | null => {
 // Get current user in server components / server actions
 const getCurrentUser = async (): Promise<number | undefined> => {
   const session = await getServerSession(authOptions);
+  console.log('session:', session)
   const user = session?.user;
   if (!user) return undefined;
   const userId: number = (user as any).id; // ewww
