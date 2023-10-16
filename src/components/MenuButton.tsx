@@ -27,6 +27,7 @@ export default function MenuButton({
   };
 
   const menuRef = useRef<HTMLDivElement>(null);
+  // Enables closing of menu button by clicking outside of it
   const hideMenu = (event: MouseEvent) => {
     if (
       menuRef.current &&
@@ -49,23 +50,28 @@ export default function MenuButton({
 
   return (
     <>
-      <button
-        onClick={handleClick}
-        className={`hover:bg-slate-200 p-2 w-10 h-10 -mr-2 rounded-full ${
-          menuIsOpen && "bg-slate-200"
-        }`}
-      >
-        <FontAwesomeIcon icon={faEllipsisV} />
-      </button>
-      {menuIsOpen && (
-        <div
-          ref={menuRef}
-          className="absolute right-2 top-16 z-10 shadow bg-slate-100 rounded-md text-slate-600 flex flex-col items-start "
+      <div className="flex flex-col items-end gap-2">
+        <button
+          onClick={handleClick}
+          className={`hover:bg-slate-200 p-2 w-10 h-10 -mr-2 rounded-full ${
+            menuIsOpen && "bg-slate-200"
+          }`}
         >
-          <EditButton onClick={handleEditClick} />
-          <DeleteButton onClick={handleDeleteClick} />
-        </div>
-      )}
+          <FontAwesomeIcon icon={faEllipsisV} />
+        </button>
+        {menuIsOpen && (
+          <>
+            <div className="fixed w-screen h-screen left-0 top-0 z-10"></div> 
+            <div
+              ref={menuRef}
+              className="z-10 shadow bg-slate-100 rounded-md text-slate-600 flex flex-col items-start "
+            >
+              <EditButton onClick={handleEditClick} />
+              <DeleteButton onClick={handleDeleteClick} />
+            </div>
+          </>
+        )}
+      </div>
     </>
   );
 }

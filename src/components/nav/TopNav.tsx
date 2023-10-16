@@ -79,21 +79,23 @@ export default function TopNav({
 
 function ProfileDropdown({ userId }: { userId: number | null }) {
   return (
-    <nav className="absolute flex-col text-base bg-slate-100 shadow text-slate-600 top-12 right-2 w-max rounded-md">
-      <Link
-        href={`/profile/${userId}`}
-        className="flex gap-2 items-center p-2 hover:bg-slate-200 rounded-t-md"
-      >
-        <FontAwesomeIcon icon={faUser} />
-        My Profile
-      </Link>
-      <Link
-        href={"/logout"}
-        className="flex gap-2 items-center p-2 hover:bg-slate-200 rounded-b-md"
-      >
-        <FontAwesomeIcon icon={faSignOut} />
-        Logout
-      </Link>
-    </nav>
+    <div className="w-screen h-screen top-0 left-0 z-10 fixed">
+      <nav className="absolute flex-col text-base bg-slate-100 shadow text-slate-600 top-16 right-2 sm:right-4 w-max rounded-md">
+        <Link
+          href={`/profile/${userId}`}
+          className="flex gap-2 items-center p-2 hover:bg-slate-200 rounded-t-md"
+        >
+          <FontAwesomeIcon icon={faUser} />
+          My Profile
+        </Link>
+        <Link
+          href={"/logout"}
+          className="flex gap-2 items-center p-2 hover:bg-slate-200 rounded-b-md"
+        >
+          <FontAwesomeIcon icon={faSignOut} />
+          Logout
+        </Link>
+      </nav>
+    </div>
   );
 }
