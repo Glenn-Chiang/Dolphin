@@ -166,21 +166,24 @@ const getPost = async (postId: number): Promise<PostDetail | null> => {
   return post;
 };
 
-const createPost = async ({
-  podId,
-  title,
-  content,
-}: {
-  podId: string;
-  title: string;
-  content: string;
-}) => {
-  if (!title || title.length > 255) {
+const createPost = async (formData: FormData) => {
+  const title = formData.get('title')
+  const content = formData.get('content')
+  const podId = formData.get('podId')
+  const image = formData.get('image')
+
+  if (!title || title.length > 255 || typeof title !== 'string') {
     throw new Error("Invalid title");
   }
-  if (!content) {
+  if (!content || typeof content !== 'string') {
     console.log("Invalid content");
     throw new Error("Invalid content");
+  }
+
+  // console.log('image in server:', image)
+
+  if (image) {
+    await uploadImage(image as File) // better way to do this??
   }
 
   const authorId = await getCurrentUser();
@@ -188,18 +191,23 @@ const createPost = async ({
     throw new Error("unauthenticated");
   }
 
-  await prisma.post.create({
-    data: {
-      title,
-      content,
-      podId: Number(podId),
-      authorId,
-    },
-  });
+  // await prisma.post.create({
+  //   data: {
+  //     title,
+  //     content,
+  //     podId: Number(podId),
+  //     authorId,
+  //   },
+  // });
 
-  console.log("Post created!");
-  redirect(`/profile/${authorId}`);
+  // console.log("Post created!");
+  // redirect(`/profile/${authorId}`);
 };
+
+const uploadImage = async (image: File) => {
+  console.log(image)
+  
+}
 
 const likePost = async (postId: number) => {
   // Get current user's liked posts

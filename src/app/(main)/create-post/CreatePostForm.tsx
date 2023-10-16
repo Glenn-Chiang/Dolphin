@@ -3,21 +3,24 @@
 import { createPost } from "@/actions/posts";
 import FormError from "@/components/FormError";
 import { SubmitButton } from "@/components/buttons";
+import { faCamera, faPen } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Pod } from "@prisma/client";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm, useFormState } from "react-hook-form";
 
 type FormValues = {
   podId: string;
   title: string;
   content: string;
+  image: FileList;
 };
 
 export default function CreatePostForm({ pods }: { pods: Pod[] }) {
   const podId = useSearchParams().get("pod");
 
-  const [isPending, setIsPending] = useState(false)
+  const [isPending, setIsPending] = useState(false);
 
   const {
     register,
@@ -25,9 +28,20 @@ export default function CreatePostForm({ pods }: { pods: Pod[] }) {
     formState: { errors },
   } = useForm<FormValues>();
 
-  const onSubmit: SubmitHandler<FormValues> = (formValues) => {
-    setIsPending(true)
-    createPost(formValues)
+  const onSubmit: SubmitHandler<FormValues> = async (formValues) => {
+    setIsPending(true);
+    const { podId, title, content, image } = formValues;
+
+    const imageFile = image[0];
+    // console.log("image:", imageFile);
+
+    const formData = new FormData();
+    formData.append("image", imageFile);
+    formData.append("podId", podId);
+    formData.append("title", title);
+    formData.append("content", content);
+
+    await createPost(formData);
   };
 
   return (
@@ -72,7 +86,8 @@ export default function CreatePostForm({ pods }: { pods: Pod[] }) {
       {errors.title && <FormError>{errors.title.message}</FormError>}
 
       <div className="flex flex-col gap-2">
-        <label className="font-medium" htmlFor="content">
+        <label className="font-medium flex gap-2 items-center" htmlFor="content">
+          <FontAwesomeIcon icon={faPen}/>
           Content
         </label>
         <textarea
@@ -81,7 +96,15 @@ export default function CreatePostForm({ pods }: { pods: Pod[] }) {
         />
       </div>
       {errors.content && <FormError>{errors.content.message}</FormError>}
-      
+
+      <div className="flex flex-col gap-2">
+        <label htmlFor="image" className="font-medium flex gap-2 items-center">
+          <FontAwesomeIcon icon={faCamera}/>
+          Image
+        </label>
+        <input type="file" accept="image/*" id="image" {...register("image")} />
+      </div>
+
       <div className="flex gap-4">
         <SubmitButton isPending={isPending}>Post</SubmitButton>
       </div>
