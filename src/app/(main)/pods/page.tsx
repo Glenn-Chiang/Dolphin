@@ -6,7 +6,7 @@ export default async function Pods() {
   return (
     <main>
       <div className="flex justify-between items-center">
-        <h1 className="pb-4">Explore Pods</h1>
+        <h1 className="p-2">Explore Pods</h1>
       </div>
       {/* <Searchbar placeholder="Search for a pod..." /> */}
       <ul className="py-4 flex flex-col gap-4">
