@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { PostDetail } from "@/lib/types";
 import { error } from "console";
+import { uploadImage } from "./images";
 
 const includedData = {
   author: true,
@@ -191,23 +192,19 @@ const createPost = async (formData: FormData) => {
     throw new Error("unauthenticated");
   }
 
-  // await prisma.post.create({
-  //   data: {
-  //     title,
-  //     content,
-  //     podId: Number(podId),
-  //     authorId,
-  //   },
-  // });
+  await prisma.post.create({
+    data: {
+      title,
+      content,
+      podId: Number(podId),
+      authorId,
+    },
+  });
 
-  // console.log("Post created!");
-  // redirect(`/profile/${authorId}`);
+  console.log("Post created!");
+  redirect(`/profile/${authorId}`);
 };
 
-const uploadImage = async (image: File) => {
-  console.log(image)
-  
-}
 
 const likePost = async (postId: number) => {
   // Get current user's liked posts
