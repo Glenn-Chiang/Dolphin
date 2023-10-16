@@ -22,7 +22,7 @@ export default async function Post({ params }: { params: { id: string } }) {
         <Backbar />
         <h2>Post</h2>
       </div>
-      <PostCard post={post} />
+      <PostCard post={post} full={true}/>
       <CommentSection comments={comments} />
     </main>
   );

@@ -14,7 +14,12 @@ import MenuButton from "./MenuButton";
 import { DateTime } from "luxon";
 import Image from "next/image";
 
-export default function PostCard({ post }: { post: PostDetail }) {
+type PostCardProps = {
+  post: PostDetail;
+  full?: boolean;
+};
+
+export default function PostCard({ post, full }: PostCardProps) {
   const currentUserId = useCurrentUser();
 
   const isOwnPost = currentUserId === post.authorId;
@@ -64,14 +69,18 @@ export default function PostCard({ post }: { post: PostDetail }) {
           </Link>
           <span>{DateTime.fromJSDate(post.createdAt).toRelative()}</span>
         </div>
-        <h2 className="py-4">{post.title}</h2>
-        <Link
-          href={`/profile/${post.authorId}`}
-          className="flex gap-2 items-center hover:text-sky-500"
-        >
-          <Avatar user={post.author} />
-          {post.author ? post.author.name : "[deleted]"}
-        </Link>
+        <h2 className="py-2">{post.title}</h2>
+        {full && (
+          <div className="flex items-center gap-2">
+            <span className="text-slate-500">posted by</span>
+            <Link
+              href={`/profile/${post.authorId}`}
+              className="flex gap-2 items-center text-sky-500 hover:text-sky-400"
+            >
+              {post.author ? post.author.name : "[deleted]"}
+            </Link>
+          </div>
+        )}
         <div className="py-2 whitespace-pre-wrap">{post.content}</div>
 
         {post.imageUrl && (
