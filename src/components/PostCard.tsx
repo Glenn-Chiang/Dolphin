@@ -75,8 +75,8 @@ export default function PostCard({ post }: { post: PostDetail }) {
         <div className="py-2 whitespace-pre-wrap">{post.content}</div>
         
         {post.imageUrl &&
-        <div className="flex justify-center bg-slate-200 rounded-md p-2">
-          <Image src={post.imageUrl} alt="" width={400} height={400} className="rounded-xl"/>
+        <div className="flex justify-center rounded-md p-2">
+          <Image src={post.imageUrl} alt="" width={400} height={400} className="rounded-2xl w-full h-auto"/>
         </div>
         }
 

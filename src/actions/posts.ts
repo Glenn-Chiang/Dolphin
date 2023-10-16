@@ -2,10 +2,9 @@
 
 import { getCurrentUser } from "@/lib/auth";
 import prisma from "@/lib/db";
-import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
 import { PostDetail } from "@/lib/types";
-import { error } from "console";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { uploadImage } from "./images";
 
 const includedData = {
@@ -168,22 +167,23 @@ const getPost = async (postId: number): Promise<PostDetail | null> => {
 };
 
 const createPost = async (formData: FormData) => {
-  const title = formData.get('title')
-  const content = formData.get('content')
-  const podId = formData.get('podId')
-  const image = formData.get('image')
+  const title = formData.get("title");
+  const content = formData.get("content");
+  const podId = formData.get("podId");
+  const image = formData.get("image");
 
-  if (!title || title.length > 255 || typeof title !== 'string') {
+  if (!title || title.length > 255 || typeof title !== "string") {
     throw new Error("Invalid title");
   }
-  if (!content || typeof content !== 'string') {
+  if (!content || typeof content !== "string") {
     console.log("Invalid content");
     throw new Error("Invalid content");
   }
 
   // If post is uploaded with an image, upload image to s3 and save the imageUrl to db
-  const imageUrl = image && (await uploadImage(image as File))
-  
+  const imageUrl =
+    image === "undefined" ? undefined : await uploadImage(image as File); // what is this anomination?????
+
   const authorId = await getCurrentUser();
   if (!authorId) {
     throw new Error("unauthenticated");
@@ -195,14 +195,13 @@ const createPost = async (formData: FormData) => {
       content,
       podId: Number(podId),
       authorId,
-      imageUrl
+      imageUrl,
     },
   });
 
   console.log("Post created!");
   redirect(`/profile/${authorId}`);
 };
-
 
 const likePost = async (postId: number) => {
   // Get current user's liked posts
@@ -310,17 +309,7 @@ const checkAuthorization = async (postId: number) => {
 };
 
 export {
-  getPosts,
-  getHomeFeed,
-  getNewPodPosts,
-  getTopPodPosts,
-  getHotPodPosts,
-  getNewUserPosts,
-  getTopUserPosts,
-  getHotUserPosts,
-  getPost,
-  createPost,
-  likePost,
-  deletePost,
-  editPost,
+  createPost, deletePost,
+  editPost, getHomeFeed, getHotPodPosts, getHotUserPosts, getNewPodPosts, getNewUserPosts, getPost, getPosts, getTopPodPosts, getTopUserPosts, likePost
 };
+
