@@ -181,12 +181,9 @@ const createPost = async (formData: FormData) => {
     throw new Error("Invalid content");
   }
 
-  // console.log('image in server:', image)
-
-  if (image) {
-    await uploadImage(image as File) // better way to do this??
-  }
-
+  // If post is uploaded with an image, upload image to s3 and save the imageUrl to db
+  const imageUrl = image && (await uploadImage(image as File))
+  
   const authorId = await getCurrentUser();
   if (!authorId) {
     throw new Error("unauthenticated");
@@ -198,6 +195,7 @@ const createPost = async (formData: FormData) => {
       content,
       podId: Number(podId),
       authorId,
+      imageUrl
     },
   });
 

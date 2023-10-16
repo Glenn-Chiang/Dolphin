@@ -12,6 +12,7 @@ import { CommentButton, LikeButton } from "./buttons";
 import CommentModal from "./comment/CommentModal";
 import MenuButton from "./MenuButton";
 import { DateTime } from "luxon";
+import Image from "next/image";
 
 export default function PostCard({ post }: { post: PostDetail }) {
   const currentUserId = useCurrentUser();
@@ -72,6 +73,13 @@ export default function PostCard({ post }: { post: PostDetail }) {
           <span>{DateTime.fromJSDate(post.createdAt).toRelative() }</span>
         </div>
         <div className="py-2 whitespace-pre-wrap">{post.content}</div>
+        
+        {post.imageUrl &&
+        <div className="flex justify-center bg-slate-200 rounded-md p-2">
+          <Image src={post.imageUrl} alt="" width={400} height={400} className="rounded-xl"/>
+        </div>
+        }
+
         <div className="flex gap-4 py-2">
           <LikeButton liked={liked} likes={likes} onClick={handleLikeClick} />
           <CommentButton
