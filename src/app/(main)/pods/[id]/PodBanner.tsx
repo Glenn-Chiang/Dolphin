@@ -42,7 +42,10 @@ export default function PodBanner({ pod }: { pod: PodDetail }) {
       <section className="bg-white p-4 rounded-md shadow flex flex-col gap-4 relative items-center">
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           <Image
-            src={pod.iconSource || ''}
+            src={
+              pod.iconSource ||
+              "https://cdn-icons-png.flaticon.com/512/3050/3050651.png"
+            }
             alt=""
             height={80}
             width={80}

@@ -31,7 +31,7 @@ export default function PodCard({ pod }: { pod: PodDetail }) {
     <article className="bg-white p-4 pb-2 rounded-md relative shadow hover:shadow-lg transition">
       <Link href={`/pods/${pod.id}`}>
         <div className="flex gap-2 items-center">
-          <PodIcon src={pod.iconSource || undefined} />
+          <PodIcon src={pod.iconSource} />
           <h2>{pod.name}</h2>
         </div>
         <p className="py-4">{pod.about}</p>
