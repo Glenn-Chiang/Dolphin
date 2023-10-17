@@ -14,10 +14,13 @@ import Image from "next/image";
 import DeleteModal from "./DeletePodModal";
 
 export default function PodBanner({ pod }: { pod: PodDetail }) {
-  const userId = useCurrentUser();
+  const currentUserId = useCurrentUser();
+
   const alreadyJoined = !!pod.members.find(
-    (member) => member.memberId === userId
+    (member) => member.memberId === currentUserId
   );
+
+  const isCreator = pod.creatorId === currentUserId;
 
   const [isPending, setIsPending] = useState(false);
 
@@ -39,7 +42,7 @@ export default function PodBanner({ pod }: { pod: PodDetail }) {
       <section className="bg-white p-4 rounded-md shadow flex flex-col gap-4 relative items-center">
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           <Image
-            src={pod.iconSource || ""}
+            src={pod.iconSource || ''}
             alt=""
             height={80}
             width={80}
@@ -62,12 +65,14 @@ export default function PodBanner({ pod }: { pod: PodDetail }) {
           />
           <CreatePostButton podId={pod.id} />
         </div>
-        <div className="absolute top-4 right-4">
-          <MenuButton
-            handleEditClick={() => setEditModalIsOpen(true)}
-            handleDeleteClick={() => setDeleteModalIsOpen(true)}
-          />
-        </div>
+        {isCreator && (
+          <div className="absolute top-4 right-4">
+            <MenuButton
+              handleEditClick={() => setEditModalIsOpen(true)}
+              handleDeleteClick={() => setDeleteModalIsOpen(true)}
+            />
+          </div>
+        )}
       </section>
       {editModalIsOpen && (
         <EditModal pod={pod} close={() => setEditModalIsOpen(false)} />
