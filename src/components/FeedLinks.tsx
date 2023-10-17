@@ -10,13 +10,13 @@ export default function FeedLinks() {
 
   return (
     <div className="flex gap-4 w-full">
-      <TabLink href="/" activePath={pathname}>
+      <TabLink href="/" activePath={pathname} prefetch={false}>
         <div className="flex gap-2 items-center">
           <FontAwesomeIcon icon={faHome} />
           <h2>For You</h2>
         </div>
       </TabLink>
-      <TabLink href="/new" activePath={pathname}>
+      <TabLink href="/new" activePath={pathname} prefetch={false}>
         <div className="flex gap-2 items-center">
           <FontAwesomeIcon icon={faFire} />
           <h2>New</h2>

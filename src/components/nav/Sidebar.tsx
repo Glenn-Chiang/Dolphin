@@ -22,6 +22,7 @@ export default async function Sidebar() {
         </nav>
         <Link
           href={"/pods"}
+          prefetch={false}
           className="text-sky-500 font-medium hover:text-sky-400 py-2"
         >
           Explore all pods
