@@ -87,8 +87,8 @@ const createPod = async ({
   iconSource,
 }: {
   name: string;
-  about: string;
-  iconSource: string;
+  about: string; 
+  iconSource: string; 
 }) => {
   if (!name || name.length > 25) {
     throw new Error("Invalid name");
@@ -105,8 +105,8 @@ const createPod = async ({
   await prisma.pod.create({
     data: {
       name,
-      about,
-      iconSource,
+      about, // empty string if field was not filled in
+      iconSource: iconSource || undefined, 
       creatorId,
       members: {
         create: [

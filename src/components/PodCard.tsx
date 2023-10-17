@@ -17,12 +17,12 @@ export default function PodCard({ pod }: { pod: PodDetail }) {
 
   const [isPending, setIsPending] = useState(false);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     setIsPending(true);
     if (alreadyJoined) {
-      leavePod(pod.id);
+      await leavePod(pod.id);
     } else {
-      joinPod(pod.id);
+      await joinPod(pod.id);
     }
     setIsPending(false);
   };

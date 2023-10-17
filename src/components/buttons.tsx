@@ -57,7 +57,7 @@ function JoinButton({ alreadyJoined, onClick, isPending }: JoinButtonProps) {
     event.preventDefault(); // don't nevigate to link path when button is clicked
     onClick();
   };
-
+  console.log('pending:', isPending)
   return (
     <button
       disabled={isPending}
