@@ -69,7 +69,10 @@ const getUserPods = async (userId: number) => {
 
 const getMyPods = async () => {
   const userId = await getCurrentUser();
-  if (!userId) return []
+  if (!userId) {
+    console.log('unauthenticated')
+    return []
+  }
   const pods = await prisma.pod.findMany({
     where: {
       members: {

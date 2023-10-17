@@ -2,13 +2,14 @@
 
 import { Pod } from "@prisma/client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import DolphinIcon from "./DolphinIcon";
 import PodIcon from "./PodIcon";
 
 export default function PodLink({ pod }: { pod: Pod }) {
   const pathname = usePathname();
-  const isActive = pathname.startsWith(`/pods/${pod.id}`);
+  const params = useParams()
+  const isActive = pathname.startsWith('/pods') && params.id && Number(params.id) === pod.id;
   return (
     <Link
       href={`/pods/${pod.id}`}
