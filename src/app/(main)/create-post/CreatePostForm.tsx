@@ -86,8 +86,11 @@ export default function CreatePostForm({ pods }: { pods: Pod[] }) {
       {errors.title && <FormError>{errors.title.message}</FormError>}
 
       <div className="flex flex-col gap-2">
-        <label className="font-medium flex gap-2 items-center" htmlFor="content">
-          <FontAwesomeIcon icon={faPen}/>
+        <label
+          className="font-medium flex gap-2 items-center"
+          htmlFor="content"
+        >
+          <FontAwesomeIcon icon={faPen} />
           Content
         </label>
         <textarea
@@ -99,8 +102,8 @@ export default function CreatePostForm({ pods }: { pods: Pod[] }) {
 
       <div className="flex flex-col gap-2">
         <label htmlFor="image" className="font-medium flex gap-2 items-center">
-          <FontAwesomeIcon icon={faCamera}/>
-          Image
+          <FontAwesomeIcon icon={faCamera} />
+          Image <span className="text-slate-500 font-normal">(optional)</span>
         </label>
         <input type="file" accept="image/*" id="image" {...register("image")} />
       </div>

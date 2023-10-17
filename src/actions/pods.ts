@@ -68,7 +68,8 @@ const getUserPods = async (userId: number) => {
 };
 
 const getMyPods = async () => {
-  const userId = await getCurrentUser()
+  const userId = await getCurrentUser();
+  if (!userId) return []
   const pods = await prisma.pod.findMany({
     where: {
       members: {
@@ -78,8 +79,9 @@ const getMyPods = async () => {
       }
     }
   })
-  return pods
-}
+  
+  return pods;
+};
 
 const createPod = async ({
   name,
@@ -87,8 +89,8 @@ const createPod = async ({
   iconSource,
 }: {
   name: string;
-  about: string; 
-  iconSource: string; 
+  about: string;
+  iconSource: string;
 }) => {
   if (!name || name.length > 25) {
     throw new Error("Invalid name");
@@ -106,7 +108,7 @@ const createPod = async ({
     data: {
       name,
       about, // empty string if field was not filled in
-      iconSource: iconSource || undefined, 
+      iconSource: iconSource || undefined,
       creatorId,
       members: {
         create: [
@@ -127,7 +129,7 @@ const createPod = async ({
 };
 
 const editPod = async (podId: number, about: string, iconSource: string) => {
-  await checkAuthorization(podId)
+  await checkAuthorization(podId);
 
   await prisma.pod.update({
     where: {
@@ -142,17 +144,17 @@ const editPod = async (podId: number, about: string, iconSource: string) => {
 };
 
 const deletePod = async (podId: number) => {
-  await checkAuthorization(podId)
+  await checkAuthorization(podId);
 
   const pod = await prisma.pod.delete({
     where: {
-      id: podId
-    }
-  })
+      id: podId,
+    },
+  });
 
-  console.log('Pod deleted!')
-  revalidatePath('/')
-  redirect(`/profile/${pod.creatorId}/pods`)
+  console.log("Pod deleted!");
+  revalidatePath("/");
+  redirect(`/profile/${pod.creatorId}/pods`);
 };
 
 const checkAuthorization = async (podId: number) => {
@@ -164,14 +166,15 @@ const checkAuthorization = async (podId: number) => {
       creatorId: true,
     },
   });
-  const currentUserId = await getCurrentUser()
+  const currentUserId = await getCurrentUser();
   if (!currentUserId) {
-    throw new Error('unauthenticated')
+    throw new Error("unauthenticated");
   }
-  if (currentUserId !== pod?.creatorId) { // Only pod creator is authorized to edit/delete pod
-    throw new Error('unauthorized')
+  if (currentUserId !== pod?.creatorId) {
+    // Only pod creator is authorized to edit/delete pod
+    throw new Error("unauthorized");
   }
-}
+};
 
 const joinPod = async (podId: number) => {
   const userId = await getCurrentUser();
@@ -221,5 +224,5 @@ export {
   joinPod,
   leavePod,
   editPod,
-  deletePod
+  deletePod,
 };
