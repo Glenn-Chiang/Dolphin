@@ -56,10 +56,10 @@ export default function TopNav({
         >
           <FontAwesomeIcon icon={faBars} />
         </button>
-        <Link onClick={() => router.push('/')} href={"/"} className="flex gap-2 items-center">
+        <div onClick={() => router.push('/')} className="flex gap-2 items-center">
           <DolphinIcon />
           Dolphin
-        </Link>
+        </div>
       </div>
       <div onClick={toggleDropdown} className="relative">
         <div
