@@ -1,4 +1,5 @@
-export const dynamic = 'force-dynamic'
+// export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 import AuthProvider from "@/components/AuthProvider";
 import TopButton from "@/components/TopButton";
