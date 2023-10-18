@@ -1,14 +1,14 @@
-import { getUserPods } from "@/actions/pods";
+export const dynamic = 'force-dynamic'
+
 import AuthProvider from "@/components/AuthProvider";
-import { getCurrentUser } from "@/lib/auth";
-import LayoutWrapper from "./LayoutWrapper";
 import TopButton from "@/components/TopButton";
+import Sidebar from "@/components/nav/Sidebar";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "../../globals.css";
-import Sidebar from "@/components/nav/Sidebar";
+import LayoutWrapper from "./LayoutWrapper";
 config.autoAddCss = false;
 
 const montserrat = Montserrat({ subsets: ["latin"] });

@@ -53,7 +53,7 @@ export default function TopNav({
         >
           <FontAwesomeIcon icon={faBars} />
         </button>
-        <Link prefetch={false} href={"/"} className="flex gap-2 items-center">
+        <Link href={"/"} className="flex gap-2 items-center">
           <DolphinIcon />
           Dolphin
         </Link>
