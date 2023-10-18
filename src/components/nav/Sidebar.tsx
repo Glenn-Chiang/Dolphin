@@ -1,13 +1,27 @@
-import { getMyPods, getUserPods } from '@/actions/pods';
-import { getCurrentUser } from "@/lib/auth";
 import PodLink from "@/components/PodLink";
 import { CreatePodButton, CreatePostButton } from "@/components/buttons";
+import { useCurrentUser } from "@/lib/auth";
+import { PodDetail } from "@/lib/types";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useState, useEffect } from 'react';
 
-export default async function Sidebar() {
-  // const userId = await getCurrentUser();
-  // const pods = userId ? await getUserPods(userId) : []
-  const pods = await getMyPods()
+export default function Sidebar() {
+  const session = useSession()
+  
+  const [pods, setPods] = useState<PodDetail[]>([])
+  
+  useEffect(() => {
+    const getUserPods = async () => {
+      if (session.status === 'authenticated') {
+        const userId = (session.data?.user as any).id
+        const response = await fetch(`/api/users/${userId}/pods`)
+        const pods = await response.json()
+        setPods(pods)
+      }
+    }
+    getUserPods()
+  }, [session])
 
   return (
     <section
@@ -22,7 +36,6 @@ export default async function Sidebar() {
         </nav>
         <Link
           href={"/pods"}
-          prefetch={false}
           className="text-sky-500 font-medium hover:text-sky-400 py-2"
         >
           Explore all pods

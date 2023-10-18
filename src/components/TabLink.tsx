@@ -5,15 +5,13 @@ type TabLinkProps = {
   activePath: string;
   href: string;
   children: React.ReactNode;
-  prefetch?: boolean
 };
 
-export default function TabLink({ activePath, href, children, prefetch = true }: TabLinkProps) {
+export default function TabLink({ activePath, href, children }: TabLinkProps) {
   const isActive = activePath === href;
   return (
     <Link
       href={href}
-      prefetch={prefetch}
       className={`p-2 text-lg flex gap-2 items-center ${
         isActive ? "text-sky-500 " : "hover:text-sky-400 "
       }`}

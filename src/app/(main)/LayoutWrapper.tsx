@@ -8,10 +8,9 @@ import { usePathname } from "next/navigation";
 
 type props = {
   children: React.ReactNode;
-  sidebar: React.ReactNode
 };
 
-export default function LayoutWrapper({ sidebar, children }: props) {
+export default function LayoutWrapper({ children }: props) {
   // Sidebar behaviour is determined by whether layout is mobile or not
   const mobileBreakpoint = 640;
   const [isMobile, setIsMobile] = useState(true);
@@ -46,7 +45,7 @@ export default function LayoutWrapper({ sidebar, children }: props) {
   return (
     <>
       <TopNav toggleSidebar={() => setSidebarIsOpen((prev) => !prev)} />
-      {sidebarIsOpen && sidebar}
+      {sidebarIsOpen && <Sidebar/>}
       <div
         className={`absolute w-full ${
           sidebarIsOpen ? "sm:left-1/4 sm:w-3/4 " : "w-full"

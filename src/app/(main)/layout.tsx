@@ -1,6 +1,3 @@
-// export const dynamic = 'force-dynamic'
-export const revalidate = 0
-
 import AuthProvider from "@/components/AuthProvider";
 import TopButton from "@/components/TopButton";
 import Sidebar from "@/components/nav/Sidebar";
@@ -27,7 +24,7 @@ export default async function RootLayout({
     <html lang="en" spellCheck="false">
       <body className="whitespace-pre-wrap break-words text-slate-800">
         <AuthProvider>
-          <LayoutWrapper sidebar={<Sidebar/>}>
+          <LayoutWrapper>
             {children}
           </LayoutWrapper>
           <TopButton />

@@ -67,25 +67,6 @@ const getUserPods = async (userId: number) => {
   return pods;
 };
 
-const getMyPods = async () => {
-  const userId = await getCurrentUser();
-  if (!userId) {
-    console.log('unauthenticated')
-    return []
-  }
-  const pods = await prisma.pod.findMany({
-    where: {
-      members: {
-        some: {
-          memberId: userId
-        }
-      }
-    }
-  })
-  
-  return pods;
-};
-
 const createPod = async ({
   name,
   about,
@@ -222,7 +203,6 @@ export {
   getMatchedPods,
   getPod,
   getUserPods,
-  getMyPods,
   createPod,
   joinPod,
   leavePod,
