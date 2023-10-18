@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import TopNav from "@/components/nav/TopNav";
 import Sidebar from "@/components/nav/Sidebar";
 import { usePathname } from "next/navigation";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 type props = {
   children: React.ReactNode;
@@ -16,7 +17,7 @@ export default function LayoutWrapper({ children }: props) {
   const [isMobile, setIsMobile] = useState(true);
   // Listen for window resize to update isMobile state
   useEffect(() => {
-    setIsMobile(window.innerWidth <= mobileBreakpoint)
+    setIsMobile(window.innerWidth <= mobileBreakpoint);
 
     const handleResize = () => {
       setIsMobile(window.innerWidth <= mobileBreakpoint);
@@ -38,14 +39,16 @@ export default function LayoutWrapper({ children }: props) {
     if (isMobile) {
       setSidebarIsOpen(false);
     } else {
-      setSidebarIsOpen(true)
+      setSidebarIsOpen(true);
     }
   }, [pathname, isMobile]);
 
+  const queryClient = new QueryClient();
+
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <TopNav toggleSidebar={() => setSidebarIsOpen((prev) => !prev)} />
-      {sidebarIsOpen && <Sidebar/>}
+      {sidebarIsOpen && <Sidebar />}
       <div
         className={`absolute w-full ${
           sidebarIsOpen ? "sm:left-1/4 sm:w-3/4 " : "w-full"
@@ -53,6 +56,6 @@ export default function LayoutWrapper({ children }: props) {
       >
         {children}
       </div>
-    </>
+    </QueryClientProvider>
   );
 }
