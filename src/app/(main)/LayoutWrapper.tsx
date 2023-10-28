@@ -30,18 +30,20 @@ export default function LayoutWrapper({ children }: props) {
     };
   }, []);
 
-  // On mobile, clicking any link (i.e. changing pathname) will close sidebar
-  // On mobile, sidebar is closed by default. On larger screens, sidebar is open by default
   const pathname = usePathname();
-  const [sidebarIsOpen, setSidebarIsOpen] = useState(!isMobile);
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(!isMobile); // On mobile, sidebar is closed by default. On larger screens, sidebar is open by default
 
   useEffect(() => {
     if (isMobile) {
-      setSidebarIsOpen(false);
-    } else {
-      setSidebarIsOpen(true);
+      setSidebarIsOpen(false); // On mobile, clicking any link (i.e. changing pathname) will close sidebar
     }
   }, [pathname, isMobile]);
+
+  useEffect(() => {
+    if (!isMobile) { // Shrinking to mobile size then enlarging will trigger the sidebar to reopen
+      setSidebarIsOpen(true)
+    }
+  }, [isMobile])
 
   const queryClient = new QueryClient();
 
