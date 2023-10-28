@@ -12,17 +12,20 @@ import { useState } from "react";
 import EditModal from "./EditPodModal";
 import Image from "next/image";
 import DeleteModal from "./DeletePodModal";
+import { useQueryClient } from "react-query";
 
 export default function PodBanner({ pod }: { pod: PodDetail }) {
   const currentUserId = useCurrentUser();
+  const isCreator = pod.creatorId === currentUserId;
 
   const alreadyJoined = !!pod.members.find(
     (member) => member.memberId === currentUserId
   );
 
-  const isCreator = pod.creatorId === currentUserId;
 
   const [isPending, setIsPending] = useState(false);
+
+  const queryClient = useQueryClient()
 
   const handleClickJoin = async () => {
     setIsPending(true);
@@ -31,6 +34,7 @@ export default function PodBanner({ pod }: { pod: PodDetail }) {
     } else {
       await joinPod(pod.id);
     }
+    queryClient.invalidateQueries(["users", currentUserId, "pods"]);
     setIsPending(false);
   };
 

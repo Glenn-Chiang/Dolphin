@@ -8,14 +8,17 @@ import { joinPod, leavePod } from "@/actions/pods";
 import { JoinButton } from "./buttons";
 import PodIcon from "./PodIcon";
 import { useState } from "react";
+import { useQueryClient } from "react-query";
 
 export default function PodCard({ pod }: { pod: PodDetail }) {
-  const userId = useCurrentUser();
+  const currentUserId = useCurrentUser();
   const alreadyJoined = !!pod.members.find(
-    (member) => member.memberId === userId
+    (member) => member.memberId === currentUserId
   );
 
   const [isPending, setIsPending] = useState(false);
+
+  const queryClient = useQueryClient()
 
   const handleClick = async () => {
     setIsPending(true);
@@ -24,6 +27,7 @@ export default function PodCard({ pod }: { pod: PodDetail }) {
     } else {
       await joinPod(pod.id);
     }
+    queryClient.invalidateQueries(["users", currentUserId, "pods"]);
     setIsPending(false);
   };
 
