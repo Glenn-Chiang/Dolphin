@@ -61,7 +61,7 @@ function JoinButton({ alreadyJoined, onClick, isPending }: JoinButtonProps) {
     <button
       disabled={isPending}
       onClick={handleClick}
-      className={` p-2 rounded-md shadow ${
+      className={` p-2 rounded-md shadow flex gap-2 items-center ${
         alreadyJoined
           ? "text-slate-500 bg-slate-200 hover:bg-slate-300"
           : "text-white bg-sky-500 shadow-sky-500 hover:shadow-md hover:shadow-sky-500 "
@@ -90,7 +90,7 @@ function FollowButton({
   return (
     <button
       onClick={onClick}
-      className={` p-2 rounded-md shadow ${
+      className={` p-2 rounded-md shadow flex gap-2 items-center ${
         alreadyFollowed
           ? "text-slate-500 bg-slate-200 hover:bg-slate-300"
           : "text-white bg-sky-500 shadow-sky-500 hover:shadow-md hover:shadow-sky-500"

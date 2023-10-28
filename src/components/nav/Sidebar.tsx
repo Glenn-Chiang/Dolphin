@@ -21,6 +21,7 @@ export default function Sidebar() {
       const pods = (await response.json()) as PodDetail[];
       return pods;
     },
+    enabled: !!userId
   });
 
   return (
