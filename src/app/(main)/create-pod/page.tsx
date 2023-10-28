@@ -5,6 +5,8 @@ import { createPod } from "@/actions/pods";
 import { SubmitHandler, useForm } from "react-hook-form";
 import FormError from "@/components/FormError";
 import { useState } from "react";
+import { useQueryClient } from "react-query";
+import { useCurrentUser } from '@/lib/auth';
 
 type FormValues = {
   name: string;
@@ -21,9 +23,13 @@ export default function CreatePod() {
 
   const [isPending, setIsPending] = useState(false);
 
-  const onSubmit: SubmitHandler<FormValues> = (formValues) => {
+  const queryClient = useQueryClient()
+  const currentUserId = useCurrentUser()
+
+  const onSubmit: SubmitHandler<FormValues> = async (formValues) => {
     setIsPending(true);
-    createPod(formValues);
+    await createPod(formValues);
+    queryClient.invalidateQueries(["users", currentUserId, "pods"]); // revalidate sidebar pods
   };
 
   return (
